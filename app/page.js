@@ -203,6 +203,7 @@ export default function FrenchTutor() {
   
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
+  const analyzePronunciationRef = useRef(null)
 
   // Initialize speech synthesis
   useEffect(() => {
@@ -226,9 +227,11 @@ export default function FrenchTutor() {
           const result = event.results[current]
           const transcriptText = result[0].transcript
           setTranscript(transcriptText)
-          
+
           if (result.isFinal) {
-            analyzePronunciation(transcriptText)
+            // Use ref to call the latest version of analyzePronunciation
+            // to avoid stale closure issues
+            analyzePronunciationRef.current?.(transcriptText)
           }
         }
 
@@ -289,25 +292,25 @@ export default function FrenchTutor() {
     }
   }
 
-  const analyzePronunciation = (spokenText) => {
+  const analyzePronunciation = useCallback((spokenText) => {
     if (!selectedLesson && !selectedConversation) return
-    
-    const targetPhrase = selectedLesson 
-      ? selectedLesson.phrases[currentPhraseIndex].french 
+
+    const targetPhrase = selectedLesson
+      ? selectedLesson.phrases[currentPhraseIndex].french
       : null
-    
+
     const normalizedSpoken = spokenText.toLowerCase().trim()
     const normalizedTarget = targetPhrase?.toLowerCase().trim()
-    
+
     // Calculate similarity score
     let score = 0
     let tips = []
-    
+
     if (targetPhrase) {
       // Word-level comparison
       const spokenWords = normalizedSpoken.split(/\s+/)
       const targetWords = normalizedTarget.split(/\s+/)
-      
+
       let matchedWords = 0
       targetWords.forEach((word, i) => {
         if (spokenWords[i] && (
@@ -317,9 +320,9 @@ export default function FrenchTutor() {
           matchedWords++
         }
       })
-      
+
       score = Math.round((matchedWords / targetWords.length) * 100)
-      
+
       // Check for common pronunciation issues
       Object.entries(PRONUNCIATION_RULES).forEach(([key, rule]) => {
         if (rule.pattern.test(targetPhrase)) {
@@ -329,7 +332,7 @@ export default function FrenchTutor() {
           })
         }
       })
-      
+
       // Update stats
       setPracticeStats(prev => ({
         attempts: prev.attempts + 1,
@@ -337,11 +340,11 @@ export default function FrenchTutor() {
         excellent: score >= 90 ? prev.excellent + 1 : prev.excellent
       }))
     }
-    
+
     // Generate feedback
     let feedbackType = 'poor'
     let message = ''
-    
+
     if (score >= 90) {
       feedbackType = 'excellent'
       message = "Excellent! Très bien! 🎉"
@@ -355,7 +358,7 @@ export default function FrenchTutor() {
       feedbackType = 'poor'
       message = "Let's practice this one more. Listen and try again."
     }
-    
+
     setFeedback({
       type: feedbackType,
       score,
@@ -364,7 +367,12 @@ export default function FrenchTutor() {
       target: targetPhrase,
       tips: tips.slice(0, 2) // Show max 2 tips
     })
-  }
+  }, [selectedLesson, selectedConversation, currentPhraseIndex])
+
+  // Keep the ref updated with the latest analyzePronunciation function
+  useEffect(() => {
+    analyzePronunciationRef.current = analyzePronunciation
+  }, [analyzePronunciation])
 
   // Levenshtein distance for fuzzy matching
   const levenshteinDistance = (a, b) => {
