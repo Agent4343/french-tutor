@@ -146,6 +146,139 @@ const LESSONS = {
   ]
 }
 
+// PSC French Oral Exam Questions - Level A2-B1
+// Questions designed to elicit: conditionnel, subjonctif, imparfait vs passé composé
+const PSC_EXAM_QUESTIONS = [
+  // Question 1 - Warm-up / Explaining (Easy)
+  {
+    id: 1,
+    question: "Pouvez-vous me décrire votre poste actuel et vos responsabilités principales?",
+    topic: "explaining",
+    difficulty: "A2",
+    targetStructures: ["présent", "vocabulaire professionnel"],
+    sampleResponse: {
+      text: "Je travaille comme analyste de politiques au ministère. Mes responsabilités principales comprennent la rédaction de documents d'information, la préparation de notes de breffage pour les cadres supérieurs, et la coordination avec d'autres directions. Je participe également aux réunions interministérielles.",
+      keyPoints: [
+        "Utilisation du présent pour décrire les tâches habituelles",
+        "Vocabulaire spécifique à la fonction publique",
+        "Structure claire: poste + responsabilités"
+      ]
+    }
+  },
+  // Question 2 - Explaining past experience (A2-B1)
+  {
+    id: 2,
+    question: "Parlez-moi d'un projet important que vous avez réalisé dans le passé. Comment l'avez-vous mené à bien?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé", "imparfait"],
+    sampleResponse: {
+      text: "L'année dernière, j'ai dirigé un projet de modernisation des services. Au début, nous avions des ressources limitées et l'équipe était petite. J'ai d'abord établi un plan de travail, puis j'ai consulté les intervenants clés. Pendant que nous travaillions sur le projet, nous avons rencontré plusieurs défis, mais nous les avons surmontés grâce à une bonne communication.",
+      keyPoints: [
+        "Passé composé pour les actions ponctuelles: j'ai dirigé, j'ai établi",
+        "Imparfait pour le contexte/situation: nous avions, l'équipe était",
+        "Articulation logique: d'abord, puis, pendant que"
+      ]
+    }
+  },
+  // Question 3 - Adaptation to Change (B1)
+  {
+    id: 3,
+    question: "Comment réagiriez-vous si votre ministère annonçait une restructuration majeure qui affecterait votre équipe?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["conditionnel"],
+    sampleResponse: {
+      text: "Si une telle situation se produisait, je resterais d'abord calme et j'écouterais attentivement les informations officielles. J'essaierais de comprendre les raisons de ce changement. Je communiquerais ouvertement avec mon équipe pour les rassurer et je chercherais des occasions de développement professionnel dans cette nouvelle structure. Je m'adapterais aux nouvelles priorités tout en maintenant la qualité de mon travail.",
+      keyPoints: [
+        "Conditionnel présent: je resterais, j'essaierais, je communiquerais",
+        "Structure hypothétique: Si... + imparfait, conditionnel",
+        "Attitude positive face au changement"
+      ]
+    }
+  },
+  // Question 4 - Conflict Management (B1)
+  {
+    id: 4,
+    question: "Décrivez une situation où vous avez dû gérer un conflit avec un collègue. Qu'avez-vous fait et qu'auriez-vous pu faire différemment?",
+    topic: "conflict_management",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
+    sampleResponse: {
+      text: "Il y a quelques mois, un collègue et moi avions des opinions différentes sur l'approche d'un dossier. La tension montait et cela affectait l'équipe. J'ai proposé une rencontre privée pour en discuter. J'ai écouté son point de vue et j'ai exprimé le mien calmement. Nous avons trouvé un compromis. Avec le recul, j'aurais pu aborder le problème plus tôt. J'aurais dû être plus attentif aux signes de tension dès le début.",
+      keyPoints: [
+        "Imparfait pour le contexte: avions, montait, affectait",
+        "Passé composé pour les actions: j'ai proposé, j'ai écouté",
+        "Conditionnel passé pour la réflexion: j'aurais pu, j'aurais dû"
+      ]
+    }
+  },
+  // Question 5 - Policy Implementation (B1)
+  {
+    id: 5,
+    question: "Il faut que vous mettiez en œuvre une nouvelle politique qui n'est pas populaire auprès de votre équipe. Comment procéderiez-vous?",
+    topic: "policy_implementation",
+    difficulty: "B1",
+    targetStructures: ["subjonctif", "conditionnel"],
+    sampleResponse: {
+      text: "Il serait essentiel que je comprenne d'abord les préoccupations de l'équipe. Je voudrais que chacun puisse s'exprimer librement. Je leur expliquerais les raisons derrière cette politique et je m'assurerais qu'ils comprennent les objectifs. Il faudrait que nous travaillions ensemble pour trouver des solutions aux défis. Je suggérerais des formations pour que l'équipe soit bien préparée.",
+      keyPoints: [
+        "Subjonctif après 'il faut que', 'je voudrais que': que je comprenne, que chacun puisse",
+        "Conditionnel pour les suggestions polies: je suggérerais, il serait",
+        "Vocabulaire de gestion du changement"
+      ]
+    }
+  },
+  // Question 6 - Communication and Leadership (B1)
+  {
+    id: 6,
+    question: "Vous êtes chef d'équipe et un membre de votre équipe ne performe pas bien. Comment aborderiez-vous cette situation pour qu'elle s'améliore?",
+    topic: "communication_leadership",
+    difficulty: "B1",
+    targetStructures: ["subjonctif", "conditionnel"],
+    sampleResponse: {
+      text: "Je commencerais par avoir une conversation privée avec l'employé. Il serait important que je l'écoute avant de porter un jugement. Je voudrais qu'il comprenne mes attentes, mais aussi que nous identifiions ensemble les obstacles. Je proposerais un plan d'amélioration avec des objectifs clairs. Il faudrait que nous nous rencontrions régulièrement pour suivre les progrès. Je m'assurerais qu'il ait accès aux ressources nécessaires.",
+      keyPoints: [
+        "Subjonctif: qu'il comprenne, que nous identifiions, qu'il ait",
+        "Conditionnel: je commencerais, je proposerais, je m'assurerais",
+        "Approche constructive et bienveillante"
+      ]
+    }
+  },
+  // Question 7 - Adaptation + Past Experience (B1)
+  {
+    id: 7,
+    question: "Racontez-moi une situation où vous avez dû vous adapter rapidement à un changement imprévu. Comment avez-vous géré le stress?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
+    sampleResponse: {
+      text: "L'année dernière, alors que je préparais une présentation importante, notre système informatique est tombé en panne. J'avais déjà travaillé plusieurs jours sur ce dossier et la réunion était prévue pour le lendemain. J'ai d'abord pris une grande respiration. Ensuite, j'ai contacté les collègues qui avaient des copies de certains documents. J'ai réorganisé ma présentation avec les éléments disponibles. Le stress était intense, mais j'ai réussi à livrer une présentation satisfaisante.",
+      keyPoints: [
+        "Imparfait pour le contexte: je préparais, la réunion était prévue",
+        "Passé composé pour les actions: est tombé, j'ai contacté",
+        "Plus-que-parfait pour l'antériorité: j'avais travaillé, avaient des copies"
+      ]
+    }
+  },
+  // Question 8 - Complex scenario combining multiple themes (B1+)
+  {
+    id: 8,
+    question: "Imaginez que vous deviez présenter une recommandation controversée à la haute direction, mais que certains membres de votre équipe ne soient pas d'accord. Comment géreriez-vous cette situation?",
+    topic: "communication_leadership",
+    difficulty: "B1+",
+    targetStructures: ["subjonctif", "conditionnel", "imparfait"],
+    sampleResponse: {
+      text: "Avant tout, il faudrait que je m'assure de bien comprendre les objections de mon équipe. Je leur demanderais d'expliquer leurs préoccupations en détail. Si leurs arguments étaient valides, je les intégrerais dans ma recommandation. Je souhaiterais que nous présentions un front uni, mais si ce n'était pas possible, je respecterais leurs opinions tout en défendant ma position. Je présenterais les différentes perspectives à la direction pour qu'elle puisse prendre une décision éclairée.",
+      keyPoints: [
+        "Subjonctif: que je m'assure, que nous présentions, qu'elle puisse",
+        "Conditionnel: je demanderais, je souhaiterais, je présenterais",
+        "Imparfait dans les hypothèses: si leurs arguments étaient, si ce n'était pas"
+      ]
+    }
+  }
+]
+
 // Conversation scenarios for practice
 const CONVERSATIONS = [
   {
@@ -187,7 +320,7 @@ const CONVERSATIONS = [
 ]
 
 export default function FrenchTutor() {
-  const [mode, setMode] = useState('home') // home, lessons, practice, conversation
+  const [mode, setMode] = useState('home') // home, lessons, practice, conversation, exam
   const [selectedLevel, setSelectedLevel] = useState('beginner')
   const [selectedLesson, setSelectedLesson] = useState(null)
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
@@ -200,6 +333,14 @@ export default function FrenchTutor() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [showPhonetic, setShowPhonetic] = useState(true)
   const [practiceStats, setPracticeStats] = useState({ attempts: 0, good: 0, excellent: 0 })
+
+  // PSC Exam state
+  const [examQuestionIndex, setExamQuestionIndex] = useState(0)
+  const [examHistory, setExamHistory] = useState([]) // {question, answer, feedback}
+  const [awaitingAnswer, setAwaitingAnswer] = useState(false)
+  const [answerComplete, setAnswerComplete] = useState(false)
+  const [examFeedback, setExamFeedback] = useState(null)
+  const [examStarted, setExamStarted] = useState(false)
   
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
@@ -393,11 +534,11 @@ export default function FrenchTutor() {
 
   const handleConversationResponse = async (userMessage) => {
     if (!selectedConversation || isProcessing) return
-    
+
     setIsProcessing(true)
     const newHistory = [...conversationHistory, { role: 'user', content: userMessage }]
     setConversationHistory(newHistory)
-    
+
     // Simulate AI response (in production, this would call an API)
     setTimeout(() => {
       const responses = {
@@ -417,14 +558,173 @@ export default function FrenchTutor() {
           "Bien sûr, les cabines d'essayage sont au fond à droite."
         ]
       }
-      
+
       const responseOptions = responses[selectedConversation.id] || ["Je vous écoute..."]
       const randomResponse = responseOptions[Math.min(newHistory.filter(m => m.role === 'assistant').length, responseOptions.length - 1)]
-      
+
       setConversationHistory([...newHistory, { role: 'assistant', content: randomResponse }])
       speakFrench(randomResponse)
       setIsProcessing(false)
     }, 1000)
+  }
+
+  // PSC Exam Functions
+  const startExam = useCallback(() => {
+    setExamStarted(true)
+    setExamQuestionIndex(0)
+    setExamHistory([])
+    setExamFeedback(null)
+    setAwaitingAnswer(true)
+    setAnswerComplete(false)
+    setTranscript('')
+
+    // Speak the first question
+    const firstQuestion = PSC_EXAM_QUESTIONS[0]
+    setTimeout(() => {
+      speakFrench(firstQuestion.question)
+    }, 500)
+  }, [])
+
+  const submitExamAnswer = () => {
+    if (!transcript.trim()) return
+
+    setAnswerComplete(true)
+    setAwaitingAnswer(false)
+
+    const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
+
+    // Generate feedback for the answer
+    const feedback = generateExamFeedback(transcript, currentQuestion)
+    setExamFeedback(feedback)
+
+    // Add to history
+    setExamHistory(prev => [...prev, {
+      question: currentQuestion.question,
+      answer: transcript,
+      feedback: feedback
+    }])
+
+    // Speak the feedback summary
+    setTimeout(() => {
+      speakFrench(feedback.spokenFeedback)
+    }, 500)
+  }
+
+  const generateExamFeedback = (answer, question) => {
+    const lowerAnswer = answer.toLowerCase()
+    const targetStructures = question.targetStructures
+
+    // Check for expected grammatical structures
+    const structureAnalysis = []
+    let structuresFound = []
+    let structuresMissing = []
+
+    // Conditionnel indicators
+    const conditionalPatterns = /\b(serais?|aurais?|voudrais?|pourrais?|devrais?|ferais?|irais?|dirais?|prendrais?|mettrais?|aimerais?|souhaiterais?|préférerais?|resterais?|écouterais?|essaierais?|communiquerais?|chercherais?|adapterais?|proposerais?|suggérerais?|assurerais?|commencerais?|demanderais?|intégrerais?|présenterais?|respecterais?|défendrais?)\b/gi
+    const hasConditional = conditionalPatterns.test(lowerAnswer)
+
+    // Subjonctif indicators
+    const subjonctifPatterns = /\b(que je|qu'il|qu'elle|que nous|que vous|qu'ils|qu'elles)\s+(sois?|aie?|fasse?|puisse?|aille?|veuille?|sache?|prenne?|comprenne?|identifiions?|travaillions?|rencontrions?|présentions?|ait|soit|puisse|fasse|vienne|doive)\b/gi
+    const hasSubjonctif = subjonctifPatterns.test(lowerAnswer)
+
+    // Passé composé indicators
+    const passeComposePatterns = /\b(j'ai|tu as|il a|elle a|nous avons|vous avez|ils ont|elles ont|je suis|tu es|il est|elle est|nous sommes|vous êtes|ils sont|elles sont)\s+\w*(é|i|u|is|it|ert|ait|eint)\b/gi
+    const hasPasseCompose = passeComposePatterns.test(lowerAnswer)
+
+    // Imparfait indicators
+    const imparfaitPatterns = /\b\w+(ais|ait|ions|iez|aient)\b/gi
+    const imparfaitMatches = lowerAnswer.match(imparfaitPatterns) || []
+    const hasImparfait = imparfaitMatches.length >= 2
+
+    // Check which structures were expected and found
+    targetStructures.forEach(structure => {
+      if (structure.includes('conditionnel')) {
+        if (hasConditional) {
+          structuresFound.push('Conditionnel')
+          structureAnalysis.push({ structure: 'Conditionnel', found: true, note: 'Bien utilisé pour exprimer des situations hypothétiques' })
+        } else {
+          structuresMissing.push('Conditionnel')
+          structureAnalysis.push({ structure: 'Conditionnel', found: false, note: 'Cette question appelle l\'utilisation du conditionnel (ex: je ferais, je dirais)' })
+        }
+      }
+      if (structure.includes('subjonctif')) {
+        if (hasSubjonctif) {
+          structuresFound.push('Subjonctif')
+          structureAnalysis.push({ structure: 'Subjonctif', found: true, note: 'Bon usage après les expressions de nécessité ou de souhait' })
+        } else {
+          structuresMissing.push('Subjonctif')
+          structureAnalysis.push({ structure: 'Subjonctif', found: false, note: 'Le subjonctif serait approprié ici (ex: il faut que je fasse, je voudrais qu\'il comprenne)' })
+        }
+      }
+      if (structure.includes('passé composé')) {
+        if (hasPasseCompose) {
+          structuresFound.push('Passé composé')
+          structureAnalysis.push({ structure: 'Passé composé', found: true, note: 'Correctement utilisé pour les actions ponctuelles passées' })
+        } else {
+          structuresMissing.push('Passé composé')
+          structureAnalysis.push({ structure: 'Passé composé', found: false, note: 'Le passé composé devrait être utilisé pour les actions terminées (ex: j\'ai fait, nous avons décidé)' })
+        }
+      }
+      if (structure.includes('imparfait')) {
+        if (hasImparfait) {
+          structuresFound.push('Imparfait')
+          structureAnalysis.push({ structure: 'Imparfait', found: true, note: 'Bien utilisé pour décrire le contexte ou les situations habituelles' })
+        } else {
+          structuresMissing.push('Imparfait')
+          structureAnalysis.push({ structure: 'Imparfait', found: false, note: 'L\'imparfait serait utile pour décrire le contexte (ex: la situation était, nous avions)' })
+        }
+      }
+    })
+
+    // Generate spoken feedback (in French, formal examiner tone)
+    let spokenFeedback = "Merci pour votre réponse. "
+
+    if (structuresFound.length > 0) {
+      spokenFeedback += `J'ai noté l'utilisation ${structuresFound.length > 1 ? 'des structures suivantes' : 'de la structure suivante'}: ${structuresFound.join(', ')}. `
+    }
+
+    if (structuresMissing.length > 0) {
+      spokenFeedback += `Pour améliorer votre réponse, vous pourriez utiliser ${structuresMissing.join(' et ')}. `
+    }
+
+    spokenFeedback += "Veuillez consulter les suggestions écrites pour plus de détails."
+
+    return {
+      structureAnalysis,
+      structuresFound,
+      structuresMissing,
+      sampleResponse: question.sampleResponse,
+      spokenFeedback,
+      topic: question.topic,
+      difficulty: question.difficulty
+    }
+  }
+
+  const nextExamQuestion = () => {
+    if (examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1) {
+      const nextIndex = examQuestionIndex + 1
+      setExamQuestionIndex(nextIndex)
+      setExamFeedback(null)
+      setAnswerComplete(false)
+      setAwaitingAnswer(true)
+      setTranscript('')
+
+      // Speak the next question
+      setTimeout(() => {
+        speakFrench(PSC_EXAM_QUESTIONS[nextIndex].question)
+      }, 500)
+    }
+  }
+
+  const endExam = () => {
+    setMode('home')
+    setExamStarted(false)
+    setExamQuestionIndex(0)
+    setExamHistory([])
+    setExamFeedback(null)
+    setAwaitingAnswer(false)
+    setAnswerComplete(false)
+    setTranscript('')
   }
 
   const nextPhrase = () => {
@@ -464,7 +764,7 @@ export default function FrenchTutor() {
       </div>
       
       <div style={styles.modeCards}>
-        <button 
+        <button
           style={styles.modeCard}
           onClick={() => setMode('lessons')}
         >
@@ -474,8 +774,8 @@ export default function FrenchTutor() {
             Learn essential phrases with guided pronunciation practice
           </p>
         </button>
-        
-        <button 
+
+        <button
           style={styles.modeCard}
           onClick={() => setMode('conversation')}
         >
@@ -484,6 +784,18 @@ export default function FrenchTutor() {
           <p style={styles.modeDescription}>
             Practice real-world scenarios with an AI conversation partner
           </p>
+        </button>
+
+        <button
+          style={{...styles.modeCard, ...styles.modeCardExam}}
+          onClick={() => setMode('exam')}
+        >
+          <div style={styles.modeIcon}>🎯</div>
+          <h3 style={styles.modeTitle}>PSC Oral Exam</h3>
+          <p style={styles.modeDescription}>
+            Simulate a Public Service of Canada French oral exam (A2-B1)
+          </p>
+          <div style={styles.examBadge}>Official Format</div>
         </button>
       </div>
       
@@ -841,6 +1153,211 @@ export default function FrenchTutor() {
     </div>
   )
 
+  const renderExam = () => {
+    const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
+
+    // If exam hasn't started yet, start it immediately
+    if (!examStarted) {
+      startExam()
+      return (
+        <div style={styles.examContainer}>
+          <div style={styles.examLoading}>
+            <p>Préparation de l'examen...</p>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div style={styles.examContainer}>
+        <div style={styles.examHeader}>
+          <button style={styles.backButton} onClick={endExam}>
+            ← Terminer l'examen
+          </button>
+          <div style={styles.examProgress}>
+            Question {examQuestionIndex + 1} / {PSC_EXAM_QUESTIONS.length}
+          </div>
+          <div style={styles.examLevel}>
+            Niveau: {currentQuestion.difficulty}
+          </div>
+        </div>
+
+        <div style={styles.examTitle}>
+          <h2 style={styles.examTitleText}>Examen oral PSC - Niveau A2-B1</h2>
+          <p style={styles.examSubtitle}>Commission de la fonction publique du Canada</p>
+        </div>
+
+        {/* Current Question Card */}
+        <div style={styles.examQuestionCard}>
+          <div style={styles.examQuestionHeader}>
+            <span style={styles.examQuestionNumber}>Question {currentQuestion.id}</span>
+            <span style={styles.examQuestionTopic}>
+              {currentQuestion.topic === 'explaining' && 'Explication'}
+              {currentQuestion.topic === 'adaptation' && 'Adaptation au changement'}
+              {currentQuestion.topic === 'conflict_management' && 'Gestion des conflits'}
+              {currentQuestion.topic === 'policy_implementation' && 'Mise en œuvre des politiques'}
+              {currentQuestion.topic === 'communication_leadership' && 'Communication et leadership'}
+            </span>
+          </div>
+          <p style={styles.examQuestionText}>{currentQuestion.question}</p>
+          <button
+            style={{
+              ...styles.speakButton,
+              ...(isSpeaking ? styles.speakButtonActive : {}),
+              marginTop: '1rem'
+            }}
+            onClick={() => speakFrench(currentQuestion.question)}
+            disabled={isSpeaking}
+          >
+            {isSpeaking ? '🔊 Lecture...' : '🔊 Réécouter la question'}
+          </button>
+        </div>
+
+        {/* Recording Section */}
+        {awaitingAnswer && (
+          <div style={styles.examRecordSection}>
+            <p style={styles.examRecordInstructions}>
+              Répondez oralement. Cliquez sur le microphone pour commencer, puis cliquez sur "J'ai terminé" quand vous avez fini.
+            </p>
+
+            <button
+              style={{
+                ...styles.micButton,
+                ...(isListening ? styles.micButtonActive : {})
+              }}
+              onClick={isListening ? stopListening : startListening}
+            >
+              {isListening ? (
+                <>
+                  <span style={styles.micIcon}>⏹️</span>
+                  <span>Arrêter</span>
+                </>
+              ) : (
+                <>
+                  <span style={styles.micIcon}>🎤</span>
+                  <span>Parler</span>
+                </>
+              )}
+            </button>
+
+            {isListening && (
+              <div style={styles.listeningIndicator}>
+                <div style={styles.pulseRing}></div>
+                <div style={styles.pulseRing2}></div>
+                <span>Écoute en cours...</span>
+              </div>
+            )}
+
+            {transcript && (
+              <div style={styles.examTranscriptBox}>
+                <p style={styles.transcriptLabel}>Votre réponse:</p>
+                <p style={styles.transcriptText}>{transcript}</p>
+              </div>
+            )}
+
+            {transcript && !isListening && (
+              <button
+                style={styles.examSubmitButton}
+                onClick={submitExamAnswer}
+              >
+                J'ai terminé ma réponse
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Feedback Section */}
+        {examFeedback && answerComplete && (
+          <div style={styles.examFeedbackContainer}>
+            <h3 style={styles.examFeedbackTitle}>Rétroaction de l'examinateur</h3>
+
+            {/* Your Answer */}
+            <div style={styles.examYourAnswer}>
+              <h4 style={styles.examSectionSubtitle}>Votre réponse:</h4>
+              <p style={styles.examYourAnswerText}>{transcript}</p>
+            </div>
+
+            {/* Structure Analysis */}
+            <div style={styles.examStructureAnalysis}>
+              <h4 style={styles.examSectionSubtitle}>Analyse grammaticale:</h4>
+              {examFeedback.structureAnalysis.map((item, i) => (
+                <div key={i} style={{
+                  ...styles.examStructureItem,
+                  ...(item.found ? styles.examStructureFound : styles.examStructureMissing)
+                }}>
+                  <span style={styles.examStructureIcon}>
+                    {item.found ? '✓' : '○'}
+                  </span>
+                  <div>
+                    <strong>{item.structure}</strong>
+                    <p style={styles.examStructureNote}>{item.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Sample Response */}
+            <div style={styles.examSampleResponse}>
+              <h4 style={styles.examSectionSubtitle}>Exemple de réponse (niveau A2-B1):</h4>
+              <div style={styles.examSampleText}>
+                <p>{examFeedback.sampleResponse.text}</p>
+              </div>
+              <button
+                style={{...styles.speakButton, marginTop: '1rem'}}
+                onClick={() => speakFrench(examFeedback.sampleResponse.text)}
+                disabled={isSpeaking}
+              >
+                {isSpeaking ? '🔊 Lecture...' : '🔊 Écouter l\'exemple'}
+              </button>
+
+              <div style={styles.examKeyPoints}>
+                <h5 style={styles.examKeyPointsTitle}>Points clés:</h5>
+                <ul style={styles.examKeyPointsList}>
+                  {examFeedback.sampleResponse.keyPoints.map((point, i) => (
+                    <li key={i} style={styles.examKeyPoint}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <div style={styles.examNavigation}>
+              {examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1 ? (
+                <button
+                  style={styles.examNextButton}
+                  onClick={nextExamQuestion}
+                >
+                  Question suivante →
+                </button>
+              ) : (
+                <button
+                  style={styles.examCompleteButton}
+                  onClick={endExam}
+                >
+                  Terminer l'examen ✓
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Progress Bar */}
+        <div style={styles.examProgressBar}>
+          {PSC_EXAM_QUESTIONS.map((_, i) => (
+            <div
+              key={i}
+              style={{
+                ...styles.examProgressDot,
+                ...(i < examQuestionIndex ? styles.examProgressDotCompleted : {}),
+                ...(i === examQuestionIndex ? styles.examProgressDotCurrent : {})
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <main style={styles.main}>
       <header style={styles.header}>
@@ -850,6 +1367,13 @@ export default function FrenchTutor() {
           setSelectedConversation(null)
           setConversationHistory([])
           resetLesson()
+          // Reset exam state
+          setExamStarted(false)
+          setExamQuestionIndex(0)
+          setExamHistory([])
+          setExamFeedback(null)
+          setAwaitingAnswer(false)
+          setAnswerComplete(false)
         }}>
           <span style={styles.logoIcon}>🇫🇷</span>
           <span style={styles.logoText}>Parlez</span>
@@ -860,6 +1384,7 @@ export default function FrenchTutor() {
         {mode === 'home' && renderHome()}
         {mode === 'lessons' && renderLessons()}
         {mode === 'conversation' && renderConversation()}
+        {mode === 'exam' && renderExam()}
       </div>
     </main>
   )
@@ -1477,5 +2002,279 @@ const styles = {
     color: 'var(--soft-gray)',
     fontStyle: 'italic',
     fontSize: '0.95rem',
+  },
+
+  // PSC Exam styles
+  modeCardExam: {
+    borderColor: 'var(--french-red)',
+    borderWidth: '2px',
+    position: 'relative',
+  },
+  examBadge: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    background: 'var(--french-red)',
+    color: 'white',
+    fontSize: '0.7rem',
+    fontWeight: 600,
+    padding: '0.25rem 0.5rem',
+    borderRadius: '4px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  examContainer: {
+    animation: 'fadeIn 0.4s ease-out',
+  },
+  examLoading: {
+    textAlign: 'center',
+    padding: '4rem 2rem',
+    color: 'var(--soft-gray)',
+    fontSize: '1.1rem',
+  },
+  examHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '1.5rem',
+    flexWrap: 'wrap',
+    gap: '1rem',
+  },
+  examProgress: {
+    color: 'var(--soft-gray)',
+    fontSize: '0.9rem',
+    fontWeight: 500,
+  },
+  examLevel: {
+    background: 'var(--deep-blue)',
+    color: 'white',
+    padding: '0.35rem 0.75rem',
+    borderRadius: '20px',
+    fontSize: '0.8rem',
+    fontWeight: 500,
+  },
+  examTitle: {
+    textAlign: 'center',
+    marginBottom: '2rem',
+    padding: '1.5rem',
+    background: 'linear-gradient(135deg, var(--deep-blue), #2d3e5f)',
+    borderRadius: '16px',
+    color: 'white',
+  },
+  examTitleText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.75rem',
+    marginBottom: '0.5rem',
+  },
+  examSubtitle: {
+    fontSize: '0.95rem',
+    opacity: 0.85,
+  },
+  examQuestionCard: {
+    background: 'white',
+    border: '1px solid var(--light-border)',
+    borderRadius: '16px',
+    padding: '2rem',
+    marginBottom: '2rem',
+    textAlign: 'center',
+  },
+  examQuestionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '1.5rem',
+    flexWrap: 'wrap',
+    gap: '0.5rem',
+  },
+  examQuestionNumber: {
+    fontWeight: 600,
+    color: 'var(--deep-blue)',
+    fontSize: '0.9rem',
+  },
+  examQuestionTopic: {
+    background: 'rgba(201, 162, 39, 0.15)',
+    color: 'var(--gold)',
+    padding: '0.35rem 0.75rem',
+    borderRadius: '20px',
+    fontSize: '0.8rem',
+    fontWeight: 500,
+  },
+  examQuestionText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.5rem',
+    color: 'var(--deep-blue)',
+    lineHeight: 1.5,
+  },
+  examRecordSection: {
+    textAlign: 'center',
+    marginBottom: '2rem',
+  },
+  examRecordInstructions: {
+    color: 'var(--soft-gray)',
+    marginBottom: '1.5rem',
+    fontSize: '0.95rem',
+  },
+  examTranscriptBox: {
+    marginTop: '1.5rem',
+    padding: '1.25rem',
+    background: 'rgba(26, 42, 74, 0.05)',
+    borderRadius: '12px',
+    maxWidth: '600px',
+    margin: '1.5rem auto 0',
+    textAlign: 'left',
+  },
+  examSubmitButton: {
+    marginTop: '1.5rem',
+    background: 'var(--deep-blue)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '30px',
+    padding: '1rem 2.5rem',
+    fontSize: '1rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  examFeedbackContainer: {
+    background: 'white',
+    border: '1px solid var(--light-border)',
+    borderRadius: '16px',
+    padding: '2rem',
+    marginBottom: '2rem',
+  },
+  examFeedbackTitle: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.5rem',
+    color: 'var(--deep-blue)',
+    marginBottom: '1.5rem',
+    textAlign: 'center',
+  },
+  examSectionSubtitle: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    color: 'var(--deep-blue)',
+    marginBottom: '0.75rem',
+  },
+  examYourAnswer: {
+    marginBottom: '1.5rem',
+    padding: '1rem',
+    background: 'rgba(26, 42, 74, 0.03)',
+    borderRadius: '12px',
+  },
+  examYourAnswerText: {
+    fontStyle: 'italic',
+    color: 'var(--soft-gray)',
+    lineHeight: 1.6,
+  },
+  examStructureAnalysis: {
+    marginBottom: '1.5rem',
+  },
+  examStructureItem: {
+    display: 'flex',
+    gap: '0.75rem',
+    padding: '0.75rem 1rem',
+    borderRadius: '8px',
+    marginBottom: '0.5rem',
+  },
+  examStructureFound: {
+    background: 'rgba(5, 150, 105, 0.1)',
+    border: '1px solid rgba(5, 150, 105, 0.3)',
+  },
+  examStructureMissing: {
+    background: 'rgba(217, 119, 6, 0.1)',
+    border: '1px solid rgba(217, 119, 6, 0.3)',
+  },
+  examStructureIcon: {
+    fontSize: '1.1rem',
+    fontWeight: 'bold',
+  },
+  examStructureNote: {
+    fontSize: '0.85rem',
+    color: 'var(--soft-gray)',
+    marginTop: '0.25rem',
+  },
+  examSampleResponse: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(201, 162, 39, 0.08), rgba(201, 162, 39, 0.03))',
+    border: '1px solid rgba(201, 162, 39, 0.25)',
+    borderRadius: '12px',
+  },
+  examSampleText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.1rem',
+    color: 'var(--deep-blue)',
+    lineHeight: 1.7,
+    fontStyle: 'italic',
+  },
+  examKeyPoints: {
+    marginTop: '1.25rem',
+    paddingTop: '1rem',
+    borderTop: '1px solid rgba(201, 162, 39, 0.25)',
+  },
+  examKeyPointsTitle: {
+    fontSize: '0.9rem',
+    fontWeight: 600,
+    color: 'var(--deep-blue)',
+    marginBottom: '0.5rem',
+  },
+  examKeyPointsList: {
+    margin: 0,
+    paddingLeft: '1.25rem',
+  },
+  examKeyPoint: {
+    fontSize: '0.9rem',
+    color: 'var(--soft-gray)',
+    marginBottom: '0.35rem',
+    lineHeight: 1.5,
+  },
+  examNavigation: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '1rem',
+    marginTop: '1.5rem',
+  },
+  examNextButton: {
+    background: 'var(--deep-blue)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '30px',
+    padding: '1rem 2.5rem',
+    fontSize: '1rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  examCompleteButton: {
+    background: 'var(--success)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '30px',
+    padding: '1rem 2.5rem',
+    fontSize: '1rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  examProgressBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    marginTop: '2rem',
+    padding: '1rem',
+  },
+  examProgressDot: {
+    width: '12px',
+    height: '12px',
+    borderRadius: '50%',
+    background: 'var(--light-border)',
+    transition: 'all 0.3s ease',
+  },
+  examProgressDotCompleted: {
+    background: 'var(--success)',
+  },
+  examProgressDotCurrent: {
+    background: 'var(--deep-blue)',
+    transform: 'scale(1.3)',
   },
 }
