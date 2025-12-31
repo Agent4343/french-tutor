@@ -562,7 +562,23 @@ export default function PSCExamSimulator() {
     }
   }, [audioUnlocked])
 
-  const speakFrench = async (text) => {
+  // Get speaking rate based on difficulty level
+  const getSpeakingRate = (difficulty) => {
+    switch (difficulty) {
+      case 'A2':
+        return 0.8   // Slow for beginners
+      case 'A2-B1':
+        return 0.85  // Slightly slow
+      case 'B1':
+        return 0.92  // Moderate
+      case 'B1+':
+        return 1.0   // Natural speed
+      default:
+        return 0.9
+    }
+  }
+
+  const speakFrench = async (text, difficulty = 'B1') => {
     // Unlock audio on iOS if needed
     unlockAudio()
 
@@ -573,12 +589,13 @@ export default function PSCExamSimulator() {
     }
 
     setIsSpeaking(true)
+    const speakingRate = getSpeakingRate(difficulty)
 
     try {
       const response = await fetch('/api/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text, speakingRate })
       })
 
       if (!response.ok) {
@@ -605,7 +622,7 @@ export default function PSCExamSimulator() {
         setIsSpeaking(false)
         URL.revokeObjectURL(audioUrl)
         // Try Web Speech API as fallback
-        fallbackToWebSpeech(text)
+        fallbackToWebSpeech(text, difficulty)
       }
 
       try {
@@ -613,20 +630,22 @@ export default function PSCExamSimulator() {
       } catch (playError) {
         console.error('Audio play failed:', playError)
         // Fallback to Web Speech API
-        fallbackToWebSpeech(text)
+        fallbackToWebSpeech(text, difficulty)
       }
     } catch (error) {
       console.error('Google TTS failed:', error)
-      fallbackToWebSpeech(text)
+      fallbackToWebSpeech(text, difficulty)
     }
   }
 
-  const fallbackToWebSpeech = (text) => {
+  const fallbackToWebSpeech = (text, difficulty = 'B1') => {
+    const speakingRate = getSpeakingRate(difficulty)
+
     if (synthRef.current) {
       synthRef.current.cancel()
       const utterance = new SpeechSynthesisUtterance(text)
       utterance.lang = 'fr-FR'
-      utterance.rate = 0.9
+      utterance.rate = speakingRate
       utterance.pitch = 1.05
 
       const voices = synthRef.current.getVoices()
@@ -657,7 +676,7 @@ export default function PSCExamSimulator() {
 
     const firstQuestion = PSC_EXAM_QUESTIONS[0]
     setTimeout(() => {
-      speakFrench(firstQuestion.question)
+      speakFrench(firstQuestion.question, firstQuestion.difficulty)
     }, 500)
   }, [unlockAudio])
 
@@ -683,7 +702,7 @@ export default function PSCExamSimulator() {
     }])
 
     setTimeout(() => {
-      speakFrench(feedback.spokenFeedback)
+      speakFrench(feedback.spokenFeedback, currentQuestion.difficulty)
     }, 500)
   }
 
@@ -780,8 +799,9 @@ export default function PSCExamSimulator() {
       setTranscript('')
       setFullTranscript('')
 
+      const nextQuestion = PSC_EXAM_QUESTIONS[nextIndex]
       setTimeout(() => {
-        speakFrench(PSC_EXAM_QUESTIONS[nextIndex].question)
+        speakFrench(nextQuestion.question, nextQuestion.difficulty)
       }, 500)
     }
   }
@@ -859,7 +879,7 @@ export default function PSCExamSimulator() {
               ...styles.listenButton,
               ...(isSpeaking ? styles.listenButtonActive : {})
             }}
-            onClick={() => speakFrench(currentQuestion.question)}
+            onClick={() => speakFrench(currentQuestion.question, currentQuestion.difficulty)}
             disabled={isSpeaking}
           >
             {isSpeaking ? '🔊 Lecture...' : '🔊 Réécouter la question'}
@@ -950,7 +970,7 @@ export default function PSCExamSimulator() {
               </div>
               <button
                 style={{...styles.listenButton, marginTop: '1rem'}}
-                onClick={() => speakFrench(examFeedback.sampleResponse.text)}
+                onClick={() => speakFrench(examFeedback.sampleResponse.text, examFeedback.difficulty)}
                 disabled={isSpeaking}
               >
                 {isSpeaking ? '🔊 Lecture...' : '🔊 Écouter l\'exemple'}

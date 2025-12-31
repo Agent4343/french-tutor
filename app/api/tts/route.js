@@ -1,5 +1,5 @@
 export async function POST(request) {
-  const { text } = await request.json()
+  const { text, speakingRate = 0.95 } = await request.json()
 
   if (!text) {
     return Response.json({ error: 'Text is required' }, { status: 400 })
@@ -10,6 +10,9 @@ export async function POST(request) {
   if (!apiKey) {
     return Response.json({ error: 'TTS API key not configured' }, { status: 500 })
   }
+
+  // Clamp speaking rate between 0.5 and 1.5
+  const rate = Math.min(1.5, Math.max(0.5, speakingRate))
 
   try {
     const response = await fetch(
@@ -28,7 +31,7 @@ export async function POST(request) {
           },
           audioConfig: {
             audioEncoding: 'MP3',
-            speakingRate: 0.95,
+            speakingRate: rate,
             pitch: 0.5
           }
         })
