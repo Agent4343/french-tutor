@@ -235,13 +235,36 @@ export default function PSCExamSimulator() {
       synthRef.current.cancel()
       const utterance = new SpeechSynthesisUtterance(text)
       utterance.lang = 'fr-FR'
-      utterance.rate = 0.85
-      utterance.pitch = 1
+      utterance.rate = 0.9
+      utterance.pitch = 1.05
 
       const voices = synthRef.current.getVoices()
-      const frenchVoice = voices.find(v => v.lang.startsWith('fr'))
-      if (frenchVoice) {
-        utterance.voice = frenchVoice
+      const frenchVoices = voices.filter(v => v.lang.startsWith('fr'))
+
+      // Prefer natural-sounding voices in order of quality
+      const preferredVoices = [
+        'Google français',           // Chrome - very natural
+        'Microsoft Paul Online',     // Edge neural voice
+        'Microsoft Julie Online',    // Edge neural voice
+        'Amélie',                    // macOS premium
+        'Thomas',                    // macOS premium
+        'Microsoft Hortense',        // Windows
+        'Microsoft Paul',            // Windows
+      ]
+
+      let selectedVoice = null
+      for (const preferred of preferredVoices) {
+        selectedVoice = frenchVoices.find(v => v.name.includes(preferred))
+        if (selectedVoice) break
+      }
+
+      // Fallback: prefer any voice marked as not local (usually cloud/neural)
+      if (!selectedVoice) {
+        selectedVoice = frenchVoices.find(v => !v.localService) || frenchVoices[0]
+      }
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice
       }
 
       utterance.onstart = () => setIsSpeaking(true)
