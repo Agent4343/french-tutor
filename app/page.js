@@ -446,6 +446,9 @@ export default function PSCExamSimulator() {
   const [transcript, setTranscript] = useState('')
   const [isSpeaking, setIsSpeaking] = useState(false)
 
+  // App mode: 'home' | 'exam' | 'tutor'
+  const [appMode, setAppMode] = useState('home')
+
   // PSC Exam state
   const [examQuestionIndex, setExamQuestionIndex] = useState(0)
   const [examHistory, setExamHistory] = useState([])
@@ -454,6 +457,12 @@ export default function PSCExamSimulator() {
   const [examFeedback, setExamFeedback] = useState(null)
   const [examStarted, setExamStarted] = useState(false)
   const [fullTranscript, setFullTranscript] = useState('')
+
+  // AI Tutor state
+  const [chatMessages, setChatMessages] = useState([])
+  const [chatInput, setChatInput] = useState('')
+  const [isChatLoading, setIsChatLoading] = useState(false)
+  const chatEndRef = useRef(null)
 
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
@@ -665,6 +674,7 @@ export default function PSCExamSimulator() {
     // Unlock audio on iOS
     unlockAudio()
 
+    setAppMode('exam')
     setExamStarted(true)
     setExamQuestionIndex(0)
     setExamHistory([])
@@ -679,6 +689,88 @@ export default function PSCExamSimulator() {
       speakFrench(firstQuestion.question, firstQuestion.difficulty)
     }, 500)
   }, [unlockAudio])
+
+  // Start AI Tutor mode
+  const startTutor = () => {
+    unlockAudio()
+    setAppMode('tutor')
+    setChatMessages([{
+      role: 'assistant',
+      content: "Bonjour! Je suis votre tuteur de français. Je suis là pour vous aider à préparer votre examen oral PSC niveau A2-B1. 🇫🇷\n\nVous pouvez me poser des questions sur:\n• La grammaire (conditionnel, subjonctif, imparfait vs passé composé)\n• Le vocabulaire professionnel\n• La préparation aux entrevues\n• La méthode STAR pour les questions comportementales\n• Ou tout autre sujet en français!\n\nComment puis-je vous aider aujourd'hui?"
+    }])
+  }
+
+  // Send chat message to AI tutor
+  const sendChatMessage = async (messageText) => {
+    const text = messageText || chatInput.trim()
+    if (!text || isChatLoading) return
+
+    const userMessage = { role: 'user', content: text }
+    const newMessages = [...chatMessages, userMessage]
+    setChatMessages(newMessages)
+    setChatInput('')
+    setIsChatLoading(true)
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: newMessages.map(m => ({ role: m.role, content: m.content }))
+        })
+      })
+
+      if (!response.ok) throw new Error('Chat failed')
+
+      const data = await response.json()
+      setChatMessages([...newMessages, { role: 'assistant', content: data.message }])
+
+      // Auto-scroll to bottom
+      setTimeout(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+      }, 100)
+    } catch (error) {
+      console.error('Chat error:', error)
+      setChatMessages([...newMessages, {
+        role: 'assistant',
+        content: "Désolé, une erreur s'est produite. Veuillez réessayer."
+      }])
+    } finally {
+      setIsChatLoading(false)
+    }
+  }
+
+  // Use voice input for chat
+  const startVoiceChat = () => {
+    if (recognitionRef.current && !isListening) {
+      setFullTranscript('')
+      setTranscript('')
+      setIsListening(true)
+      recognitionRef.current.start()
+    }
+  }
+
+  const sendVoiceMessage = () => {
+    if (transcript.trim()) {
+      sendChatMessage(transcript.trim())
+      setTranscript('')
+      setFullTranscript('')
+    }
+    if (isListening) {
+      recognitionRef.current?.stop()
+      setIsListening(false)
+    }
+  }
+
+  // Go back to home
+  const goHome = () => {
+    setAppMode('home')
+    setExamStarted(false)
+    if (isListening) {
+      recognitionRef.current?.stop()
+      setIsListening(false)
+    }
+  }
 
   const submitExamAnswer = () => {
     if (!transcript.trim()) return
@@ -825,7 +917,8 @@ export default function PSCExamSimulator() {
 
   const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
 
-  if (!examStarted) {
+  // Home screen with mode selection
+  if (appMode === 'home') {
     return (
       <main style={styles.main}>
         <div style={styles.startScreen}>
@@ -837,18 +930,128 @@ export default function PSCExamSimulator() {
             />
           </div>
           <h1 style={styles.startTitle}>Susan Matheson French Helper</h1>
-          <p style={styles.startSubtitle}>Examen oral PSC - Niveau A2-B1</p>
-          <div style={styles.startInfo}>
-            <p>30 questions progressives</p>
-            <p>Mode vocal uniquement</p>
-            <p>Rétroaction après chaque réponse</p>
+          <p style={styles.startSubtitle}>Préparation à l'examen oral PSC - Niveau A2-B1</p>
+
+          <div style={styles.modeButtons}>
+            <button style={styles.modeButton} onClick={startExam}>
+              <span style={styles.modeIcon}>🎤</span>
+              <span style={styles.modeTitle}>Examen simulé</span>
+              <span style={styles.modeDesc}>30 questions progressives</span>
+            </button>
+
+            <button style={{...styles.modeButton, ...styles.tutorButton}} onClick={startTutor}>
+              <span style={styles.modeIcon}>🤖</span>
+              <span style={styles.modeTitle}>Tuteur IA</span>
+              <span style={styles.modeDesc}>Posez vos questions</span>
+            </button>
           </div>
-          <button style={styles.startButton} onClick={startExam}>
-            🎤 Commencer l'examen
-          </button>
+
           <p style={styles.startNote}>
-            Appuyez pour activer l'audio et commencer
+            Choisissez un mode pour commencer
           </p>
+        </div>
+      </main>
+    )
+  }
+
+  // AI Tutor chat mode
+  if (appMode === 'tutor') {
+    return (
+      <main style={styles.main}>
+        <header style={styles.header}>
+          <div style={styles.headerContent}>
+            <h1 style={styles.title}>Tuteur IA Français</h1>
+            <p style={styles.subtitle}>Posez vos questions sur le français</p>
+          </div>
+          <button style={styles.backButton} onClick={goHome}>
+            ← Retour
+          </button>
+        </header>
+
+        <div style={styles.chatContainer}>
+          <div style={styles.chatMessages}>
+            {chatMessages.map((msg, i) => (
+              <div
+                key={i}
+                style={{
+                  ...styles.chatMessage,
+                  ...(msg.role === 'user' ? styles.userMessage : styles.assistantMessage)
+                }}
+              >
+                <div style={styles.messageContent}>
+                  {msg.content.split('\n').map((line, j) => (
+                    <p key={j} style={styles.messageLine}>{line}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {isChatLoading && (
+              <div style={{...styles.chatMessage, ...styles.assistantMessage}}>
+                <div style={styles.typingIndicator}>
+                  <span>●</span><span>●</span><span>●</span>
+                </div>
+              </div>
+            )}
+            <div ref={chatEndRef} />
+          </div>
+
+          <div style={styles.chatInputContainer}>
+            {isListening && (
+              <div style={styles.voiceTranscript}>
+                <p>{transcript || "Écoute en cours..."}</p>
+              </div>
+            )}
+
+            <div style={styles.chatInputRow}>
+              <input
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                placeholder="Tapez votre question en français..."
+                style={styles.chatInput}
+                disabled={isChatLoading || isListening}
+              />
+
+              {!isListening ? (
+                <>
+                  <button
+                    style={styles.voiceButton}
+                    onClick={startVoiceChat}
+                    disabled={isChatLoading}
+                    title="Parler"
+                  >
+                    🎤
+                  </button>
+                  <button
+                    style={styles.sendButton}
+                    onClick={() => sendChatMessage()}
+                    disabled={isChatLoading || !chatInput.trim()}
+                  >
+                    Envoyer
+                  </button>
+                </>
+              ) : (
+                <button
+                  style={styles.sendVoiceButton}
+                  onClick={sendVoiceMessage}
+                >
+                  ✓ Envoyer
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  // Exam mode (existing code)
+  if (!examStarted) {
+    return (
+      <main style={styles.main}>
+        <div style={styles.loading}>
+          <p>Chargement...</p>
         </div>
       </main>
     )
@@ -857,9 +1060,12 @@ export default function PSCExamSimulator() {
   return (
     <main style={styles.main}>
       <header style={styles.header}>
+        <button style={styles.backButton} onClick={goHome}>
+          ← Retour
+        </button>
         <div style={styles.headerContent}>
-          <h1 style={styles.title}>Susan Matheson French Helper</h1>
-          <p style={styles.subtitle}>Examen oral PSC - Niveau A2-B1</p>
+          <h1 style={styles.title}>Examen oral PSC</h1>
+          <p style={styles.subtitle}>Niveau A2-B1</p>
         </div>
         <div style={styles.headerMeta}>
           <span style={styles.progress}>Question {examQuestionIndex + 1} / {PSC_EXAM_QUESTIONS.length}</span>
@@ -1093,7 +1299,155 @@ const styles = {
     color: 'rgba(255,255,255,0.6)',
     fontSize: '0.9rem',
   },
+  modeButtons: {
+    display: 'flex',
+    gap: '1.5rem',
+    marginBottom: '1rem',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  modeButton: {
+    background: 'rgba(255,255,255,0.1)',
+    border: '2px solid rgba(255,255,255,0.3)',
+    borderRadius: '16px',
+    padding: '1.5rem 2rem',
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.5rem',
+    minWidth: '160px',
+    transition: 'all 0.2s',
+  },
+  tutorButton: {
+    background: 'rgba(59, 130, 246, 0.2)',
+    borderColor: 'rgba(59, 130, 246, 0.5)',
+  },
+  modeIcon: {
+    fontSize: '2.5rem',
+  },
+  modeTitle: {
+    color: 'white',
+    fontWeight: '600',
+    fontSize: '1.1rem',
+  },
+  modeDesc: {
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: '0.85rem',
+  },
+  backButton: {
+    position: 'absolute',
+    left: '1rem',
+    top: '1rem',
+    background: 'rgba(255,255,255,0.1)',
+    border: 'none',
+    color: 'white',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+  },
+  chatContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'calc(100vh - 120px)',
+    maxWidth: '800px',
+    margin: '0 auto',
+  },
+  chatMessages: {
+    flex: 1,
+    overflowY: 'auto',
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+  },
+  chatMessage: {
+    maxWidth: '85%',
+    padding: '1rem',
+    borderRadius: '16px',
+    lineHeight: '1.5',
+  },
+  userMessage: {
+    alignSelf: 'flex-end',
+    background: '#3b82f6',
+    color: 'white',
+    borderBottomRightRadius: '4px',
+  },
+  assistantMessage: {
+    alignSelf: 'flex-start',
+    background: 'white',
+    color: '#1f2937',
+    borderBottomLeftRadius: '4px',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+  },
+  messageContent: {
+    whiteSpace: 'pre-wrap',
+  },
+  messageLine: {
+    margin: '0 0 0.5rem 0',
+  },
+  typingIndicator: {
+    display: 'flex',
+    gap: '4px',
+    padding: '0.5rem',
+  },
+  chatInputContainer: {
+    padding: '1rem',
+    borderTop: '1px solid #e5e7eb',
+    background: 'white',
+  },
+  chatInputRow: {
+    display: 'flex',
+    gap: '0.5rem',
+    alignItems: 'center',
+  },
+  chatInput: {
+    flex: 1,
+    padding: '0.75rem 1rem',
+    border: '2px solid #e5e7eb',
+    borderRadius: '24px',
+    fontSize: '1rem',
+    outline: 'none',
+  },
+  voiceButton: {
+    background: '#6b7280',
+    color: 'white',
+    border: 'none',
+    width: '44px',
+    height: '44px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    fontSize: '1.2rem',
+  },
+  sendButton: {
+    background: '#3b82f6',
+    color: 'white',
+    border: 'none',
+    padding: '0.75rem 1.5rem',
+    borderRadius: '24px',
+    cursor: 'pointer',
+    fontWeight: '600',
+  },
+  sendVoiceButton: {
+    background: '#22c55e',
+    color: 'white',
+    border: 'none',
+    padding: '0.75rem 1.5rem',
+    borderRadius: '24px',
+    cursor: 'pointer',
+    fontWeight: '600',
+  },
+  voiceTranscript: {
+    background: '#fef3c7',
+    padding: '0.75rem 1rem',
+    borderRadius: '8px',
+    marginBottom: '0.5rem',
+    fontSize: '0.9rem',
+    color: '#92400e',
+  },
   header: {
+    position: 'relative',
     background: 'linear-gradient(135deg, #1a2a4a, #2d3e5f)',
     color: 'white',
     padding: '2rem',
