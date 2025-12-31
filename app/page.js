@@ -151,6 +151,7 @@ export default function PSCExamSimulator() {
 
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
+  const audioRef = useRef(null)
 
   // Initialize speech synthesis
   useEffect(() => {
@@ -230,47 +231,61 @@ export default function PSCExamSimulator() {
     }
   }
 
-  const speakFrench = (text) => {
-    if (synthRef.current) {
-      synthRef.current.cancel()
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.lang = 'fr-FR'
-      utterance.rate = 0.9
-      utterance.pitch = 1.05
+  const speakFrench = async (text) => {
+    // Stop any current audio
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current = null
+    }
 
-      const voices = synthRef.current.getVoices()
-      const frenchVoices = voices.filter(v => v.lang.startsWith('fr'))
+    setIsSpeaking(true)
 
-      // Prefer natural-sounding voices in order of quality
-      const preferredVoices = [
-        'Google français',           // Chrome - very natural
-        'Microsoft Paul Online',     // Edge neural voice
-        'Microsoft Julie Online',    // Edge neural voice
-        'Amélie',                    // macOS premium
-        'Thomas',                    // macOS premium
-        'Microsoft Hortense',        // Windows
-        'Microsoft Paul',            // Windows
-      ]
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      })
 
-      let selectedVoice = null
-      for (const preferred of preferredVoices) {
-        selectedVoice = frenchVoices.find(v => v.name.includes(preferred))
-        if (selectedVoice) break
+      if (!response.ok) {
+        throw new Error('TTS API failed')
       }
 
-      // Fallback: prefer any voice marked as not local (usually cloud/neural)
-      if (!selectedVoice) {
-        selectedVoice = frenchVoices.find(v => !v.localService) || frenchVoices[0]
+      const { audioContent } = await response.json()
+      const audioBlob = new Blob(
+        [Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))],
+        { type: 'audio/mp3' }
+      )
+      const audioUrl = URL.createObjectURL(audioBlob)
+
+      audioRef.current = new Audio(audioUrl)
+      audioRef.current.onended = () => {
+        setIsSpeaking(false)
+        URL.revokeObjectURL(audioUrl)
       }
-
-      if (selectedVoice) {
-        utterance.voice = selectedVoice
+      audioRef.current.onerror = () => {
+        setIsSpeaking(false)
+        URL.revokeObjectURL(audioUrl)
       }
+      await audioRef.current.play()
+    } catch (error) {
+      console.error('Google TTS failed, falling back to Web Speech API:', error)
+      // Fallback to Web Speech API
+      if (synthRef.current) {
+        const utterance = new SpeechSynthesisUtterance(text)
+        utterance.lang = 'fr-FR'
+        utterance.rate = 0.9
+        utterance.pitch = 1.05
 
-      utterance.onstart = () => setIsSpeaking(true)
-      utterance.onend = () => setIsSpeaking(false)
+        const voices = synthRef.current.getVoices()
+        const frenchVoice = voices.find(v => v.lang.startsWith('fr'))
+        if (frenchVoice) utterance.voice = frenchVoice
 
-      synthRef.current.speak(utterance)
+        utterance.onend = () => setIsSpeaking(false)
+        synthRef.current.speak(utterance)
+      } else {
+        setIsSpeaking(false)
+      }
     }
   }
 
