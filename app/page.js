@@ -204,6 +204,25 @@ export default function FrenchTutor() {
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
 
+  // Refs to track current state values for speech recognition callback
+  // This fixes the stale closure bug where the callback would use outdated state
+  const selectedLessonRef = useRef(selectedLesson)
+  const currentPhraseIndexRef = useRef(currentPhraseIndex)
+  const selectedConversationRef = useRef(selectedConversation)
+
+  // Keep refs in sync with state for use in callbacks
+  useEffect(() => {
+    selectedLessonRef.current = selectedLesson
+  }, [selectedLesson])
+
+  useEffect(() => {
+    currentPhraseIndexRef.current = currentPhraseIndex
+  }, [currentPhraseIndex])
+
+  useEffect(() => {
+    selectedConversationRef.current = selectedConversation
+  }, [selectedConversation])
+
   // Initialize speech synthesis
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -290,10 +309,15 @@ export default function FrenchTutor() {
   }
 
   const analyzePronunciation = (spokenText) => {
-    if (!selectedLesson && !selectedConversation) return
-    
-    const targetPhrase = selectedLesson 
-      ? selectedLesson.phrases[currentPhraseIndex].french 
+    // Use refs to get current values (fixes stale closure in speech recognition callback)
+    const currentLesson = selectedLessonRef.current
+    const phraseIndex = currentPhraseIndexRef.current
+    const currentConversation = selectedConversationRef.current
+
+    if (!currentLesson && !currentConversation) return
+
+    const targetPhrase = currentLesson
+      ? currentLesson.phrases[phraseIndex].french
       : null
     
     const normalizedSpoken = spokenText.toLowerCase().trim()
