@@ -341,7 +341,8 @@ export default function FrenchTutor() {
   const [answerComplete, setAnswerComplete] = useState(false)
   const [examFeedback, setExamFeedback] = useState(null)
   const [examStarted, setExamStarted] = useState(false)
-  
+  const [fullTranscript, setFullTranscript] = useState('') // Accumulates speech for exam
+
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
 
@@ -349,6 +350,8 @@ export default function FrenchTutor() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       synthRef.current = window.speechSynthesis
+      // Pre-load voices
+      synthRef.current.getVoices()
     }
   }, [])
 
@@ -358,29 +361,62 @@ export default function FrenchTutor() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
       if (SpeechRecognition) {
         recognitionRef.current = new SpeechRecognition()
-        recognitionRef.current.continuous = false
+        recognitionRef.current.continuous = true // Allow continuous speech
         recognitionRef.current.interimResults = true
         recognitionRef.current.lang = 'fr-FR'
 
         recognitionRef.current.onresult = (event) => {
-          const current = event.resultIndex
-          const result = event.results[current]
-          const transcriptText = result[0].transcript
-          setTranscript(transcriptText)
-          
-          if (result.isFinal) {
-            analyzePronunciation(transcriptText)
+          let interimTranscript = ''
+          let finalTranscript = ''
+
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const result = event.results[i]
+            if (result.isFinal) {
+              finalTranscript += result[0].transcript + ' '
+            } else {
+              interimTranscript += result[0].transcript
+            }
+          }
+
+          // For exam mode: accumulate final transcripts
+          if (mode === 'exam' && finalTranscript) {
+            setFullTranscript(prev => prev + finalTranscript)
+            setTranscript(prev => prev + finalTranscript)
+          } else if (mode === 'exam') {
+            // Show interim results appended to accumulated text
+            setTranscript(fullTranscript + interimTranscript)
+          } else {
+            // For other modes: use single result
+            const current = event.resultIndex
+            const result = event.results[current]
+            const transcriptText = result[0].transcript
+            setTranscript(transcriptText)
+
+            if (result.isFinal) {
+              analyzePronunciation(transcriptText)
+            }
           }
         }
 
         recognitionRef.current.onend = () => {
-          setIsListening(false)
+          // Auto-restart for exam mode if still awaiting answer
+          if (mode === 'exam' && awaitingAnswer && isListening) {
+            try {
+              recognitionRef.current.start()
+            } catch (e) {
+              setIsListening(false)
+            }
+          } else {
+            setIsListening(false)
+          }
         }
 
         recognitionRef.current.onerror = (event) => {
           console.error('Speech recognition error:', event.error)
-          setIsListening(false)
-          if (event.error === 'no-speech') {
+          if (event.error !== 'no-speech' && event.error !== 'aborted') {
+            setIsListening(false)
+          }
+          if (event.error === 'no-speech' && mode !== 'exam') {
             setFeedback({
               type: 'info',
               message: "I didn't hear anything. Try speaking closer to the microphone.",
@@ -390,10 +426,14 @@ export default function FrenchTutor() {
         }
       }
     }
-  }, [])
+  }, [mode, awaitingAnswer, isListening, fullTranscript])
 
   const startListening = () => {
     if (recognitionRef.current && !isListening) {
+      if (mode === 'exam') {
+        // For exam: only clear if starting fresh
+        setFullTranscript('')
+      }
       setTranscript('')
       setFeedback(null)
       setIsListening(true)
@@ -577,6 +617,7 @@ export default function FrenchTutor() {
     setAwaitingAnswer(true)
     setAnswerComplete(false)
     setTranscript('')
+    setFullTranscript('')
 
     // Speak the first question
     const firstQuestion = PSC_EXAM_QUESTIONS[0]
@@ -587,6 +628,12 @@ export default function FrenchTutor() {
 
   const submitExamAnswer = () => {
     if (!transcript.trim()) return
+
+    // Stop listening first
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop()
+      setIsListening(false)
+    }
 
     setAnswerComplete(true)
     setAwaitingAnswer(false)
@@ -708,6 +755,7 @@ export default function FrenchTutor() {
       setAnswerComplete(false)
       setAwaitingAnswer(true)
       setTranscript('')
+      setFullTranscript('')
 
       // Speak the next question
       setTimeout(() => {
@@ -717,6 +765,11 @@ export default function FrenchTutor() {
   }
 
   const endExam = () => {
+    // Stop any ongoing recognition
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop()
+      setIsListening(false)
+    }
     setMode('home')
     setExamStarted(false)
     setExamQuestionIndex(0)
@@ -725,6 +778,7 @@ export default function FrenchTutor() {
     setAwaitingAnswer(false)
     setAnswerComplete(false)
     setTranscript('')
+    setFullTranscript('')
   }
 
   const nextPhrase = () => {
@@ -1368,12 +1422,17 @@ export default function FrenchTutor() {
           setConversationHistory([])
           resetLesson()
           // Reset exam state
+          if (recognitionRef.current && isListening) {
+            recognitionRef.current.stop()
+            setIsListening(false)
+          }
           setExamStarted(false)
           setExamQuestionIndex(0)
           setExamHistory([])
           setExamFeedback(null)
           setAwaitingAnswer(false)
           setAnswerComplete(false)
+          setFullTranscript('')
         }}>
           <span style={styles.logoIcon}>🇫🇷</span>
           <span style={styles.logoText}>Parlez</span>
