@@ -829,6 +829,13 @@ export default function PSCExamSimulator() {
     return (
       <main style={styles.main}>
         <div style={styles.startScreen}>
+          <div style={styles.profileImageContainer}>
+            <img
+              src="/susan.jpg"
+              alt="Susan Matheson"
+              style={styles.profileImage}
+            />
+          </div>
           <h1 style={styles.startTitle}>Susan Matheson French Helper</h1>
           <p style={styles.startSubtitle}>Examen oral PSC - Niveau A2-B1</p>
           <div style={styles.startInfo}>
@@ -1041,6 +1048,17 @@ const styles = {
     padding: '2rem',
     textAlign: 'center',
     background: 'linear-gradient(135deg, #1a2a4a, #2d3e5f)',
+  },
+  profileImageContainer: {
+    marginBottom: '1.5rem',
+  },
+  profileImage: {
+    width: '150px',
+    height: '150px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '4px solid rgba(255,255,255,0.3)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
   },
   startTitle: {
     fontFamily: "'Playfair Display', Georgia, serif",
