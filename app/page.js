@@ -458,6 +458,8 @@ export default function PSCExamSimulator() {
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
   const audioRef = useRef(null)
+  const audioElementRef = useRef(null)
+  const [audioUnlocked, setAudioUnlocked] = useState(false)
 
   // Initialize speech synthesis
   useEffect(() => {
@@ -537,11 +539,37 @@ export default function PSCExamSimulator() {
     }
   }
 
+  // Initialize persistent audio element for iOS compatibility
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !audioElementRef.current) {
+      const audio = document.createElement('audio')
+      audio.setAttribute('playsinline', 'true')
+      audio.setAttribute('webkit-playsinline', 'true')
+      audioElementRef.current = audio
+    }
+  }, [])
+
+  // Unlock audio on first user interaction (required for iOS)
+  const unlockAudio = useCallback(() => {
+    if (!audioUnlocked && audioElementRef.current) {
+      // Play a silent audio to unlock
+      audioElementRef.current.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAABhgC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYoRwmHAAAAAAD/+1DEAAAFAAGf9AAAIgAANIAAAARMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//tQxDmAAADSAAAAAAAAANIAAAAATEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'
+      audioElementRef.current.play().then(() => {
+        setAudioUnlocked(true)
+      }).catch(() => {
+        // Silent fail - will try again on next interaction
+      })
+    }
+  }, [audioUnlocked])
+
   const speakFrench = async (text) => {
+    // Unlock audio on iOS if needed
+    unlockAudio()
+
     // Stop any current audio
-    if (audioRef.current) {
-      audioRef.current.pause()
-      audioRef.current = null
+    if (audioElementRef.current) {
+      audioElementRef.current.pause()
+      audioElementRef.current.currentTime = 0
     }
 
     setIsSpeaking(true)
@@ -560,43 +588,64 @@ export default function PSCExamSimulator() {
       const { audioContent } = await response.json()
       const audioBlob = new Blob(
         [Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))],
-        { type: 'audio/mp3' }
+        { type: 'audio/mpeg' }
       )
       const audioUrl = URL.createObjectURL(audioBlob)
 
-      audioRef.current = new Audio(audioUrl)
-      audioRef.current.onended = () => {
+      // Use persistent audio element for iOS
+      const audio = audioElementRef.current
+      audio.src = audioUrl
+
+      audio.onended = () => {
         setIsSpeaking(false)
         URL.revokeObjectURL(audioUrl)
       }
-      audioRef.current.onerror = () => {
+      audio.onerror = (e) => {
+        console.error('Audio playback error:', e)
         setIsSpeaking(false)
         URL.revokeObjectURL(audioUrl)
+        // Try Web Speech API as fallback
+        fallbackToWebSpeech(text)
       }
-      await audioRef.current.play()
+
+      try {
+        await audio.play()
+      } catch (playError) {
+        console.error('Audio play failed:', playError)
+        // Fallback to Web Speech API
+        fallbackToWebSpeech(text)
+      }
     } catch (error) {
-      console.error('Google TTS failed, falling back to Web Speech API:', error)
-      // Fallback to Web Speech API
-      if (synthRef.current) {
-        const utterance = new SpeechSynthesisUtterance(text)
-        utterance.lang = 'fr-FR'
-        utterance.rate = 0.9
-        utterance.pitch = 1.05
-
-        const voices = synthRef.current.getVoices()
-        const frenchVoice = voices.find(v => v.lang.startsWith('fr'))
-        if (frenchVoice) utterance.voice = frenchVoice
-
-        utterance.onend = () => setIsSpeaking(false)
-        synthRef.current.speak(utterance)
-      } else {
-        setIsSpeaking(false)
-      }
+      console.error('Google TTS failed:', error)
+      fallbackToWebSpeech(text)
     }
   }
 
-  // Start exam immediately
+  const fallbackToWebSpeech = (text) => {
+    if (synthRef.current) {
+      synthRef.current.cancel()
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.lang = 'fr-FR'
+      utterance.rate = 0.9
+      utterance.pitch = 1.05
+
+      const voices = synthRef.current.getVoices()
+      const frenchVoice = voices.find(v => v.lang.startsWith('fr'))
+      if (frenchVoice) utterance.voice = frenchVoice
+
+      utterance.onend = () => setIsSpeaking(false)
+      utterance.onerror = () => setIsSpeaking(false)
+      synthRef.current.speak(utterance)
+    } else {
+      setIsSpeaking(false)
+    }
+  }
+
+  // Start exam - requires user tap for iOS audio unlock
   const startExam = useCallback(() => {
+    // Unlock audio on iOS
+    unlockAudio()
+
     setExamStarted(true)
     setExamQuestionIndex(0)
     setExamHistory([])
@@ -610,14 +659,7 @@ export default function PSCExamSimulator() {
     setTimeout(() => {
       speakFrench(firstQuestion.question)
     }, 500)
-  }, [])
-
-  // Auto-start exam on mount
-  useEffect(() => {
-    if (!examStarted) {
-      startExam()
-    }
-  }, [examStarted, startExam])
+  }, [unlockAudio])
 
   const submitExamAnswer = () => {
     if (!transcript.trim()) return
@@ -766,8 +808,20 @@ export default function PSCExamSimulator() {
   if (!examStarted) {
     return (
       <main style={styles.main}>
-        <div style={styles.loading}>
-          <p>Préparation de l'examen...</p>
+        <div style={styles.startScreen}>
+          <h1 style={styles.startTitle}>Susan Matheson French Helper</h1>
+          <p style={styles.startSubtitle}>Examen oral PSC - Niveau A2-B1</p>
+          <div style={styles.startInfo}>
+            <p>30 questions progressives</p>
+            <p>Mode vocal uniquement</p>
+            <p>Rétroaction après chaque réponse</p>
+          </div>
+          <button style={styles.startButton} onClick={startExam}>
+            🎤 Commencer l'examen
+          </button>
+          <p style={styles.startNote}>
+            Appuyez pour activer l'audio et commencer
+          </p>
         </div>
       </main>
     )
@@ -957,6 +1011,49 @@ const styles = {
     height: '100vh',
     color: '#6B7280',
     fontSize: '1.1rem',
+  },
+  startScreen: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+    padding: '2rem',
+    textAlign: 'center',
+    background: 'linear-gradient(135deg, #1a2a4a, #2d3e5f)',
+  },
+  startTitle: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '2.5rem',
+    color: 'white',
+    marginBottom: '0.5rem',
+  },
+  startSubtitle: {
+    fontSize: '1.2rem',
+    color: 'rgba(255,255,255,0.85)',
+    marginBottom: '2rem',
+  },
+  startInfo: {
+    color: 'rgba(255,255,255,0.7)',
+    marginBottom: '2rem',
+    lineHeight: '1.8',
+  },
+  startButton: {
+    background: '#22c55e',
+    color: 'white',
+    border: 'none',
+    padding: '1.2rem 3rem',
+    fontSize: '1.3rem',
+    borderRadius: '50px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    boxShadow: '0 4px 15px rgba(34, 197, 94, 0.4)',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+  },
+  startNote: {
+    marginTop: '1.5rem',
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: '0.9rem',
   },
   header: {
     background: 'linear-gradient(135deg, #1a2a4a, #2d3e5f)',
