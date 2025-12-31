@@ -3,18 +3,18 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 
 // PSC French Oral Exam Questions - Level A2-B1
-// ESDC-focused questions using STAR method for behavioral questions
-// STAR: Situation - Task - Action - Result
+// ESDC-focused questions - Progressive difficulty
+// STAR method for behavioral questions: Situation - Task - Action - Result
 const PSC_EXAM_QUESTIONS = [
-  // Section 1: Introduction et présentation (A2)
+  // SECTION 1: Introduction (A2)
   {
     id: 1,
-    question: "Quel est votre nom et votre prénom?",
+    question: "Comment vous appelez-vous?",
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
     sampleResponse: {
-      text: "Je m'appelle [Prénom Nom]. Je suis originaire de [ville/région].",
+      text: "Je m'appelle [Prénom Nom].",
       keyPoints: [
         "Réponse simple et directe",
         "Utilisez 'Je m'appelle' ou 'Mon nom est'"
@@ -23,477 +23,419 @@ const PSC_EXAM_QUESTIONS = [
   },
   {
     id: 2,
-    question: "Quel poste occupez-vous à EDSC et dans quelle direction ou quel secteur travaillez-vous?",
+    question: "Quel poste occupez-vous à EDSC?",
     topic: "introduction",
     difficulty: "A2",
-    targetStructures: ["présent", "vocabulaire professionnel"],
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "J'occupe le poste d'analyste de politiques à EDSC. Je travaille dans la Direction générale des compétences et de l'emploi. Mon rôle consiste à analyser les programmes d'emploi et à rédiger des notes d'information pour les cadres supérieurs.",
+      text: "J'occupe le poste d'analyste de politiques à EDSC. Je suis responsable de l'analyse des programmes d'emploi.",
       keyPoints: [
         "Présent pour décrire la situation actuelle",
-        "Vocabulaire spécifique à EDSC",
-        "Structure: poste + direction + rôle"
+        "Vocabulaire spécifique à EDSC"
       ]
     }
   },
   {
     id: 3,
-    question: "Depuis quand travaillez-vous à EDSC et pourquoi avez-vous choisi de travailler dans la fonction publique?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["présent", "passé composé"],
+    question: "Dans quelle direction ou quel secteur travaillez-vous?",
+    topic: "introduction",
+    difficulty: "A2",
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "Je travaille à EDSC depuis cinq ans. J'ai choisi la fonction publique parce que je voulais contribuer au bien-être des Canadiens. J'ai toujours été attiré par les programmes sociaux et l'idée de servir le public. La stabilité d'emploi et les possibilités de développement professionnel m'ont également motivé.",
+      text: "Je travaille dans la Direction générale des compétences et de l'emploi. Mon secteur s'occupe des programmes de formation professionnelle.",
       keyPoints: [
-        "Depuis + durée pour exprimer la continuité",
-        "Passé composé pour expliquer le choix: j'ai choisi",
-        "Imparfait pour les motivations: je voulais, j'étais attiré"
+        "Présent pour la situation actuelle",
+        "Vocabulaire organisationnel: direction, secteur"
       ]
     }
   },
   {
     id: 4,
-    question: "Quelles qualités sont nécessaires pour bien réussir dans votre poste?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["présent", "subjonctif"],
+    question: "Depuis quand travaillez-vous à EDSC?",
+    topic: "introduction",
+    difficulty: "A2",
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "Pour réussir dans mon poste, il faut que je sois organisé et rigoureux. Il est essentiel que j'aie de bonnes compétences en communication écrite. Il faut aussi que je puisse travailler sous pression et respecter des échéanciers serrés. La capacité d'analyser des données complexes et de collaborer avec différentes équipes est également importante.",
+      text: "Je travaille à EDSC depuis cinq ans. J'ai commencé en 2020.",
       keyPoints: [
-        "Subjonctif après 'il faut que': que je sois, que j'aie, que je puisse",
-        "Vocabulaire des compétences professionnelles",
-        "Structure claire avec plusieurs qualités"
+        "Depuis + durée pour exprimer la continuité",
+        "Passé composé pour le début: j'ai commencé"
       ]
     }
   },
   {
     id: 5,
-    question: "Où avez-vous commencé votre carrière dans la fonction publique et qui était votre premier gestionnaire?",
+    question: "Quelles qualités sont nécessaires pour bien réussir dans votre poste?",
     topic: "explaining",
     difficulty: "A2-B1",
-    targetStructures: ["passé composé", "imparfait"],
+    targetStructures: ["présent", "subjonctif"],
     sampleResponse: {
-      text: "J'ai commencé ma carrière au ministère de l'Immigration en 2015. C'était un poste d'agent de programme. Mon premier gestionnaire s'appelait Marie Tremblay. Elle était très patiente et encourageante. Elle prenait le temps d'expliquer les processus et elle m'a beaucoup appris sur le fonctionnement de la fonction publique.",
+      text: "Pour réussir dans mon poste, il faut que je sois organisé et rigoureux. Il est essentiel que j'aie de bonnes compétences en communication. Il faut aussi que je puisse travailler sous pression et respecter des échéanciers serrés.",
       keyPoints: [
-        "Passé composé pour les événements: j'ai commencé",
-        "Imparfait pour les descriptions: elle était, elle prenait",
-        "Vocabulaire de la hiérarchie et du mentorat"
+        "Subjonctif après 'il faut que': que je sois, que j'aie, que je puisse",
+        "Vocabulaire des compétences professionnelles"
       ]
     }
   },
   {
     id: 6,
-    question: "Était-ce un bon leader? Pourquoi ou pourquoi pas?",
+    question: "Quelle a été la procédure d'embauche à ce moment-là?",
     topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["imparfait", "passé composé"],
+    targetStructures: ["passé composé", "imparfait"],
     sampleResponse: {
-      text: "Oui, c'était une excellente leader. Elle savait comment motiver son équipe et elle communiquait clairement ses attentes. Quand il y avait des problèmes, elle nous soutenait toujours. Elle m'a donné des occasions de développer mes compétences. Par contre, elle était parfois trop occupée pour nous rencontrer individuellement, ce qui rendait difficile d'obtenir de la rétroaction régulière.",
+      text: "La procédure d'embauche était assez longue. J'avais d'abord postulé en ligne sur le site Emplois GC. Ensuite, j'ai passé un examen écrit. Après, j'ai été convoqué à une entrevue avec un comité. Le processus complet a duré environ six mois.",
       keyPoints: [
-        "Imparfait pour les caractéristiques: elle savait, elle communiquait",
-        "Passé composé pour les actions spécifiques: elle m'a donné",
-        "Nuancer la réponse avec 'par contre'"
+        "Imparfait pour décrire le processus: était",
+        "Plus-que-parfait pour l'action antérieure: j'avais postulé",
+        "Passé composé pour les étapes: j'ai passé, j'ai été convoqué"
       ]
     }
   },
   {
     id: 7,
-    question: "Comment vos collègues et vos gestionnaires vous ont-ils accueilli lors de votre première affectation?",
+    question: "Combien de temps avez-vous attendu avant de commencer votre poste, et qu'avez-vous fait pendant cette période?",
     topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
+    targetStructures: ["passé composé", "imparfait"],
     sampleResponse: {
-      text: "L'accueil a été très chaleureux. Mes collègues m'avaient préparé un espace de travail et ils m'ont présenté à toute l'équipe. Mon gestionnaire avait organisé des rencontres avec les partenaires clés. Pendant les premières semaines, mes collègues prenaient le temps de répondre à mes questions. Il y avait une atmosphère d'entraide qui m'a beaucoup aidé à m'intégrer.",
+      text: "J'ai attendu environ quatre mois entre l'offre et mon premier jour. Pendant cette période, je travaillais encore à mon emploi précédent. J'ai profité de ce temps pour améliorer mon français. C'était une période d'anticipation.",
       keyPoints: [
-        "Plus-que-parfait pour les actions préparées: avaient préparé, avait organisé",
-        "Passé composé pour les événements: m'ont présenté, m'a aidé",
-        "Imparfait pour le contexte: prenaient, il y avait"
+        "Passé composé pour les actions: j'ai attendu, j'ai profité",
+        "Imparfait pour les situations continues: je travaillais, c'était"
       ]
     }
   },
   {
     id: 8,
+    question: "Avez-vous suivi une formation d'intégration avant de commencer?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé", "imparfait"],
+    sampleResponse: {
+      text: "Oui, j'ai suivi une formation d'intégration pendant ma première semaine. Elle comprenait une présentation sur la structure du ministère. On nous a expliqué les politiques et les outils informatiques. Cette formation m'a beaucoup aidé.",
+      keyPoints: [
+        "Passé composé pour les événements: j'ai suivi, on nous a expliqué",
+        "Imparfait pour les descriptions: elle comprenait"
+      ]
+    }
+  },
+  {
+    id: 9,
+    question: "Où avez-vous commencé votre carrière dans la fonction publique?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé", "imparfait"],
+    sampleResponse: {
+      text: "J'ai commencé ma carrière au ministère de l'Immigration en 2015. C'était un poste d'agent de programme. Le travail était stimulant et j'ai beaucoup appris.",
+      keyPoints: [
+        "Passé composé pour les événements: j'ai commencé, j'ai appris",
+        "Imparfait pour les descriptions: c'était, le travail était"
+      ]
+    }
+  },
+  {
+    id: 10,
+    question: "Qui était votre premier gestionnaire et comment était-il ou était-elle?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["imparfait"],
+    sampleResponse: {
+      text: "Mon premier gestionnaire s'appelait Marie Tremblay. Elle était très patiente et encourageante. Elle prenait le temps d'expliquer les processus. Elle avait une approche collaborative.",
+      keyPoints: [
+        "Imparfait pour toutes les descriptions: s'appelait, était, prenait, avait",
+        "Vocabulaire du mentorat et du leadership"
+      ]
+    }
+  },
+  {
+    id: 11,
+    question: "Était-ce un bon leader? Pourquoi?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["imparfait", "passé composé"],
+    sampleResponse: {
+      text: "Oui, c'était une excellente leader. Elle savait comment motiver son équipe. Quand il y avait des problèmes, elle nous soutenait toujours. Elle m'a donné des occasions de développer mes compétences. Par contre, elle était parfois trop occupée.",
+      keyPoints: [
+        "Imparfait pour les caractéristiques: savait, soutenait, était",
+        "Passé composé pour les actions spécifiques: elle m'a donné",
+        "Nuancer avec 'par contre'"
+      ]
+    }
+  },
+  {
+    id: 12,
+    question: "De quelle façon votre premier poste a-t-il influencé votre manière de travailler dans les suivants?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "présent"],
+    sampleResponse: {
+      text: "Mon premier poste a profondément influencé ma façon de travailler. J'ai appris l'importance de la rigueur et de la documentation. Aujourd'hui, je prends toujours des notes détaillées. Mon premier gestionnaire m'a montré comment communiquer efficacement.",
+      keyPoints: [
+        "Passé composé pour les apprentissages: a influencé, j'ai appris, m'a montré",
+        "Présent pour les habitudes actuelles: je prends"
+      ]
+    }
+  },
+  {
+    id: 13,
     question: "Parlez-moi d'une situation problématique survenue au travail et expliquez comment vous l'avez résolue. Utilisez la méthode STAR: Situation, Tâche, Action, Résultat.",
     topic: "conflict_management",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
     starMethod: true,
     sampleResponse: {
-      text: "SITUATION: L'année dernière, notre équipe devait livrer un rapport important, mais deux membres clés étaient malades. TÂCHE: En tant que coordonnateur, je devais m'assurer que le rapport soit terminé à temps. ACTION: J'ai redistribué les tâches entre les membres disponibles. J'ai aussi négocié une courte extension avec notre directeur. J'ai travaillé des heures supplémentaires pour compléter les sections critiques. RÉSULTAT: Nous avons livré le rapport avec seulement deux jours de retard. La direction a apprécié notre effort et la qualité du travail.",
+      text: "SITUATION: L'année dernière, notre équipe devait livrer un rapport important, mais deux membres étaient malades. TÂCHE: Je devais m'assurer que le rapport soit terminé à temps. ACTION: J'ai redistribué les tâches. J'ai négocié une extension avec notre directeur. J'ai travaillé des heures supplémentaires. RÉSULTAT: Nous avons livré le rapport avec seulement deux jours de retard.",
       keyPoints: [
-        "Structure STAR claire et organisée",
-        "Imparfait pour le contexte: devait, étaient, devais",
-        "Passé composé pour les actions: j'ai redistribué, j'ai négocié, nous avons livré",
-        "Vocabulaire de résolution de problèmes"
-      ]
-    }
-  },
-  {
-    id: 9,
-    question: "Décrivez un problème que vous avez rencontré dans un projet spécial ou une affectation et comment vous l'avez géré.",
-    topic: "adaptation",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
-    starMethod: true,
-    sampleResponse: {
-      text: "SITUATION: Pendant une affectation dans une autre région, je travaillais sur un projet de modernisation des services. TÂCHE: Je devais coordonner avec des équipes qui utilisaient des systèmes différents. ACTION: Au début, la communication était difficile. J'ai organisé des réunions hebdomadaires pour améliorer la coordination. J'ai créé un document partagé pour suivre les progrès. J'ai aussi pris l'initiative de visiter les autres bureaux. RÉSULTAT: Après deux mois, nous avions établi un processus efficace. Avec le recul, j'aurais dû commencer les visites plus tôt.",
-      keyPoints: [
-        "Structure STAR avec réflexion finale",
-        "Conditionnel passé pour la réflexion: j'aurais dû",
-        "Plus-que-parfait pour le résultat: nous avions établi"
-      ]
-    }
-  },
-  {
-    id: 10,
-    question: "Étiez-vous suffisamment préparé pour cette tâche? Pourquoi ou pourquoi pas?",
-    topic: "adaptation",
-    difficulty: "B1",
-    targetStructures: ["imparfait", "plus-que-parfait", "conditionnel passé"],
-    sampleResponse: {
-      text: "Je n'étais pas entièrement préparé. Avant l'affectation, j'avais suivi une formation générale, mais elle ne couvrait pas tous les aspects techniques. Il m'a fallu apprendre beaucoup sur le terrain. J'aurais aimé avoir plus de temps pour me préparer. Cependant, cette expérience m'a enseigné l'importance de l'adaptabilité. Si c'était à refaire, je demanderais une période d'observation avant de commencer.",
-      keyPoints: [
-        "Imparfait pour l'état: je n'étais pas, elle ne couvrait pas",
-        "Plus-que-parfait pour l'antériorité: j'avais suivi",
-        "Conditionnel passé pour le souhait: j'aurais aimé",
-        "Structure hypothétique: Si c'était à refaire, je demanderais"
-      ]
-    }
-  },
-  {
-    id: 11,
-    question: "Si vous deviez refaire une expérience semblable, que feriez-vous différemment?",
-    topic: "adaptation",
-    difficulty: "B1",
-    targetStructures: ["conditionnel", "imparfait"],
-    sampleResponse: {
-      text: "Si je devais refaire cette expérience, je ferais plusieurs choses différemment. Premièrement, je demanderais une rencontre préalable avec l'équipe locale. Je voudrais mieux comprendre leurs besoins avant de proposer des solutions. Je prendrais plus de temps pour établir des relations de confiance. Je me préparerais aussi davantage sur les outils techniques utilisés. Enfin, je documenterais mes apprentissages dès le début pour mieux les partager.",
-      keyPoints: [
-        "Structure hypothétique: Si + imparfait, conditionnel",
-        "Conditionnel: je ferais, je demanderais, je voudrais, je prendrais",
-        "Connecteurs logiques: premièrement, aussi, enfin"
-      ]
-    }
-  },
-  {
-    id: 12,
-    question: "De quelle façon votre premier poste a-t-il influencé votre manière de travailler dans les postes suivants?",
-    topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "présent"],
-    sampleResponse: {
-      text: "Mon premier poste a profondément influencé ma façon de travailler. J'ai appris l'importance de la rigueur et de la documentation. Aujourd'hui, je prends toujours des notes détaillées et je conserve des traces de mes décisions. Mon premier gestionnaire m'a aussi montré comment communiquer efficacement avec les clients. Cette approche centrée sur le service m'accompagne encore aujourd'hui. J'ai également développé une habitude de vérifier mon travail deux fois avant de le soumettre.",
-      keyPoints: [
-        "Passé composé pour les apprentissages: j'ai appris, m'a montré, j'ai développé",
-        "Présent pour les habitudes actuelles: je prends, je conserve, m'accompagne",
-        "Lien entre passé et présent"
-      ]
-    }
-  },
-  {
-    id: 13,
-    question: "Parlez-moi de votre prochain poste ou d'un poste que vous aimeriez occuper. Quelles formations aimeriez-vous suivre?",
-    topic: "future_plans",
-    difficulty: "B1",
-    targetStructures: ["conditionnel", "subjonctif"],
-    sampleResponse: {
-      text: "J'aimerais occuper un poste de gestionnaire dans les prochaines années. Je souhaiterais diriger une petite équipe pour développer mes compétences en leadership. Pour y arriver, il faudrait que je suive des formations en gestion. Je voudrais m'inscrire au Programme de perfectionnement des gestionnaires. Il serait aussi important que j'améliore mes compétences en gestion de projet. J'envisagerais également une certification en analyse de données pour rester pertinent.",
-      keyPoints: [
-        "Conditionnel pour les souhaits: j'aimerais, je souhaiterais, je voudrais",
-        "Subjonctif après 'il faudrait que', 'il serait important que': que je suive, que j'améliore",
-        "Vocabulaire du développement professionnel"
+        "Structure STAR claire",
+        "Imparfait pour le contexte: devait, étaient",
+        "Passé composé pour les actions: j'ai redistribué, nous avons livré"
       ]
     }
   },
   {
     id: 14,
-    question: "Quels sont vos plans, ou ceux de votre gestionnaire, à long terme concernant votre développement professionnel?",
+    question: "Parlez-moi de votre prochain poste ou d'un poste que vous aimeriez occuper.",
     topic: "future_plans",
-    difficulty: "B1+",
-    targetStructures: ["conditionnel", "subjonctif", "futur"],
+    difficulty: "B1",
+    targetStructures: ["conditionnel", "subjonctif"],
     sampleResponse: {
-      text: "Mon gestionnaire et moi avons discuté de mon plan de développement. À court terme, je suivrai une formation en français pour atteindre le niveau C. Mon gestionnaire souhaite que je participe à des projets interministériels pour élargir mon réseau. À moyen terme, j'aimerais obtenir une affectation dans un autre secteur. Il faudrait que j'acquière de l'expérience en politique pour avancer. À long terme, je viserais un poste EX. Mon gestionnaire m'a dit qu'il me soutiendrait dans cette démarche.",
+      text: "J'aimerais occuper un poste de gestionnaire dans les prochaines années. Je souhaiterais diriger une équipe. Pour y arriver, il faudrait que je suive des formations en gestion. Je voudrais développer mes compétences en leadership.",
       keyPoints: [
-        "Futur pour les plans concrets: je suivrai",
-        "Subjonctif après 'souhaite que', 'il faudrait que': que je participe, que j'acquière",
-        "Conditionnel pour les aspirations: j'aimerais, je viserais",
-        "Structure temporelle: court/moyen/long terme"
+        "Conditionnel pour les souhaits: j'aimerais, je souhaiterais, je voudrais",
+        "Subjonctif après 'il faudrait que': que je suive"
       ]
     }
   },
   {
     id: 15,
-    question: "Vous êtes originaire d'où?",
+    question: "Quel est votre nom et votre prénom?",
     topic: "introduction",
     difficulty: "A2",
-    targetStructures: ["présent", "passé composé"],
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "Je suis originaire de Montréal, au Québec. J'y ai grandi et j'ai fait mes études universitaires à l'Université de Montréal. J'ai déménagé à Ottawa il y a dix ans pour commencer ma carrière dans la fonction publique fédérale.",
+      text: "Mon nom est [Nom] et mon prénom est [Prénom]. Je m'appelle [Prénom Nom].",
       keyPoints: [
-        "Présent pour l'origine: je suis originaire",
-        "Passé composé pour les événements: j'ai grandi, j'ai déménagé",
-        "Expression temporelle: il y a + durée"
+        "Deux façons de répondre",
+        "Réponse simple et claire"
       ]
     }
   },
   {
     id: 16,
-    question: "En quoi consiste votre travail exactement?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["présent", "vocabulaire professionnel"],
+    question: "Vous êtes originaire d'où?",
+    topic: "introduction",
+    difficulty: "A2",
+    targetStructures: ["présent", "passé composé"],
     sampleResponse: {
-      text: "Mon travail consiste principalement à analyser les politiques gouvernementales liées à l'emploi. Je rédige des notes de breffage pour les cadres supérieurs. Je participe à des réunions avec les intervenants et je coordonne des consultations. Je dois aussi préparer des présentations et répondre aux demandes d'information du bureau du ministre.",
+      text: "Je suis originaire de Montréal, au Québec. J'y ai grandi et j'ai fait mes études. J'ai déménagé à Ottawa il y a dix ans.",
       keyPoints: [
-        "Présent pour les tâches régulières",
-        "Verbe 'consister à' + infinitif",
-        "Vocabulaire administratif: notes de breffage, intervenants, consultations"
+        "Présent pour l'origine: je suis originaire",
+        "Passé composé: j'ai grandi, j'ai déménagé"
       ]
     }
   },
   {
     id: 17,
-    question: "Quelles études ou quelle formation avez-vous faites pour occuper votre poste actuel?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["passé composé", "imparfait"],
+    question: "Quelle est votre profession ou votre rôle à EDSC?",
+    topic: "introduction",
+    difficulty: "A2",
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "J'ai obtenu un baccalauréat en administration publique à l'Université d'Ottawa. Pendant mes études, je me spécialisais en politiques sociales. Ensuite, j'ai complété une maîtrise en gestion publique. J'ai également suivi des formations professionnelles en analyse de données et en gestion de projet après avoir commencé à travailler.",
+      text: "Je suis analyste de politiques à EDSC. Mon rôle consiste à analyser les programmes et à rédiger des recommandations pour les cadres supérieurs.",
       keyPoints: [
-        "Passé composé pour les diplômes: j'ai obtenu, j'ai complété",
-        "Imparfait pour le contexte: je me spécialisais",
-        "Vocabulaire de l'éducation: baccalauréat, maîtrise, formations"
+        "Présent pour décrire le rôle actuel",
+        "Verbe 'consister à' + infinitif"
       ]
     }
   },
   {
     id: 18,
-    question: "Quelle a été la procédure d'embauche à ce moment-là?",
+    question: "En quoi consiste votre travail exactement?",
     topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
+    difficulty: "A2-B1",
+    targetStructures: ["présent"],
     sampleResponse: {
-      text: "La procédure d'embauche était assez longue. J'avais d'abord postulé en ligne sur le site Emplois GC. Ensuite, j'ai passé un examen écrit qui évaluait mes compétences en analyse. Après, j'ai été convoqué à une entrevue avec un comité de trois personnes. Ils m'ont posé des questions comportementales. Le processus complet a duré environ six mois avant que je reçoive une offre.",
+      text: "Mon travail consiste principalement à analyser les politiques gouvernementales. Je rédige des notes de breffage. Je participe à des réunions avec les intervenants. Je dois aussi préparer des présentations.",
       keyPoints: [
-        "Imparfait pour décrire le processus: était",
-        "Plus-que-parfait pour l'action antérieure: j'avais postulé",
-        "Passé composé pour les étapes: j'ai passé, j'ai été convoqué",
-        "Vocabulaire du recrutement: postulé, examen, entrevue, comité"
+        "Présent pour les tâches régulières",
+        "Verbe 'consister à' + infinitif",
+        "Vocabulaire administratif"
       ]
     }
   },
   {
     id: 19,
-    question: "Combien de temps avez-vous attendu avant de commencer votre poste, et qu'avez-vous fait pendant cette période?",
+    question: "Pourquoi avez-vous choisi de travailler dans la fonction publique?",
     topic: "explaining",
-    difficulty: "B1",
+    difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
     sampleResponse: {
-      text: "J'ai attendu environ quatre mois entre l'offre et mon premier jour. Pendant cette période, je travaillais encore à mon emploi précédent. J'ai profité de ce temps pour améliorer mon français en suivant des cours du soir. J'ai aussi lu des documents sur les programmes d'EDSC pour me préparer. C'était une période d'anticipation, mais aussi un peu stressante.",
+      text: "J'ai choisi la fonction publique parce que je voulais contribuer au bien-être des Canadiens. J'étais attiré par les programmes sociaux. La stabilité d'emploi m'a également motivé. Je souhaitais avoir un travail significatif.",
       keyPoints: [
-        "Passé composé pour les actions: j'ai attendu, j'ai profité, j'ai lu",
-        "Imparfait pour les situations continues: je travaillais, c'était",
-        "Expressions temporelles: pendant cette période, entre... et..."
+        "Passé composé: j'ai choisi, m'a motivé",
+        "Imparfait pour les motivations: je voulais, j'étais attiré, je souhaitais"
       ]
     }
   },
   {
     id: 20,
-    question: "Avez-vous suivi une formation d'intégration avant de commencer?",
+    question: "Quelles études ou quelle formation avez-vous faites pour occuper votre poste actuel?",
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
     sampleResponse: {
-      text: "Oui, j'ai suivi une formation d'intégration pendant ma première semaine. Elle comprenait une présentation sur la structure du ministère et les valeurs de la fonction publique. On nous a expliqué les politiques de sécurité et les outils informatiques. J'ai aussi rencontré mon équipe et participé à des séances d'orientation. Cette formation m'a beaucoup aidé à comprendre mon nouveau milieu de travail.",
+      text: "J'ai obtenu un baccalauréat en administration publique. Pendant mes études, je me spécialisais en politiques sociales. J'ai complété une maîtrise en gestion publique. J'ai également suivi des formations professionnelles.",
       keyPoints: [
-        "Passé composé pour les événements: j'ai suivi, on nous a expliqué",
-        "Imparfait pour les descriptions: elle comprenait",
-        "Vocabulaire de l'intégration: formation, orientation, séances"
+        "Passé composé pour les diplômes: j'ai obtenu, j'ai complété",
+        "Imparfait pour le contexte: je me spécialisais"
       ]
     }
   },
   {
     id: 21,
-    question: "Parlez-moi en détail d'une expérience de travail à l'extérieur de votre région ou d'un projet spécial dans un autre bureau.",
+    question: "Où avez-vous commencé votre carrière?",
     topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
-    starMethod: true,
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé", "imparfait"],
     sampleResponse: {
-      text: "SITUATION: Il y a deux ans, j'ai eu l'occasion de travailler à Vancouver pendant trois mois sur un projet de modernisation des services. TÂCHE: Je devais aider l'équipe locale à implanter un nouveau système de gestion des cas. ACTION: J'ai travaillé étroitement avec les employés locaux. Je participais aux réunions quotidiennes et j'offrais de la formation. J'avais préparé des guides d'utilisation avant mon arrivée. RÉSULTAT: Le projet a été un succès. L'équipe a adopté le nouveau système et j'ai tissé des liens professionnels précieux.",
+      text: "J'ai commencé ma carrière dans le secteur privé. Je travaillais pour une entreprise de consultation. Ensuite, j'ai décidé de joindre la fonction publique. C'était une transition importante.",
       keyPoints: [
-        "Structure STAR complète",
-        "Plus-que-parfait: j'avais préparé (avant l'arrivée)",
-        "Imparfait pour les actions répétées: je participais, j'offrais",
-        "Passé composé pour les résultats: a été un succès, j'ai tissé"
+        "Passé composé pour les événements: j'ai commencé, j'ai décidé",
+        "Imparfait pour le contexte: je travaillais, c'était"
       ]
     }
   },
   {
     id: 22,
-    question: "Quel a été le plus grand défi pendant cette expérience?",
-    topic: "adaptation",
+    question: "Comment vos collègues et vos gestionnaires vous ont-ils accueilli lors de votre première affectation ou de votre premier emploi à EDSC?",
+    topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
+    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
     sampleResponse: {
-      text: "Le plus grand défi était la résistance au changement de certains employés. Ils étaient habitués à l'ancien système et ne voyaient pas l'intérêt du nouveau. J'ai dû faire preuve de patience et d'écoute. J'ai organisé des séances individuelles pour comprendre leurs préoccupations. Avec le recul, j'aurais dû impliquer ces personnes plus tôt dans le processus. Cela aurait facilité la transition.",
+      text: "L'accueil a été très chaleureux. Mes collègues m'avaient préparé un espace de travail. Mon gestionnaire avait organisé des rencontres. Pendant les premières semaines, mes collègues prenaient le temps de répondre à mes questions.",
       keyPoints: [
-        "Imparfait pour la situation: était, étaient habitués, ne voyaient pas",
-        "Passé composé pour les actions: j'ai dû, j'ai organisé",
-        "Conditionnel passé pour la réflexion: j'aurais dû, cela aurait facilité"
+        "Plus-que-parfait: avaient préparé, avait organisé",
+        "Passé composé: a été",
+        "Imparfait: prenaient"
       ]
     }
   },
   {
     id: 23,
-    question: "Comment étaient vos conditions de travail pendant cette période?",
-    topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["imparfait"],
-    sampleResponse: {
-      text: "Les conditions de travail étaient généralement bonnes, mais différentes de ce que je connaissais. Le bureau était plus petit et l'équipe travaillait dans un espace ouvert. L'atmosphère était décontractée mais professionnelle. Je devais m'adapter au décalage horaire pour les réunions avec Ottawa. Le logement temporaire était confortable, mais être loin de ma famille était parfois difficile.",
-      keyPoints: [
-        "Imparfait pour toutes les descriptions: étaient, était, devais",
-        "Vocabulaire des conditions: espace ouvert, atmosphère, décalage horaire",
-        "Nuances: généralement bonnes, mais différentes"
-      ]
-    }
-  },
-  {
-    id: 24,
-    question: "Comment géreriez-vous un collègue qui ne respecte pas les échéanciers et qui affecte le travail de l'équipe?",
-    topic: "conflict_management",
-    difficulty: "B1",
-    targetStructures: ["conditionnel", "subjonctif"],
-    sampleResponse: {
-      text: "Je commencerais par avoir une conversation privée avec ce collègue. Il serait important que je comprenne les raisons de ses retards. Peut-être qu'il aurait besoin de soutien ou de ressources supplémentaires. Je lui proposerais de l'aider à établir des priorités. Si le problème persistait, il faudrait que j'en parle à notre gestionnaire. Je voudrais que nous trouvions une solution qui respecte tout le monde.",
-      keyPoints: [
-        "Conditionnel pour les actions hypothétiques: je commencerais, je proposerais",
-        "Subjonctif: que je comprenne, que j'en parle, que nous trouvions",
-        "Approche progressive et respectueuse"
-      ]
-    }
-  },
-  {
-    id: 25,
-    question: "Décrivez une situation où vous avez dû communiquer une décision impopulaire à votre équipe.",
-    topic: "communication_leadership",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
-    starMethod: true,
-    sampleResponse: {
-      text: "SITUATION: L'année dernière, la direction avait décidé de réduire notre budget de formation. L'équipe attendait ces formations avec impatience. TÂCHE: Je devais annoncer cette nouvelle et maintenir le moral de l'équipe. ACTION: J'ai organisé une réunion d'équipe. J'ai expliqué honnêtement la situation et les raisons de cette décision. J'ai écouté leurs frustrations et j'ai proposé des alternatives gratuites comme le mentorat interne. RÉSULTAT: L'équipe était déçue mais a compris. Nous avons mis en place un programme de partage de connaissances qui a bien fonctionné.",
-      keyPoints: [
-        "Plus-que-parfait pour la décision antérieure: avait décidé",
-        "Imparfait pour le contexte: attendait, devais",
-        "Passé composé pour les actions: j'ai organisé, j'ai expliqué"
-      ]
-    }
-  },
-  {
-    id: 26,
-    question: "Si vous remarquiez une erreur importante dans un document de votre gestionnaire, comment réagiriez-vous?",
-    topic: "communication_leadership",
-    difficulty: "B1",
-    targetStructures: ["conditionnel", "imparfait", "subjonctif"],
-    sampleResponse: {
-      text: "Si je remarquais une erreur importante, j'agirais avec tact et discrétion. Je demanderais une rencontre privée avec mon gestionnaire. Je présenterais l'information de façon constructive, en disant par exemple: 'J'ai remarqué quelque chose et je voulais en discuter avec vous.' Il serait important que je reste respectueux. Je proposerais une solution plutôt que de simplement souligner le problème. Je voudrais que mon gestionnaire se sente soutenu, pas critiqué.",
-      keyPoints: [
-        "Structure hypothétique: Si + imparfait, conditionnel",
-        "Conditionnel: j'agirais, je demanderais, je présenterais",
-        "Subjonctif: que je reste, que mon gestionnaire se sente"
-      ]
-    }
-  },
-  {
-    id: 27,
-    question: "Parlez-moi d'une fois où vous avez dû apprendre rapidement une nouvelle compétence pour accomplir une tâche.",
+    question: "Parlez-moi en détail d'une expérience de travail à l'extérieur de votre région ou d'un projet spécial dans un autre bureau.",
     topic: "adaptation",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
     starMethod: true,
     sampleResponse: {
-      text: "SITUATION: On m'a confié un projet d'analyse de données, mais je n'avais jamais utilisé le logiciel Excel de façon avancée. TÂCHE: Je devais créer des tableaux croisés dynamiques et des graphiques pour une présentation importante. ACTION: J'ai suivi des tutoriels en ligne pendant mes pauses et après le travail. J'ai demandé l'aide d'un collègue qui maîtrisait bien l'outil. Je pratiquais chaque soir pour renforcer mes compétences. RÉSULTAT: J'ai réussi à livrer l'analyse à temps. Mon gestionnaire a été impressionné par la qualité du travail.",
+      text: "SITUATION: Il y a deux ans, j'ai travaillé à Vancouver pendant trois mois. TÂCHE: Je devais aider l'équipe locale à implanter un nouveau système. ACTION: J'ai travaillé avec les employés locaux. Je participais aux réunions quotidiennes. J'avais préparé des guides avant mon arrivée. RÉSULTAT: Le projet a été un succès.",
       keyPoints: [
-        "Plus-que-parfait pour l'état antérieur: je n'avais jamais utilisé",
-        "Imparfait pour les actions répétées: je pratiquais",
-        "Passé composé pour les résultats: j'ai réussi, a été impressionné"
+        "Structure STAR",
+        "Plus-que-parfait: j'avais préparé",
+        "Imparfait: je participais",
+        "Passé composé: j'ai travaillé, a été"
+      ]
+    }
+  },
+  {
+    id: 24,
+    question: "Quel a été le plus grand défi pendant cette expérience?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
+    sampleResponse: {
+      text: "Le plus grand défi était la résistance au changement. Certains employés étaient habitués à l'ancien système. J'ai dû faire preuve de patience. Avec le recul, j'aurais dû les impliquer plus tôt. Cela aurait facilité la transition.",
+      keyPoints: [
+        "Imparfait: était, étaient habitués",
+        "Passé composé: j'ai dû",
+        "Conditionnel passé: j'aurais dû, cela aurait facilité"
+      ]
+    }
+  },
+  {
+    id: 25,
+    question: "Décrivez un problème que vous avez rencontré et comment vous l'avez géré.",
+    topic: "conflict_management",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait"],
+    starMethod: true,
+    sampleResponse: {
+      text: "SITUATION: Un collègue et moi avions des opinions différentes sur un dossier. TÂCHE: Je devais résoudre ce conflit. ACTION: J'ai proposé une rencontre privée. J'ai écouté son point de vue. Nous avons trouvé un compromis. RÉSULTAT: Notre relation s'est améliorée.",
+      keyPoints: [
+        "Imparfait: avions, devais",
+        "Passé composé: j'ai proposé, j'ai écouté, nous avons trouvé"
+      ]
+    }
+  },
+  {
+    id: 26,
+    question: "Comment étaient vos conditions de travail pendant cette période?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["imparfait"],
+    sampleResponse: {
+      text: "Les conditions de travail étaient bonnes mais différentes. Le bureau était plus petit. L'équipe travaillait dans un espace ouvert. L'atmosphère était décontractée. Je devais m'adapter au décalage horaire pour les réunions.",
+      keyPoints: [
+        "Imparfait pour toutes les descriptions: étaient, était, travaillait, devais"
+      ]
+    }
+  },
+  {
+    id: 27,
+    question: "Étiez-vous suffisamment préparé ou préparée pour cette tâche? Pourquoi ou pourquoi pas?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["imparfait", "plus-que-parfait", "conditionnel passé"],
+    sampleResponse: {
+      text: "Je n'étais pas entièrement préparé. J'avais suivi une formation, mais elle ne couvrait pas tous les aspects. J'aurais aimé avoir plus de temps. Si c'était à refaire, je demanderais une période d'observation.",
+      keyPoints: [
+        "Imparfait: je n'étais pas, elle ne couvrait pas",
+        "Plus-que-parfait: j'avais suivi",
+        "Conditionnel passé: j'aurais aimé"
       ]
     }
   },
   {
     id: 28,
-    question: "Comment vous assurez-vous de maintenir un bon équilibre entre le travail et la vie personnelle?",
-    topic: "explaining",
+    question: "Si vous deviez refaire une expérience semblable, que feriez-vous différemment?",
+    topic: "adaptation",
     difficulty: "B1",
-    targetStructures: ["présent", "conditionnel"],
+    targetStructures: ["conditionnel", "imparfait"],
     sampleResponse: {
-      text: "Je m'efforce de maintenir des limites claires entre le travail et ma vie personnelle. Je ne consulte pas mes courriels professionnels après 18 heures. Je prends mes pauses régulièrement et j'utilise tous mes congés annuels. Je pratique des activités qui me détendent, comme la randonnée et la lecture. Si je sentais que l'équilibre était menacé, j'en parlerais à mon gestionnaire pour trouver des solutions.",
+      text: "Si je devais refaire cette expérience, je ferais plusieurs choses différemment. Je demanderais une rencontre préalable avec l'équipe. Je voudrais mieux comprendre leurs besoins. Je prendrais plus de temps pour établir des relations. Je me préparerais davantage.",
       keyPoints: [
-        "Présent pour les habitudes: je m'efforce, je ne consulte pas, je prends",
-        "Conditionnel pour l'hypothèse: si je sentais, j'en parlerais",
-        "Vocabulaire de l'équilibre travail-vie"
+        "Structure hypothétique: Si + imparfait, conditionnel",
+        "Conditionnel: je ferais, je demanderais, je voudrais, je prendrais"
       ]
     }
   },
   {
     id: 29,
-    question: "Décrivez une situation où vous avez dû travailler avec une personne difficile. Comment avez-vous géré la relation?",
-    topic: "conflict_management",
+    question: "Quelles sont les prochaines formations que vous aimeriez suivre?",
+    topic: "future_plans",
     difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
-    starMethod: true,
+    targetStructures: ["conditionnel", "subjonctif"],
     sampleResponse: {
-      text: "SITUATION: Je travaillais sur un projet avec un collègue qui était très critique et négatif. Il remettait en question toutes mes idées. TÂCHE: Je devais maintenir une relation professionnelle tout en avançant sur le projet. ACTION: J'ai essayé de comprendre son point de vue. J'ai découvert qu'il avait des préoccupations légitimes basées sur son expérience passée. J'ai commencé à lui demander son avis dès le début des discussions. RÉSULTAT: Notre relation s'est améliorée. J'aurais pu être moins sur la défensive au début; cela aurait accéléré le processus.",
+      text: "J'aimerais suivre une formation en gestion de projet. Je voudrais aussi améliorer mes compétences en analyse de données. Il faudrait que je suive des cours de leadership. Je souhaiterais obtenir une certification professionnelle.",
       keyPoints: [
-        "Imparfait pour les descriptions: était, travaillais, remettait",
-        "Passé composé pour les actions: j'ai essayé, j'ai découvert",
-        "Conditionnel passé pour la réflexion: j'aurais pu, cela aurait accéléré"
+        "Conditionnel: j'aimerais, je voudrais, je souhaiterais",
+        "Subjonctif après 'il faudrait que': que je suive"
       ]
     }
   },
   {
     id: 30,
-    question: "Que feriez-vous si vous receviez des directives contradictoires de deux gestionnaires différents?",
-    topic: "conflict_management",
+    question: "Quels sont vos plans, ou ceux de votre gestionnaire, à long terme concernant votre développement professionnel?",
+    topic: "future_plans",
     difficulty: "B1+",
-    targetStructures: ["conditionnel", "subjonctif"],
+    targetStructures: ["conditionnel", "subjonctif", "futur"],
     sampleResponse: {
-      text: "Si je recevais des directives contradictoires, je ne prendrais pas de décision hâtive. Je documenterais d'abord les deux demandes par écrit. Ensuite, je demanderais une clarification en réunissant les deux gestionnaires si possible. Je leur expliquerais la situation en disant: 'J'ai reçu ces deux directives et j'aimerais que nous clarifiions les priorités ensemble.' Il serait important que je reste neutre et professionnel. Je proposerais des options pour résoudre le conflit.",
+      text: "Mon gestionnaire souhaite que je participe à des projets interministériels. À moyen terme, j'aimerais obtenir une affectation dans un autre secteur. Il faudrait que j'acquière de l'expérience en politique. À long terme, je viserais un poste de gestion. Mon gestionnaire m'a dit qu'il me soutiendrait.",
       keyPoints: [
-        "Conditionnel: je ne prendrais pas, je documenterais, je demanderais",
-        "Subjonctif: que nous clarifiions, que je reste",
-        "Approche diplomatique et documentée"
-      ]
-    }
-  },
-  {
-    id: 31,
-    question: "Comment contribuez-vous à créer un environnement de travail positif et inclusif?",
-    topic: "communication_leadership",
-    difficulty: "B1",
-    targetStructures: ["présent", "passé composé"],
-    sampleResponse: {
-      text: "Je contribue à un environnement positif de plusieurs façons. Je salue mes collègues chaque matin et je m'intéresse à leur bien-être. J'écoute activement pendant les réunions et je valorise les contributions de chacun. J'ai proposé des activités d'équipe comme des dîners mensuels. Je fais attention à utiliser un langage inclusif et à respecter les différences culturelles. Quand un nouveau collègue arrive, je prends le temps de l'accueillir et de répondre à ses questions.",
-      keyPoints: [
-        "Présent pour les habitudes: je contribue, je salue, j'écoute",
-        "Passé composé pour les initiatives: j'ai proposé",
-        "Vocabulaire de l'inclusion et du respect"
-      ]
-    }
-  },
-  {
-    id: 32,
-    question: "Imaginez qu'un projet important soit en retard à cause de facteurs hors de votre contrôle. Comment communiqueriez-vous cette situation à la direction?",
-    topic: "communication_leadership",
-    difficulty: "B1+",
-    targetStructures: ["conditionnel", "subjonctif", "imparfait"],
-    sampleResponse: {
-      text: "Si un projet était en retard, je communiquerais rapidement et honnêtement avec la direction. Je préparerais un résumé clair de la situation. J'expliquerais les facteurs qui ont causé le retard et pourquoi ils étaient hors de notre contrôle. Il serait essentiel que je propose des solutions ou des mesures d'atténuation. Je présenterais un calendrier révisé réaliste. Je voudrais que la direction comprenne que nous faisons tout notre possible pour minimiser l'impact.",
-      keyPoints: [
-        "Conditionnel: je communiquerais, je préparerais, j'expliquerais",
-        "Subjonctif: que je propose, que la direction comprenne",
-        "Imparfait dans l'hypothèse: si un projet était, ils étaient"
+        "Subjonctif: que je participe, que j'acquière",
+        "Conditionnel: j'aimerais, je viserais",
+        "Structure: court/moyen/long terme"
       ]
     }
   }
