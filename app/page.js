@@ -621,6 +621,17 @@ export default function PSCExamSimulator() {
     }
   }
 
+  // Reset chat to start fresh
+  const resetChat = () => {
+    setChatMessages([{
+      role: 'assistant',
+      content: "Bonjour! Je suis votre tuteur de français. Je suis là pour vous aider à préparer votre examen oral PSC niveau A2-B1. 🇫🇷\n\nVous pouvez me poser des questions sur:\n• La grammaire (conditionnel, subjonctif, imparfait vs passé composé)\n• Le vocabulaire professionnel\n• La préparation aux entrevues\n• La méthode STAR pour les questions comportementales\n• Ou tout autre sujet en français!\n\nComment puis-je vous aider aujourd'hui?"
+    }])
+    setChatInput('')
+    setTranscript('')
+    setFullTranscript('')
+  }
+
   // Go back to home
   const goHome = () => {
     setAppMode('home')
@@ -861,12 +872,15 @@ export default function PSCExamSimulator() {
     return (
       <main style={styles.main}>
         <header style={styles.header}>
+          <button style={styles.backButton} onClick={goHome}>
+            ← Retour
+          </button>
           <div style={styles.headerContent}>
             <h1 style={styles.title}>Tuteur IA Français</h1>
             <p style={styles.subtitle}>Posez vos questions sur le français</p>
           </div>
-          <button style={styles.backButton} onClick={goHome}>
-            ← Retour
+          <button style={styles.resetButton} onClick={resetChat}>
+            🔄 Nouvelle conversation
           </button>
         </header>
 
@@ -1319,6 +1333,18 @@ const styles = {
     borderRadius: '8px',
     cursor: 'pointer',
     fontSize: '0.9rem',
+  },
+  resetButton: {
+    position: 'absolute',
+    right: '1rem',
+    top: '1rem',
+    background: 'rgba(255,255,255,0.1)',
+    border: 'none',
+    color: 'white',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '0.85rem',
   },
   chatContainer: {
     display: 'flex',
