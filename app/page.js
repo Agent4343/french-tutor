@@ -3,442 +3,299 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 
 // PSC French Oral Exam Questions - Level A2-B1
-// ESDC-focused questions - Progressive difficulty
-// STAR method for behavioral questions: Situation - Task - Action - Result
+// Questions are asked ORALLY only - text hidden until after response
+// AI analyzes responses and corrects pronunciation
 const PSC_EXAM_QUESTIONS = [
-  // SECTION 1: Introduction (A2)
+  // Section 1: Introduction personnelle (A2)
   {
     id: 1,
-    question: "Comment vous appelez-vous?",
+    question: "Quel est votre nom et votre prénom?",
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Je m'appelle [Prénom Nom].",
-      keyPoints: [
-        "Réponse simple et directe",
-        "Utilisez 'Je m'appelle' ou 'Mon nom est'"
-      ]
-    }
   },
   {
     id: 2,
-    question: "Quel poste occupez-vous à EDSC?",
+    question: "Vous êtes originaire d'où?",
     topic: "introduction",
     difficulty: "A2",
-    targetStructures: ["présent"],
-    sampleResponse: {
-      text: "J'occupe le poste d'analyste de politiques à EDSC. Je suis responsable de l'analyse des programmes d'emploi.",
-      keyPoints: [
-        "Présent pour décrire la situation actuelle",
-        "Vocabulaire spécifique à EDSC"
-      ]
-    }
+    targetStructures: ["présent", "passé composé"],
   },
   {
     id: 3,
+    question: "Quel poste ou rôle occupez-vous actuellement à EDSC?",
+    topic: "introduction",
+    difficulty: "A2",
+    targetStructures: ["présent"],
+  },
+  {
+    id: 4,
     question: "Dans quelle direction ou quel secteur travaillez-vous?",
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Je travaille dans la Direction générale des compétences et de l'emploi. Mon secteur s'occupe des programmes de formation professionnelle.",
-      keyPoints: [
-        "Présent pour la situation actuelle",
-        "Vocabulaire organisationnel: direction, secteur"
-      ]
-    }
   },
   {
-    id: 4,
+    id: 5,
+    question: "En quoi consiste votre travail exactement?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["présent"],
+  },
+  {
+    id: 6,
     question: "Depuis quand travaillez-vous à EDSC?",
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Je travaille à EDSC depuis cinq ans. J'ai commencé en 2020.",
-      keyPoints: [
-        "Depuis + durée pour exprimer la continuité",
-        "Passé composé pour le début: j'ai commencé"
-      ]
-    }
-  },
-  {
-    id: 5,
-    question: "Quelles qualités sont nécessaires pour bien réussir dans votre poste?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["présent", "subjonctif"],
-    sampleResponse: {
-      text: "Pour réussir dans mon poste, il faut que je sois organisé et rigoureux. Il est essentiel que j'aie de bonnes compétences en communication. Il faut aussi que je puisse travailler sous pression et respecter des échéanciers serrés.",
-      keyPoints: [
-        "Subjonctif après 'il faut que': que je sois, que j'aie, que je puisse",
-        "Vocabulaire des compétences professionnelles"
-      ]
-    }
-  },
-  {
-    id: 6,
-    question: "Quelle a été la procédure d'embauche à ce moment-là?",
-    topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "La procédure d'embauche était assez longue. J'avais d'abord postulé en ligne sur le site Emplois GC. Ensuite, j'ai passé un examen écrit. Après, j'ai été convoqué à une entrevue avec un comité. Le processus complet a duré environ six mois.",
-      keyPoints: [
-        "Imparfait pour décrire le processus: était",
-        "Plus-que-parfait pour l'action antérieure: j'avais postulé",
-        "Passé composé pour les étapes: j'ai passé, j'ai été convoqué"
-      ]
-    }
   },
   {
     id: 7,
-    question: "Combien de temps avez-vous attendu avant de commencer votre poste, et qu'avez-vous fait pendant cette période?",
-    topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "J'ai attendu environ quatre mois entre l'offre et mon premier jour. Pendant cette période, je travaillais encore à mon emploi précédent. J'ai profité de ce temps pour améliorer mon français. C'était une période d'anticipation.",
-      keyPoints: [
-        "Passé composé pour les actions: j'ai attendu, j'ai profité",
-        "Imparfait pour les situations continues: je travaillais, c'était"
-      ]
-    }
-  },
-  {
-    id: 8,
-    question: "Avez-vous suivi une formation d'intégration avant de commencer?",
+    question: "Pourquoi avez-vous choisi de travailler dans la fonction publique?",
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "Oui, j'ai suivi une formation d'intégration pendant ma première semaine. Elle comprenait une présentation sur la structure du ministère. On nous a expliqué les politiques et les outils informatiques. Cette formation m'a beaucoup aidé.",
-      keyPoints: [
-        "Passé composé pour les événements: j'ai suivi, on nous a expliqué",
-        "Imparfait pour les descriptions: elle comprenait"
-      ]
-    }
   },
+  {
+    id: 8,
+    question: "Quelles études ou formations avez-vous suivies pour occuper votre poste actuel?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé"],
+  },
+  // Section 2: Parcours professionnel (A2-B1)
   {
     id: 9,
     question: "Où avez-vous commencé votre carrière dans la fonction publique?",
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "J'ai commencé ma carrière au ministère de l'Immigration en 2015. C'était un poste d'agent de programme. Le travail était stimulant et j'ai beaucoup appris.",
-      keyPoints: [
-        "Passé composé pour les événements: j'ai commencé, j'ai appris",
-        "Imparfait pour les descriptions: c'était, le travail était"
-      ]
-    }
   },
   {
     id: 10,
-    question: "Qui était votre premier gestionnaire et comment était-il ou était-elle?",
+    question: "Quel était le poste que vous occupiez avant celui-ci et quelles en étaient les principales tâches?",
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["imparfait"],
-    sampleResponse: {
-      text: "Mon premier gestionnaire s'appelait Marie Tremblay. Elle était très patiente et encourageante. Elle prenait le temps d'expliquer les processus. Elle avait une approche collaborative.",
-      keyPoints: [
-        "Imparfait pour toutes les descriptions: s'appelait, était, prenait, avait",
-        "Vocabulaire du mentorat et du leadership"
-      ]
-    }
   },
   {
     id: 11,
-    question: "Était-ce un bon leader? Pourquoi?",
+    question: "Comment s'est déroulée la procédure d'embauche à l'époque?",
     topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["imparfait", "passé composé"],
-    sampleResponse: {
-      text: "Oui, c'était une excellente leader. Elle savait comment motiver son équipe. Quand il y avait des problèmes, elle nous soutenait toujours. Elle m'a donné des occasions de développer mes compétences. Par contre, elle était parfois trop occupée.",
-      keyPoints: [
-        "Imparfait pour les caractéristiques: savait, soutenait, était",
-        "Passé composé pour les actions spécifiques: elle m'a donné",
-        "Nuancer avec 'par contre'"
-      ]
-    }
+    targetStructures: ["passé composé", "imparfait"],
   },
   {
     id: 12,
-    question: "De quelle façon votre premier poste a-t-il influencé votre manière de travailler dans les suivants?",
+    question: "Combien de temps avez-vous attendu avant de commencer votre poste et qu'avez-vous fait durant cette période?",
     topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["passé composé", "présent"],
-    sampleResponse: {
-      text: "Mon premier poste a profondément influencé ma façon de travailler. J'ai appris l'importance de la rigueur et de la documentation. Aujourd'hui, je prends toujours des notes détaillées. Mon premier gestionnaire m'a montré comment communiquer efficacement.",
-      keyPoints: [
-        "Passé composé pour les apprentissages: a influencé, j'ai appris, m'a montré",
-        "Présent pour les habitudes actuelles: je prends"
-      ]
-    }
+    targetStructures: ["passé composé", "imparfait"],
   },
   {
     id: 13,
-    question: "Parlez-moi d'une situation problématique survenue au travail et expliquez comment vous l'avez résolue. Utilisez la méthode STAR: Situation, Tâche, Action, Résultat.",
-    topic: "conflict_management",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
-    starMethod: true,
-    sampleResponse: {
-      text: "SITUATION: L'année dernière, notre équipe devait livrer un rapport important, mais deux membres étaient malades. TÂCHE: Je devais m'assurer que le rapport soit terminé à temps. ACTION: J'ai redistribué les tâches. J'ai négocié une extension avec notre directeur. J'ai travaillé des heures supplémentaires. RÉSULTAT: Nous avons livré le rapport avec seulement deux jours de retard.",
-      keyPoints: [
-        "Structure STAR claire",
-        "Imparfait pour le contexte: devait, étaient",
-        "Passé composé pour les actions: j'ai redistribué, nous avons livré"
-      ]
-    }
+    question: "Avez-vous suivi une formation d'intégration avant de commencer?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["passé composé"],
   },
   {
     id: 14,
-    question: "Parlez-moi de votre prochain poste ou d'un poste que vous aimeriez occuper.",
-    topic: "future_plans",
+    question: "Comment vos collègues et vos gestionnaires vous ont-ils accueilli lors de votre première affectation à EDSC?",
+    topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["conditionnel", "subjonctif"],
-    sampleResponse: {
-      text: "J'aimerais occuper un poste de gestionnaire dans les prochaines années. Je souhaiterais diriger une équipe. Pour y arriver, il faudrait que je suive des formations en gestion. Je voudrais développer mes compétences en leadership.",
-      keyPoints: [
-        "Conditionnel pour les souhaits: j'aimerais, je souhaiterais, je voudrais",
-        "Subjonctif après 'il faudrait que': que je suive"
-      ]
-    }
+    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
   },
   {
     id: 15,
-    question: "Quel est votre nom et votre prénom?",
-    topic: "introduction",
-    difficulty: "A2",
-    targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Mon nom est [Nom] et mon prénom est [Prénom]. Je m'appelle [Prénom Nom].",
-      keyPoints: [
-        "Deux façons de répondre",
-        "Réponse simple et claire"
-      ]
-    }
+    question: "Qui était votre premier gestionnaire et comment décririez-vous son style de leadership?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["imparfait", "conditionnel"],
   },
   {
     id: 16,
-    question: "Vous êtes originaire d'où?",
-    topic: "introduction",
-    difficulty: "A2",
-    targetStructures: ["présent", "passé composé"],
-    sampleResponse: {
-      text: "Je suis originaire de Montréal, au Québec. J'y ai grandi et j'ai fait mes études. J'ai déménagé à Ottawa il y a dix ans.",
-      keyPoints: [
-        "Présent pour l'origine: je suis originaire",
-        "Passé composé: j'ai grandi, j'ai déménagé"
-      ]
-    }
+    question: "De quelle façon votre premier poste a-t-il influencé votre manière de travailler par la suite?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "présent"],
   },
+  // Section 3: Responsabilités et compétences (B1)
   {
     id: 17,
-    question: "Quelle est votre profession ou votre rôle à EDSC?",
-    topic: "introduction",
-    difficulty: "A2",
+    question: "Quelles sont vos responsabilités principales?",
+    topic: "explaining",
+    difficulty: "A2-B1",
     targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Je suis analyste de politiques à EDSC. Mon rôle consiste à analyser les programmes et à rédiger des recommandations pour les cadres supérieurs.",
-      keyPoints: [
-        "Présent pour décrire le rôle actuel",
-        "Verbe 'consister à' + infinitif"
-      ]
-    }
   },
   {
     id: 18,
-    question: "En quoi consiste votre travail exactement?",
+    question: "Quelles qualités, compétences et connaissances sont nécessaires pour réussir dans votre poste?",
     topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["présent"],
-    sampleResponse: {
-      text: "Mon travail consiste principalement à analyser les politiques gouvernementales. Je rédige des notes de breffage. Je participe à des réunions avec les intervenants. Je dois aussi préparer des présentations.",
-      keyPoints: [
-        "Présent pour les tâches régulières",
-        "Verbe 'consister à' + infinitif",
-        "Vocabulaire administratif"
-      ]
-    }
+    difficulty: "B1",
+    targetStructures: ["présent", "subjonctif"],
   },
   {
     id: 19,
-    question: "Pourquoi avez-vous choisi de travailler dans la fonction publique?",
+    question: "Quelles sont les exigences les plus difficiles à gérer dans votre travail ou en supervision?",
     topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "J'ai choisi la fonction publique parce que je voulais contribuer au bien-être des Canadiens. J'étais attiré par les programmes sociaux. La stabilité d'emploi m'a également motivé. Je souhaitais avoir un travail significatif.",
-      keyPoints: [
-        "Passé composé: j'ai choisi, m'a motivé",
-        "Imparfait pour les motivations: je voulais, j'étais attiré, je souhaitais"
-      ]
-    }
+    difficulty: "B1",
+    targetStructures: ["présent"],
   },
   {
     id: 20,
-    question: "Quelles études ou quelle formation avez-vous faites pour occuper votre poste actuel?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "J'ai obtenu un baccalauréat en administration publique. Pendant mes études, je me spécialisais en politiques sociales. J'ai complété une maîtrise en gestion publique. J'ai également suivi des formations professionnelles.",
-      keyPoints: [
-        "Passé composé pour les diplômes: j'ai obtenu, j'ai complété",
-        "Imparfait pour le contexte: je me spécialisais"
-      ]
-    }
-  },
-  {
-    id: 21,
-    question: "Où avez-vous commencé votre carrière?",
-    topic: "explaining",
-    difficulty: "A2-B1",
-    targetStructures: ["passé composé", "imparfait"],
-    sampleResponse: {
-      text: "J'ai commencé ma carrière dans le secteur privé. Je travaillais pour une entreprise de consultation. Ensuite, j'ai décidé de joindre la fonction publique. C'était une transition importante.",
-      keyPoints: [
-        "Passé composé pour les événements: j'ai commencé, j'ai décidé",
-        "Imparfait pour le contexte: je travaillais, c'était"
-      ]
-    }
-  },
-  {
-    id: 22,
-    question: "Comment vos collègues et vos gestionnaires vous ont-ils accueilli lors de votre première affectation ou de votre premier emploi à EDSC?",
-    topic: "explaining",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
-    sampleResponse: {
-      text: "L'accueil a été très chaleureux. Mes collègues m'avaient préparé un espace de travail. Mon gestionnaire avait organisé des rencontres. Pendant les premières semaines, mes collègues prenaient le temps de répondre à mes questions.",
-      keyPoints: [
-        "Plus-que-parfait: avaient préparé, avait organisé",
-        "Passé composé: a été",
-        "Imparfait: prenaient"
-      ]
-    }
-  },
-  {
-    id: 23,
-    question: "Parlez-moi en détail d'une expérience de travail à l'extérieur de votre région ou d'un projet spécial dans un autre bureau.",
-    topic: "adaptation",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
-    starMethod: true,
-    sampleResponse: {
-      text: "SITUATION: Il y a deux ans, j'ai travaillé à Vancouver pendant trois mois. TÂCHE: Je devais aider l'équipe locale à implanter un nouveau système. ACTION: J'ai travaillé avec les employés locaux. Je participais aux réunions quotidiennes. J'avais préparé des guides avant mon arrivée. RÉSULTAT: Le projet a été un succès.",
-      keyPoints: [
-        "Structure STAR",
-        "Plus-que-parfait: j'avais préparé",
-        "Imparfait: je participais",
-        "Passé composé: j'ai travaillé, a été"
-      ]
-    }
-  },
-  {
-    id: 24,
-    question: "Quel a été le plus grand défi pendant cette expérience?",
-    topic: "adaptation",
-    difficulty: "B1",
-    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
-    sampleResponse: {
-      text: "Le plus grand défi était la résistance au changement. Certains employés étaient habitués à l'ancien système. J'ai dû faire preuve de patience. Avec le recul, j'aurais dû les impliquer plus tôt. Cela aurait facilité la transition.",
-      keyPoints: [
-        "Imparfait: était, étaient habitués",
-        "Passé composé: j'ai dû",
-        "Conditionnel passé: j'aurais dû, cela aurait facilité"
-      ]
-    }
-  },
-  {
-    id: 25,
-    question: "Décrivez un problème que vous avez rencontré et comment vous l'avez géré.",
+    question: "Parlez-moi d'un problème ou défi que vous avez rencontré au travail et expliquez comment vous l'avez géré.",
     topic: "conflict_management",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
     starMethod: true,
-    sampleResponse: {
-      text: "SITUATION: Un collègue et moi avions des opinions différentes sur un dossier. TÂCHE: Je devais résoudre ce conflit. ACTION: J'ai proposé une rencontre privée. J'ai écouté son point de vue. Nous avons trouvé un compromis. RÉSULTAT: Notre relation s'est améliorée.",
-      keyPoints: [
-        "Imparfait: avions, devais",
-        "Passé composé: j'ai proposé, j'ai écouté, nous avons trouvé"
-      ]
-    }
   },
   {
-    id: 26,
-    question: "Comment étaient vos conditions de travail pendant cette période?",
+    id: 21,
+    question: "Quel est le problème qui revient le plus souvent dans votre travail?",
     topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["imparfait"],
-    sampleResponse: {
-      text: "Les conditions de travail étaient bonnes mais différentes. Le bureau était plus petit. L'équipe travaillait dans un espace ouvert. L'atmosphère était décontractée. Je devais m'adapter au décalage horaire pour les réunions.",
-      keyPoints: [
-        "Imparfait pour toutes les descriptions: étaient, était, travaillait, devais"
-      ]
-    }
+    targetStructures: ["présent"],
+  },
+  {
+    id: 22,
+    question: "Comment gérez-vous votre temps au quotidien?",
+    topic: "explaining",
+    difficulty: "A2-B1",
+    targetStructures: ["présent"],
+  },
+  // Section 4: Travail d'équipe (B1)
+  {
+    id: 23,
+    question: "Préférez-vous travailler seul ou en équipe? Pourquoi?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["présent", "conditionnel"],
+  },
+  {
+    id: 24,
+    question: "Parlez-moi de votre meilleure expérience de collaboration.",
+    topic: "communication_leadership",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait"],
+    starMethod: true,
+  },
+  {
+    id: 25,
+    question: "Parlez-moi d'une activité sociale que vous avez organisée ou aidée à organiser au bureau.",
+    topic: "communication_leadership",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait"],
+  },
+  // Section 5: Changement et adaptation (B1)
+  {
+    id: 26,
+    question: "Quel a été le dernier grand changement dans votre unité de travail?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait"],
   },
   {
     id: 27,
-    question: "Étiez-vous suffisamment préparé ou préparée pour cette tâche? Pourquoi ou pourquoi pas?",
-    topic: "adaptation",
+    question: "Quel a été le moment le plus passionnant de votre carrière jusqu'à maintenant?",
+    topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["imparfait", "plus-que-parfait", "conditionnel passé"],
-    sampleResponse: {
-      text: "Je n'étais pas entièrement préparé. J'avais suivi une formation, mais elle ne couvrait pas tous les aspects. J'aurais aimé avoir plus de temps. Si c'était à refaire, je demanderais une période d'observation.",
-      keyPoints: [
-        "Imparfait: je n'étais pas, elle ne couvrait pas",
-        "Plus-que-parfait: j'avais suivi",
-        "Conditionnel passé: j'aurais aimé"
-      ]
-    }
+    targetStructures: ["passé composé"],
   },
   {
     id: 28,
-    question: "Si vous deviez refaire une expérience semblable, que feriez-vous différemment?",
-    topic: "adaptation",
+    question: "Quel était votre travail préféré et pourquoi?",
+    topic: "explaining",
     difficulty: "B1",
-    targetStructures: ["conditionnel", "imparfait"],
-    sampleResponse: {
-      text: "Si je devais refaire cette expérience, je ferais plusieurs choses différemment. Je demanderais une rencontre préalable avec l'équipe. Je voudrais mieux comprendre leurs besoins. Je prendrais plus de temps pour établir des relations. Je me préparerais davantage.",
-      keyPoints: [
-        "Structure hypothétique: Si + imparfait, conditionnel",
-        "Conditionnel: je ferais, je demanderais, je voudrais, je prendrais"
-      ]
-    }
+    targetStructures: ["imparfait"],
   },
   {
     id: 29,
-    question: "Quelles sont les prochaines formations que vous aimeriez suivre?",
-    topic: "future_plans",
+    question: "Parlez-moi d'une expérience de travail à l'extérieur de votre région ou d'un projet spécial.",
+    topic: "adaptation",
     difficulty: "B1",
-    targetStructures: ["conditionnel", "subjonctif"],
-    sampleResponse: {
-      text: "J'aimerais suivre une formation en gestion de projet. Je voudrais aussi améliorer mes compétences en analyse de données. Il faudrait que je suive des cours de leadership. Je souhaiterais obtenir une certification professionnelle.",
-      keyPoints: [
-        "Conditionnel: j'aimerais, je voudrais, je souhaiterais",
-        "Subjonctif après 'il faudrait que': que je suive"
-      ]
-    }
+    targetStructures: ["passé composé", "imparfait"],
+    starMethod: true,
   },
   {
     id: 30,
-    question: "Quels sont vos plans, ou ceux de votre gestionnaire, à long terme concernant votre développement professionnel?",
+    question: "Quel a été le plus grand défi?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
+  },
+  {
+    id: 31,
+    question: "Comment étaient les conditions de travail?",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["imparfait"],
+  },
+  {
+    id: 32,
+    question: "Étiez-vous suffisamment préparé(e)? Pourquoi?",
+    topic: "adaptation",
+    difficulty: "B1",
+    targetStructures: ["imparfait", "plus-que-parfait", "conditionnel passé"],
+  },
+  // Section 6: Services et ministère (B1)
+  {
+    id: 33,
+    question: "Parlez-moi d'un service offert dans votre direction que vous jugez particulièrement important.",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["présent", "subjonctif"],
+  },
+  {
+    id: 34,
+    question: "Décrivez les services offerts par votre ministère et la clientèle desservie.",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["présent"],
+  },
+  {
+    id: 35,
+    question: "Parlez-moi d'une tâche qui constitue selon vous une perte de temps actuellement.",
+    topic: "explaining",
+    difficulty: "B1",
+    targetStructures: ["présent", "conditionnel"],
+  },
+  // Section 7: Développement professionnel (B1+)
+  {
+    id: 36,
+    question: "Quelles formations aimeriez-vous suivre prochainement?",
+    topic: "future_plans",
+    difficulty: "B1",
+    targetStructures: ["conditionnel"],
+  },
+  {
+    id: 37,
+    question: "Quels sont vos objectifs ou ceux de votre gestionnaire concernant votre développement professionnel à long terme?",
     topic: "future_plans",
     difficulty: "B1+",
-    targetStructures: ["conditionnel", "subjonctif", "futur"],
-    sampleResponse: {
-      text: "Mon gestionnaire souhaite que je participe à des projets interministériels. À moyen terme, j'aimerais obtenir une affectation dans un autre secteur. Il faudrait que j'acquière de l'expérience en politique. À long terme, je viserais un poste de gestion. Mon gestionnaire m'a dit qu'il me soutiendrait.",
-      keyPoints: [
-        "Subjonctif: que je participe, que j'acquière",
-        "Conditionnel: j'aimerais, je viserais",
-        "Structure: court/moyen/long terme"
-      ]
-    }
-  }
+    targetStructures: ["présent", "conditionnel", "subjonctif"],
+  },
+  {
+    id: 38,
+    question: "Quelles compétences devrez-vous développer à l'avenir pour poursuivre votre carrière?",
+    topic: "future_plans",
+    difficulty: "B1+",
+    targetStructures: ["futur", "conditionnel"],
+  },
+  {
+    id: 39,
+    question: "Parlez-moi du prochain poste que vous aimeriez occuper ou d'un projet que vous aimeriez entreprendre.",
+    topic: "future_plans",
+    difficulty: "B1+",
+    targetStructures: ["conditionnel", "subjonctif"],
+  },
+  {
+    id: 40,
+    question: "Choisissez une tâche opérationnelle de votre travail et expliquez comment vous la présenteriez à des collègues en intégration.",
+    topic: "explaining",
+    difficulty: "B1+",
+    targetStructures: ["conditionnel", "présent"],
+  },
 ]
 
 export default function PSCExamSimulator() {
@@ -457,6 +314,8 @@ export default function PSCExamSimulator() {
   const [examFeedback, setExamFeedback] = useState(null)
   const [examStarted, setExamStarted] = useState(false)
   const [fullTranscript, setFullTranscript] = useState('')
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [aiAnalysis, setAiAnalysis] = useState(null)
 
   // AI Tutor state
   const [chatMessages, setChatMessages] = useState([])
@@ -772,7 +631,7 @@ export default function PSCExamSimulator() {
     }
   }
 
-  const submitExamAnswer = () => {
+  const submitExamAnswer = async () => {
     if (!transcript.trim()) return
 
     if (recognitionRef.current && isListening) {
@@ -782,8 +641,12 @@ export default function PSCExamSimulator() {
 
     setAnswerComplete(true)
     setAwaitingAnswer(false)
+    setIsAnalyzing(true)
+    setAiAnalysis(null)
 
     const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
+
+    // Get basic grammar feedback while AI analyzes
     const feedback = generateExamFeedback(transcript, currentQuestion)
     setExamFeedback(feedback)
 
@@ -793,9 +656,44 @@ export default function PSCExamSimulator() {
       feedback: feedback
     }])
 
-    setTimeout(() => {
-      speakFrench(feedback.spokenFeedback, currentQuestion.difficulty)
-    }, 500)
+    // Call AI analysis API for pronunciation and detailed feedback
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: currentQuestion.question,
+          answer: transcript,
+          difficulty: currentQuestion.difficulty,
+          targetStructures: currentQuestion.targetStructures
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setAiAnalysis(data.analysis)
+
+        // Speak AI feedback
+        if (data.analysis.overallFeedback) {
+          setTimeout(() => {
+            speakFrench(data.analysis.overallFeedback, currentQuestion.difficulty)
+          }, 500)
+        }
+      } else {
+        // Fall back to basic spoken feedback
+        setTimeout(() => {
+          speakFrench(feedback.spokenFeedback, currentQuestion.difficulty)
+        }, 500)
+      }
+    } catch (error) {
+      console.error('AI analysis error:', error)
+      // Fall back to basic spoken feedback
+      setTimeout(() => {
+        speakFrench(feedback.spokenFeedback, currentQuestion.difficulty)
+      }, 500)
+    } finally {
+      setIsAnalyzing(false)
+    }
   }
 
   const generateExamFeedback = (answer, question) => {
@@ -890,6 +788,8 @@ export default function PSCExamSimulator() {
       setAwaitingAnswer(true)
       setTranscript('')
       setFullTranscript('')
+      setAiAnalysis(null)
+      setIsAnalyzing(false)
 
       const nextQuestion = PSC_EXAM_QUESTIONS[nextIndex]
       setTimeout(() => {
@@ -911,6 +811,8 @@ export default function PSCExamSimulator() {
     setAnswerComplete(false)
     setTranscript('')
     setFullTranscript('')
+    setAiAnalysis(null)
+    setIsAnalyzing(false)
 
     setTimeout(() => startExam(), 100)
   }
@@ -936,7 +838,7 @@ export default function PSCExamSimulator() {
             <button style={styles.modeButton} onClick={startExam}>
               <span style={styles.modeIcon}>🎤</span>
               <span style={styles.modeTitle}>Examen simulé</span>
-              <span style={styles.modeDesc}>30 questions progressives</span>
+              <span style={styles.modeDesc}>40 questions progressives</span>
             </button>
 
             <button style={{...styles.modeButton, ...styles.tutorButton}} onClick={startTutor}>
@@ -1074,19 +976,31 @@ export default function PSCExamSimulator() {
       </header>
 
       <div style={styles.content}>
-        {/* Question Card */}
+        {/* Question Card - Text hidden until after response */}
         <div style={styles.questionCard}>
           <div style={styles.questionHeader}>
             <span style={styles.questionNumber}>Question {currentQuestion.id}</span>
             <span style={styles.questionTopic}>
+              {currentQuestion.topic === 'introduction' && 'Introduction'}
               {currentQuestion.topic === 'explaining' && 'Explication'}
               {currentQuestion.topic === 'adaptation' && 'Adaptation au changement'}
               {currentQuestion.topic === 'conflict_management' && 'Gestion des conflits'}
               {currentQuestion.topic === 'policy_implementation' && 'Mise en œuvre des politiques'}
               {currentQuestion.topic === 'communication_leadership' && 'Communication et leadership'}
+              {currentQuestion.topic === 'future_plans' && 'Plans futurs'}
             </span>
           </div>
-          <p style={styles.questionText}>{currentQuestion.question}</p>
+
+          {/* Show question text only after answer is complete */}
+          {answerComplete ? (
+            <p style={styles.questionText}>{currentQuestion.question}</p>
+          ) : (
+            <div style={styles.hiddenQuestion}>
+              <p style={styles.hiddenQuestionText}>Écoutez la question et répondez oralement</p>
+              <p style={styles.hiddenQuestionNote}>Le texte de la question sera affiché après votre réponse</p>
+            </div>
+          )}
+
           <button
             style={{
               ...styles.listenButton,
@@ -1095,7 +1009,7 @@ export default function PSCExamSimulator() {
             onClick={() => speakFrench(currentQuestion.question, currentQuestion.difficulty)}
             disabled={isSpeaking}
           >
-            {isSpeaking ? '🔊 Lecture...' : '🔊 Réécouter la question'}
+            {isSpeaking ? '🔊 Lecture...' : (answerComplete ? '🔊 Réécouter la question' : '🔊 Écouter la question')}
           </button>
         </div>
 
@@ -1149,7 +1063,7 @@ export default function PSCExamSimulator() {
         )}
 
         {/* Feedback Section */}
-        {examFeedback && answerComplete && (
+        {answerComplete && (
           <div style={styles.feedbackContainer}>
             <h3 style={styles.feedbackTitle}>Rétroaction de l'examinateur</h3>
 
@@ -1158,54 +1072,113 @@ export default function PSCExamSimulator() {
               <p style={styles.yourAnswerText}>{transcript}</p>
             </div>
 
-            <div style={styles.structureAnalysis}>
-              <h4 style={styles.sectionSubtitle}>Analyse grammaticale:</h4>
-              {examFeedback.structureAnalysis.map((item, i) => (
-                <div key={i} style={{
-                  ...styles.structureItem,
-                  ...(item.found ? styles.structureFound : styles.structureMissing)
-                }}>
-                  <span style={styles.structureIcon}>
-                    {item.found ? '✓' : '○'}
-                  </span>
-                  <div>
-                    <strong>{item.structure}</strong>
-                    <p style={styles.structureNote}>{item.note}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div style={styles.sampleResponse}>
-              <h4 style={styles.sectionSubtitle}>Exemple de réponse (niveau A2-B1):</h4>
-              <div style={styles.sampleText}>
-                <p>{examFeedback.sampleResponse.text}</p>
+            {/* AI Analysis Loading */}
+            {isAnalyzing && (
+              <div style={styles.analyzingContainer}>
+                <div style={styles.analyzingSpinner}></div>
+                <p style={styles.analyzingText}>Analyse en cours par l'IA...</p>
               </div>
-              <button
-                style={{...styles.listenButton, marginTop: '1rem'}}
-                onClick={() => speakFrench(examFeedback.sampleResponse.text, examFeedback.difficulty)}
-                disabled={isSpeaking}
-              >
-                {isSpeaking ? '🔊 Lecture...' : '🔊 Écouter l\'exemple'}
-              </button>
+            )}
 
-              <div style={styles.keyPoints}>
-                <h5 style={styles.keyPointsTitle}>Points clés:</h5>
-                <ul style={styles.keyPointsList}>
-                  {examFeedback.sampleResponse.keyPoints.map((point, i) => (
-                    <li key={i} style={styles.keyPoint}>{point}</li>
+            {/* AI Pronunciation Corrections */}
+            {aiAnalysis && aiAnalysis.pronunciationErrors && aiAnalysis.pronunciationErrors.length > 0 && (
+              <div style={styles.pronunciationSection}>
+                <h4 style={styles.sectionSubtitle}>Corrections de prononciation:</h4>
+                {aiAnalysis.pronunciationErrors.map((error, i) => (
+                  <div key={i} style={styles.pronunciationError}>
+                    <div style={styles.pronunciationRow}>
+                      <span style={styles.heardWord}>"{error.heard}"</span>
+                      <span style={styles.arrow}>→</span>
+                      <span style={styles.correctWord}>"{error.correction}"</span>
+                    </div>
+                    <p style={styles.pronunciationExplanation}>{error.explanation}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* AI Grammar Errors */}
+            {aiAnalysis && aiAnalysis.grammarErrors && aiAnalysis.grammarErrors.length > 0 && (
+              <div style={styles.grammarSection}>
+                <h4 style={styles.sectionSubtitle}>Corrections grammaticales:</h4>
+                {aiAnalysis.grammarErrors.map((error, i) => (
+                  <div key={i} style={styles.grammarError}>
+                    <div style={styles.grammarRow}>
+                      <span style={styles.errorText}>"{error.error}"</span>
+                      <span style={styles.arrow}>→</span>
+                      <span style={styles.correctionText}>"{error.correction}"</span>
+                    </div>
+                    <p style={styles.grammarRule}>{error.rule}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Basic Structure Analysis (fallback) */}
+            {examFeedback && examFeedback.structureAnalysis && examFeedback.structureAnalysis.length > 0 && (
+              <div style={styles.structureAnalysis}>
+                <h4 style={styles.sectionSubtitle}>Structures grammaticales ciblées:</h4>
+                {examFeedback.structureAnalysis.map((item, i) => (
+                  <div key={i} style={{
+                    ...styles.structureItem,
+                    ...(item.found ? styles.structureFound : styles.structureMissing)
+                  }}>
+                    <span style={styles.structureIcon}>
+                      {item.found ? '✓' : '○'}
+                    </span>
+                    <div>
+                      <strong>{item.structure}</strong>
+                      <p style={styles.structureNote}>{item.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* AI Overall Feedback */}
+            {aiAnalysis && aiAnalysis.overallFeedback && (
+              <div style={styles.aiFeedbackSection}>
+                <h4 style={styles.sectionSubtitle}>Commentaire de l'examinateur:</h4>
+                <p style={styles.aiFeedbackText}>{aiAnalysis.overallFeedback}</p>
+              </div>
+            )}
+
+            {/* AI Improved Version */}
+            {aiAnalysis && aiAnalysis.improvedVersion && (
+              <div style={styles.improvedVersionSection}>
+                <h4 style={styles.sectionSubtitle}>Version améliorée suggérée:</h4>
+                <div style={styles.improvedVersionText}>
+                  <p>{aiAnalysis.improvedVersion}</p>
+                </div>
+                <button
+                  style={{...styles.listenButton, marginTop: '1rem'}}
+                  onClick={() => speakFrench(aiAnalysis.improvedVersion, currentQuestion.difficulty)}
+                  disabled={isSpeaking}
+                >
+                  {isSpeaking ? '🔊 Lecture...' : '🔊 Écouter la version améliorée'}
+                </button>
+              </div>
+            )}
+
+            {/* Vocabulary Suggestions */}
+            {aiAnalysis && aiAnalysis.vocabularySuggestions && aiAnalysis.vocabularySuggestions.length > 0 && (
+              <div style={styles.vocabularySection}>
+                <h4 style={styles.sectionSubtitle}>Suggestions de vocabulaire:</h4>
+                <ul style={styles.vocabularyList}>
+                  {aiAnalysis.vocabularySuggestions.map((suggestion, i) => (
+                    <li key={i} style={styles.vocabularyItem}>{suggestion}</li>
                   ))}
                 </ul>
               </div>
-            </div>
+            )}
 
             <div style={styles.navigation}>
               {examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1 ? (
-                <button style={styles.nextButton} onClick={nextExamQuestion}>
+                <button style={styles.nextButton} onClick={nextExamQuestion} disabled={isAnalyzing}>
                   Question suivante →
                 </button>
               ) : (
-                <button style={styles.completeButton} onClick={restartExam}>
+                <button style={styles.completeButton} onClick={restartExam} disabled={isAnalyzing}>
                   Recommencer l'examen
                 </button>
               )}
@@ -1748,5 +1721,162 @@ const styles = {
   progressDotCurrent: {
     background: '#1a2a4a',
     transform: 'scale(1.3)',
+  },
+  // Hidden question styles
+  hiddenQuestion: {
+    padding: '2rem',
+    background: 'linear-gradient(135deg, rgba(26, 42, 74, 0.08), rgba(26, 42, 74, 0.03))',
+    borderRadius: '12px',
+    marginBottom: '1.5rem',
+  },
+  hiddenQuestionText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.3rem',
+    color: '#1a2a4a',
+    marginBottom: '0.5rem',
+  },
+  hiddenQuestionNote: {
+    fontSize: '0.9rem',
+    color: '#6B7280',
+    fontStyle: 'italic',
+  },
+  // AI Analysis styles
+  analyzingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '2rem',
+    gap: '1rem',
+  },
+  analyzingSpinner: {
+    width: '40px',
+    height: '40px',
+    border: '4px solid #E5E7EB',
+    borderTop: '4px solid #3b82f6',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
+  },
+  analyzingText: {
+    color: '#6B7280',
+    fontSize: '1rem',
+  },
+  // Pronunciation correction styles
+  pronunciationSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'rgba(239, 68, 68, 0.08)',
+    borderRadius: '12px',
+    border: '1px solid rgba(239, 68, 68, 0.2)',
+  },
+  pronunciationError: {
+    marginBottom: '0.75rem',
+    paddingBottom: '0.75rem',
+    borderBottom: '1px solid rgba(239, 68, 68, 0.1)',
+  },
+  pronunciationRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    flexWrap: 'wrap',
+    marginBottom: '0.25rem',
+  },
+  heardWord: {
+    color: '#dc2626',
+    fontWeight: '600',
+    textDecoration: 'line-through',
+  },
+  arrow: {
+    color: '#6B7280',
+    fontSize: '1.2rem',
+  },
+  correctWord: {
+    color: '#059669',
+    fontWeight: '600',
+  },
+  pronunciationExplanation: {
+    fontSize: '0.85rem',
+    color: '#6B7280',
+    marginTop: '0.25rem',
+    fontStyle: 'italic',
+  },
+  // Grammar correction styles
+  grammarSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'rgba(245, 158, 11, 0.08)',
+    borderRadius: '12px',
+    border: '1px solid rgba(245, 158, 11, 0.2)',
+  },
+  grammarError: {
+    marginBottom: '0.75rem',
+    paddingBottom: '0.75rem',
+    borderBottom: '1px solid rgba(245, 158, 11, 0.1)',
+  },
+  grammarRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    flexWrap: 'wrap',
+    marginBottom: '0.25rem',
+  },
+  errorText: {
+    color: '#d97706',
+    fontWeight: '600',
+  },
+  correctionText: {
+    color: '#059669',
+    fontWeight: '600',
+  },
+  grammarRule: {
+    fontSize: '0.85rem',
+    color: '#6B7280',
+    marginTop: '0.25rem',
+    fontStyle: 'italic',
+  },
+  // AI Feedback styles
+  aiFeedbackSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.03))',
+    borderRadius: '12px',
+    border: '1px solid rgba(59, 130, 246, 0.2)',
+  },
+  aiFeedbackText: {
+    fontSize: '1rem',
+    color: '#1a2a4a',
+    lineHeight: 1.6,
+  },
+  // Improved version styles
+  improvedVersionSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(5, 150, 105, 0.08), rgba(5, 150, 105, 0.03))',
+    borderRadius: '12px',
+    border: '1px solid rgba(5, 150, 105, 0.2)',
+  },
+  improvedVersionText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.05rem',
+    color: '#1a2a4a',
+    lineHeight: 1.7,
+    fontStyle: 'italic',
+  },
+  // Vocabulary styles
+  vocabularySection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'rgba(201, 162, 39, 0.08)',
+    borderRadius: '12px',
+    border: '1px solid rgba(201, 162, 39, 0.2)',
+  },
+  vocabularyList: {
+    margin: 0,
+    paddingLeft: '1.25rem',
+  },
+  vocabularyItem: {
+    fontSize: '0.95rem',
+    color: '#1a2a4a',
+    marginBottom: '0.35rem',
+    lineHeight: 1.5,
   },
 }
