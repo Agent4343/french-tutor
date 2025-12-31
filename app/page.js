@@ -13,6 +13,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
+    grammarTip: "Utilisez 'Je m'appelle...' ou 'Mon nom est... et mon prénom est...' avec le verbe être/s'appeler au présent.",
+    exampleAnswer: "Je m'appelle Marie Tremblay. Mon prénom est Marie et mon nom de famille est Tremblay.",
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent", "passé composé"],
+    grammarTip: "Utilisez 'Je suis originaire de...' (présent) ou 'Je suis né(e) à...' (passé composé). N'oubliez pas l'accord du participe passé avec être!",
+    exampleAnswer: "Je suis originaire de Toronto, en Ontario. Je suis née là-bas, mais j'ai grandi à Ottawa.",
   },
   {
     id: 3,
@@ -27,6 +31,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
+    grammarTip: "Utilisez 'J'occupe le poste de...' ou 'Je travaille comme...' au présent de l'indicatif.",
+    exampleAnswer: "J'occupe le poste d'analyste des politiques au sein de la Direction générale des services.",
   },
   {
     id: 4,
@@ -34,6 +40,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
+    grammarTip: "Utilisez 'Je travaille dans...' ou 'Je fais partie de...' avec les prépositions correctes (dans, à, au sein de).",
+    exampleAnswer: "Je travaille dans la Direction générale des opérations régionales, au sein du secteur des ressources humaines.",
   },
   {
     id: 5,
@@ -41,6 +49,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["présent"],
+    grammarTip: "Décrivez vos tâches avec des verbes au présent: 'Mon travail consiste à + infinitif' ou 'Je suis responsable de + nom/infinitif'.",
+    exampleAnswer: "Mon travail consiste à analyser les données et à préparer des rapports. Je suis responsable de la coordination des projets.",
   },
   {
     id: 6,
@@ -48,6 +58,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "introduction",
     difficulty: "A2",
     targetStructures: ["présent"],
+    grammarTip: "'Depuis' + durée ou date avec le PRÉSENT (pas le passé!): 'Je travaille ici depuis 5 ans' ou 'depuis 2019'.",
+    exampleAnswer: "Je travaille à EDSC depuis 2018, donc ça fait maintenant six ans que je suis ici.",
   },
   {
     id: 7,
@@ -55,6 +67,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "Passé composé pour l'action (j'ai choisi) + imparfait pour expliquer les raisons/contexte (je voulais, c'était important).",
+    exampleAnswer: "J'ai choisi la fonction publique parce que je voulais contribuer au bien-être des Canadiens. C'était important pour moi d'avoir un travail stable avec de bons avantages.",
   },
   {
     id: 8,
@@ -62,6 +76,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé"],
+    grammarTip: "Passé composé avec avoir: 'J'ai suivi', 'J'ai obtenu', 'J'ai fait'. Le participe passé ne s'accorde pas avec avoir (sauf si COD avant).",
+    exampleAnswer: "J'ai obtenu un baccalauréat en administration publique à l'Université d'Ottawa. Ensuite, j'ai suivi plusieurs formations en gestion de projets.",
   },
   // Section 2: Parcours professionnel (A2-B1)
   {
@@ -70,6 +86,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "Passé composé pour l'événement (j'ai commencé) + imparfait pour décrire la situation (c'était, j'étais, il y avait).",
+    exampleAnswer: "J'ai commencé ma carrière à Service Canada en 2015. C'était un poste d'agent de service à la clientèle. J'étais responsable d'aider les citoyens.",
   },
   {
     id: 10,
@@ -77,6 +95,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["imparfait"],
+    grammarTip: "L'imparfait décrit des situations passées habituelles: 'J'occupais', 'Je faisais', 'Mes tâches étaient'. Formation: radical + ais/ais/ait/ions/iez/aient.",
+    exampleAnswer: "Avant ce poste, j'occupais le rôle de coordonnateur. Mes principales tâches étaient la planification des réunions et la rédaction de comptes rendus. Je travaillais avec plusieurs équipes.",
   },
   {
     id: 11,
@@ -84,6 +104,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "Passé composé pour les étapes (j'ai postulé, j'ai passé l'entrevue) + imparfait pour le contexte (le processus était, il y avait).",
+    exampleAnswer: "La procédure d'embauche était assez longue. J'ai d'abord postulé en ligne, puis j'ai passé un examen écrit. Ensuite, il y avait une entrevue avec un comité de sélection.",
   },
   {
     id: 12,
@@ -91,6 +113,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "Passé composé pour les actions terminées (j'ai attendu, j'ai fait) + imparfait pour les activités en cours (je travaillais, je me préparais).",
+    exampleAnswer: "J'ai attendu environ trois mois avant de commencer. Durant cette période, je travaillais encore à mon ancien poste et je me préparais pour mes nouvelles fonctions.",
   },
   {
     id: 13,
@@ -98,6 +122,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["passé composé"],
+    grammarTip: "Questions fermées avec passé composé: Oui, j'ai suivi... / Non, je n'ai pas suivi... N'oubliez pas 'ne...pas' autour de l'auxiliaire.",
+    exampleAnswer: "Oui, j'ai suivi une formation d'intégration de deux semaines. On nous a présenté les politiques du ministère et les outils informatiques que nous allions utiliser.",
   },
   {
     id: 14,
@@ -105,6 +131,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait", "plus-que-parfait"],
+    grammarTip: "Plus-que-parfait pour une action antérieure à une autre au passé: 'Ils avaient préparé mon bureau avant mon arrivée' (auxiliaire à l'imparfait + participe passé).",
+    exampleAnswer: "Mes collègues m'ont très bien accueilli. Ils avaient déjà préparé mon bureau et mon ordinateur. Mon gestionnaire était très accueillant et m'a présenté à toute l'équipe.",
   },
   {
     id: 15,
@@ -112,6 +140,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["imparfait", "conditionnel"],
+    grammarTip: "Imparfait pour la description passée (il/elle était) + conditionnel présent pour une description hypothétique (je dirais, je le/la décrirais comme...).",
+    exampleAnswer: "Ma première gestionnaire était Madame Bouchard. Je la décrirais comme une personne très organisée et à l'écoute. Elle encourageait toujours notre développement professionnel.",
   },
   {
     id: 16,
@@ -119,6 +149,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["passé composé", "présent"],
+    grammarTip: "Passé composé pour l'influence passée (a influencé, j'ai appris) + présent pour le résultat actuel (maintenant je suis, j'utilise).",
+    exampleAnswer: "Mon premier poste a beaucoup influencé ma façon de travailler. J'ai appris l'importance de la communication. Maintenant, je m'assure toujours de bien documenter mon travail.",
   },
   // Section 3: Responsabilités et compétences (B1)
   {
@@ -127,6 +159,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["présent"],
+    grammarTip: "Utilisez des expressions comme 'Je suis responsable de + nom/infinitif', 'Je m'occupe de...', 'Mon rôle consiste à...' au présent.",
+    exampleAnswer: "Je suis responsable de la gestion des dossiers des clients. Je m'occupe aussi de la formation des nouveaux employés et je participe aux réunions d'équipe.",
   },
   {
     id: 18,
@@ -134,6 +168,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent", "subjonctif"],
+    grammarTip: "Subjonctif après 'il faut que', 'il est nécessaire que', 'pour que': 'Il faut que je sois organisé', 'Il est important que nous sachions...'",
+    exampleAnswer: "Il faut être organisé et avoir de bonnes compétences en communication. Il est nécessaire que l'on sache travailler sous pression. La maîtrise d'Excel est aussi essentielle.",
   },
   {
     id: 19,
@@ -141,6 +177,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent"],
+    grammarTip: "Superlatifs: 'le plus difficile', 'la plus grande exigence'. Utilisez 'à + infinitif' après les adjectifs: 'difficile à gérer', 'compliqué à expliquer'.",
+    exampleAnswer: "L'exigence la plus difficile à gérer est le respect des délais serrés. Il est parfois compliqué de concilier les priorités multiples de différents projets en même temps.",
   },
   {
     id: 20,
@@ -149,6 +187,8 @@ const PSC_EXAM_QUESTIONS = [
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
     starMethod: true,
+    grammarTip: "Méthode STAR: Situation (imparfait), Tâche (imparfait), Action (passé composé), Résultat (passé composé). 'Il y avait... J'ai décidé de... J'ai réussi à...'",
+    exampleAnswer: "L'année dernière, nous avions un projet urgent avec un délai très court. J'ai organisé des réunions quotidiennes et j'ai redistribué les tâches. Finalement, nous avons livré le projet à temps.",
   },
   {
     id: 21,
@@ -156,6 +196,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent"],
+    grammarTip: "Expressions de fréquence au présent: 'revient souvent', 'se produit régulièrement', 'arrive fréquemment'. Relatif 'qui' comme sujet.",
+    exampleAnswer: "Le problème qui revient le plus souvent est le manque de ressources. Nous avons souvent trop de travail et pas assez de personnel pour tout accomplir dans les délais.",
   },
   {
     id: 22,
@@ -163,6 +205,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "A2-B1",
     targetStructures: ["présent"],
+    grammarTip: "Verbes pronominaux au présent: 'je m'organise', 'je me concentre'. Expressions de temps: 'chaque jour', 'd'abord', 'ensuite', 'finalement'.",
+    exampleAnswer: "Chaque matin, je consulte mon calendrier et je fais une liste de priorités. D'abord, je m'occupe des tâches urgentes, ensuite je travaille sur les projets à long terme.",
   },
   // Section 4: Travail d'équipe (B1)
   {
@@ -171,6 +215,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent", "conditionnel"],
+    grammarTip: "Exprimer la préférence: 'Je préfère + infinitif', 'J'aime mieux + infinitif'. Conditionnel pour nuancer: 'je dirais que', 'cela dépendrait de...'",
+    exampleAnswer: "Je préfère travailler en équipe parce que j'aime échanger des idées avec mes collègues. Cependant, pour certaines tâches de concentration, je dirais que le travail seul est plus efficace.",
   },
   {
     id: 24,
@@ -179,6 +225,8 @@ const PSC_EXAM_QUESTIONS = [
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
     starMethod: true,
+    grammarTip: "Superlatif passé: 'ma meilleure expérience'. Narration: imparfait (contexte) + passé composé (actions). 'Nous travaillions ensemble quand nous avons réussi...'",
+    exampleAnswer: "Ma meilleure expérience de collaboration était un projet interdépartemental. Nous travaillions avec trois autres équipes. Nous avons réussi à créer un nouveau processus qui a réduit les délais de 30%.",
   },
   {
     id: 25,
@@ -186,6 +234,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "communication_leadership",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "'Aider à + infinitif': 'J'ai aidé à organiser'. Passé composé pour les actions d'organisation + imparfait pour décrire l'événement.",
+    exampleAnswer: "L'an dernier, j'ai aidé à organiser une fête de fin d'année pour notre équipe. Nous avons réservé un restaurant et j'ai préparé des jeux. C'était une soirée très réussie.",
   },
   // Section 5: Changement et adaptation (B1)
   {
@@ -194,6 +244,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "adaptation",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
+    grammarTip: "Passé composé avec être: 'Quel a été...' Accord du participe passé avec le sujet. Décrire l'impact avec l'imparfait et le passé composé.",
+    exampleAnswer: "Le dernier grand changement a été l'adoption du travail hybride. Avant, nous travaillions tous au bureau. Maintenant, nous alternons entre le bureau et le télétravail.",
   },
   {
     id: 27,
@@ -201,6 +253,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["passé composé"],
+    grammarTip: "Superlatif + passé composé: 'le plus passionnant a été'. Expression 'jusqu'à maintenant' ou 'jusqu'ici' pour marquer la continuité vers le présent.",
+    exampleAnswer: "Le moment le plus passionnant a été quand j'ai reçu ma première promotion. J'ai travaillé très fort pendant deux ans et cet accomplissement a été une grande fierté pour moi.",
   },
   {
     id: 28,
@@ -208,6 +262,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["imparfait"],
+    grammarTip: "L'imparfait pour décrire un état passé: 'Mon travail préféré était...', 'J'aimais ce poste parce que...' Attention: 'préféré' est un adjectif, pas un verbe ici.",
+    exampleAnswer: "Mon travail préféré était celui de conseiller en communication. J'aimais ce poste parce que je rencontrais beaucoup de gens différents et chaque jour était différent.",
   },
   {
     id: 29,
@@ -216,6 +272,8 @@ const PSC_EXAM_QUESTIONS = [
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait"],
     starMethod: true,
+    grammarTip: "Prépositions de lieu: 'à l'extérieur de', 'dans une autre région', 'à + ville'. Narrer avec passé composé (actions) et imparfait (descriptions).",
+    exampleAnswer: "J'ai participé à un projet spécial à Vancouver pendant trois mois. Je travaillais avec une équipe de l'Ouest canadien. C'était une expérience enrichissante qui m'a permis d'apprendre beaucoup.",
   },
   {
     id: 30,
@@ -223,6 +281,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "adaptation",
     difficulty: "B1",
     targetStructures: ["passé composé", "imparfait", "conditionnel passé"],
+    grammarTip: "Conditionnel passé pour exprimer un regret ou ce qu'on aurait fait différemment: 'J'aurais dû...', 'J'aurais pu...' (auxiliaire au conditionnel + participe passé).",
+    exampleAnswer: "Le plus grand défi a été de m'adapter au décalage horaire et à une nouvelle équipe. J'aurais pu mieux me préparer si j'avais su à l'avance les différences culturelles.",
   },
   {
     id: 31,
@@ -230,6 +290,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["imparfait"],
+    grammarTip: "L'imparfait pour les descriptions: 'Les conditions étaient...', 'Il y avait...', 'Nous avions...'. Adjectifs accordés avec le nom qu'ils qualifient.",
+    exampleAnswer: "Les conditions de travail étaient excellentes. Nous avions un bureau moderne avec de bons équipements. L'ambiance était collaborative et le gestionnaire était très supportif.",
   },
   {
     id: 32,
@@ -237,6 +299,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "adaptation",
     difficulty: "B1",
     targetStructures: ["imparfait", "plus-que-parfait", "conditionnel passé"],
+    grammarTip: "Plus-que-parfait pour une action antérieure: 'J'avais préparé...'. Accord de 'préparé(e)' avec le sujet quand on utilise être. Conditionnel passé: 'j'aurais été mieux préparé(e)'.",
+    exampleAnswer: "Je n'étais pas suffisamment préparé parce que je n'avais pas eu assez de temps pour me former. J'aurais été mieux préparé si j'avais suivi une formation avant de commencer.",
   },
   // Section 6: Services et ministère (B1)
   {
@@ -245,6 +309,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent", "subjonctif"],
+    grammarTip: "Subjonctif après 'je juge que' (quand il exprime un jugement subjectif) ou 'il est important que'. Participe passé 'offert' = masculin singulier.",
+    exampleAnswer: "Un service que je juge particulièrement important est l'aide aux nouveaux arrivants. Il est essentiel que ces personnes reçoivent le soutien nécessaire pour s'intégrer au Canada.",
   },
   {
     id: 34,
@@ -252,6 +318,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent"],
+    grammarTip: "Voix passive au présent: 'sont offerts', 'est desservie'. Participes passés accordés. Utiliser des connecteurs: 'premièrement', 'de plus', 'également'.",
+    exampleAnswer: "Notre ministère offre plusieurs services. Premièrement, nous gérons les prestations d'assurance-emploi. De plus, nous offrons des services aux aînés. Notre clientèle est composée de tous les Canadiens.",
   },
   {
     id: 35,
@@ -259,6 +327,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1",
     targetStructures: ["présent", "conditionnel"],
+    grammarTip: "Expression d'opinion: 'selon moi', 'à mon avis'. Conditionnel pour suggérer: 'On pourrait...', 'Il serait préférable de...', 'Ce serait mieux si...'",
+    exampleAnswer: "Selon moi, la saisie manuelle de données constitue une perte de temps. On pourrait automatiser ce processus. Il serait préférable d'investir dans un système informatique plus moderne.",
   },
   // Section 7: Développement professionnel (B1+)
   {
@@ -267,6 +337,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "future_plans",
     difficulty: "B1",
     targetStructures: ["conditionnel"],
+    grammarTip: "Conditionnel présent pour les souhaits: 'J'aimerais', 'Je voudrais', 'Je souhaiterais' + infinitif. Formation: radical du futur + terminaisons de l'imparfait.",
+    exampleAnswer: "J'aimerais suivre une formation en gestion de projets. Je voudrais aussi améliorer mes compétences en analyse de données. Ce serait utile pour ma progression de carrière.",
   },
   {
     id: 37,
@@ -274,6 +346,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "future_plans",
     difficulty: "B1+",
     targetStructures: ["présent", "conditionnel", "subjonctif"],
+    grammarTip: "Subjonctif après 'Mon gestionnaire veut que je...', 'Il souhaite que nous...'. Mélange de temps: présent (objectifs actuels), conditionnel (souhaits), subjonctif (volonté d'autrui).",
+    exampleAnswer: "Mon objectif est de devenir gestionnaire d'ici cinq ans. Mon gestionnaire souhaite que je développe mes compétences en leadership. Il voudrait que je prenne plus de responsabilités.",
   },
   {
     id: 38,
@@ -281,6 +355,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "future_plans",
     difficulty: "B1+",
     targetStructures: ["futur", "conditionnel"],
+    grammarTip: "Futur simple pour les certitudes: 'je devrai', 'il faudra'. Formation: infinitif + ai/as/a/ons/ez/ont. Conditionnel pour les possibilités: 'je pourrais', 'ce serait bien de...'",
+    exampleAnswer: "Je devrai développer mes compétences en communication orale en français. Il faudra aussi que j'améliore ma capacité à gérer des équipes. Ce serait bien de suivre une formation en leadership.",
   },
   {
     id: 39,
@@ -288,6 +364,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "future_plans",
     difficulty: "B1+",
     targetStructures: ["conditionnel", "subjonctif"],
+    grammarTip: "Conditionnel de souhait: 'J'aimerais occuper...', 'Je voudrais entreprendre...'. Subjonctif après 'pour que': 'pour que je puisse évoluer...'",
+    exampleAnswer: "J'aimerais occuper un poste de gestionnaire d'équipe. Je voudrais entreprendre un projet d'amélioration des processus dans notre direction pour que nous puissions être plus efficaces.",
   },
   {
     id: 40,
@@ -295,6 +373,8 @@ const PSC_EXAM_QUESTIONS = [
     topic: "explaining",
     difficulty: "B1+",
     targetStructures: ["conditionnel", "présent"],
+    grammarTip: "Conditionnel pour expliquer une situation hypothétique: 'Je présenterais...', 'J'expliquerais...'. Impératif pour donner des instructions: 'D'abord, ouvrez...', 'Ensuite, cliquez...'",
+    exampleAnswer: "Je choisirais d'expliquer le traitement des demandes de remboursement. Je présenterais d'abord le système informatique, puis j'expliquerais les étapes: D'abord, ouvrez le dossier du client, ensuite vérifiez les documents...",
   },
 ]
 
@@ -318,6 +398,8 @@ export default function PSCExamSimulator() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [aiAnalysis, setAiAnalysis] = useState(null)
   const [progressLoaded, setProgressLoaded] = useState(false)
+  const [aiGeneratedQuestions, setAiGeneratedQuestions] = useState([])
+  const [isGeneratingQuestions, setIsGeneratingQuestions] = useState(false)
 
   // AI Tutor state
   const [chatMessages, setChatMessages] = useState([])
@@ -840,7 +922,8 @@ export default function PSCExamSimulator() {
       setCompletedQuestions(prev => [...prev, currentQuestion.id])
     }
 
-    if (examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1) {
+    const allQs = [...PSC_EXAM_QUESTIONS, ...aiGeneratedQuestions]
+    if (examQuestionIndex < allQs.length - 1) {
       const nextIndex = examQuestionIndex + 1
       setExamQuestionIndex(nextIndex)
       setExamFeedback(null)
@@ -851,7 +934,7 @@ export default function PSCExamSimulator() {
       setAiAnalysis(null)
       setIsAnalyzing(false)
 
-      const nextQuestion = PSC_EXAM_QUESTIONS[nextIndex]
+      const nextQuestion = allQs[nextIndex]
       setTimeout(() => {
         speakFrench(nextQuestion.question, nextQuestion.difficulty)
       }, 500)
@@ -874,6 +957,7 @@ export default function PSCExamSimulator() {
     setFullTranscript('')
     setAiAnalysis(null)
     setIsAnalyzing(false)
+    setAiGeneratedQuestions([])
 
     // Clear localStorage progress
     if (typeof window !== 'undefined') {
@@ -883,7 +967,43 @@ export default function PSCExamSimulator() {
     setTimeout(() => startExam(), 100)
   }
 
-  const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
+  // Generate more questions with AI
+  const generateMoreQuestions = async () => {
+    setIsGeneratingQuestions(true)
+    try {
+      const response = await fetch('/api/generate-questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          completedTopics: ['introduction', 'explaining'],
+          difficulty: 'B1',
+          count: 10
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.questions && data.questions.length > 0) {
+          // Add IDs starting from 41 + existing AI questions
+          const startId = 41 + aiGeneratedQuestions.length
+          const newQuestions = data.questions.map((q, i) => ({
+            ...q,
+            id: startId + i,
+            isAiGenerated: true
+          }))
+          setAiGeneratedQuestions(prev => [...prev, ...newQuestions])
+        }
+      }
+    } catch (error) {
+      console.error('Failed to generate questions:', error)
+    }
+    setIsGeneratingQuestions(false)
+  }
+
+  // Combine original and AI-generated questions
+  const allQuestions = [...PSC_EXAM_QUESTIONS, ...aiGeneratedQuestions]
+  const currentQuestion = allQuestions[examQuestionIndex]
+  const totalQuestions = allQuestions.length
 
   // Home screen with mode selection
   // Calculate progress percentage
@@ -1076,7 +1196,7 @@ export default function PSCExamSimulator() {
           <p style={styles.subtitle}>Niveau A2-B1</p>
         </div>
         <div style={styles.headerMeta}>
-          <span style={styles.progress}>Question {examQuestionIndex + 1} / {PSC_EXAM_QUESTIONS.length}</span>
+          <span style={styles.progress}>Question {examQuestionIndex + 1} / {totalQuestions}</span>
           <span style={styles.level}>Niveau: {currentQuestion.difficulty}</span>
         </div>
       </header>
@@ -1177,6 +1297,34 @@ export default function PSCExamSimulator() {
               <h4 style={styles.sectionSubtitle}>Votre réponse:</h4>
               <p style={styles.yourAnswerText}>{transcript}</p>
             </div>
+
+            {/* Grammar Tip Section */}
+            {currentQuestion.grammarTip && (
+              <div style={styles.grammarTipSection}>
+                <h4 style={styles.sectionSubtitle}>📖 Conseil grammatical:</h4>
+                <p style={styles.grammarTipText}>{currentQuestion.grammarTip}</p>
+                <div style={styles.targetStructuresRow}>
+                  {currentQuestion.targetStructures.map((struct, i) => (
+                    <span key={i} style={styles.structureBadge}>{struct}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Example Answer Section */}
+            {currentQuestion.exampleAnswer && (
+              <div style={styles.exampleAnswerSection}>
+                <h4 style={styles.sectionSubtitle}>💡 Exemple de réponse:</h4>
+                <p style={styles.exampleAnswerText}>"{currentQuestion.exampleAnswer}"</p>
+                <button
+                  style={{...styles.listenButton, marginTop: '0.75rem'}}
+                  onClick={() => speakFrench(currentQuestion.exampleAnswer, currentQuestion.difficulty)}
+                  disabled={isSpeaking}
+                >
+                  {isSpeaking ? '🔊 Lecture...' : '🔊 Écouter l\'exemple'}
+                </button>
+              </div>
+            )}
 
             {/* AI Analysis Loading */}
             {isAnalyzing && (
@@ -1355,14 +1503,23 @@ export default function PSCExamSimulator() {
             )}
 
             <div style={styles.navigation}>
-              {examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1 ? (
+              {examQuestionIndex < totalQuestions - 1 ? (
                 <button style={styles.nextButton} onClick={nextExamQuestion} disabled={isAnalyzing}>
                   Question suivante →
                 </button>
               ) : (
-                <button style={styles.completeButton} onClick={restartExam} disabled={isAnalyzing}>
-                  Recommencer l'examen
-                </button>
+                <div style={styles.completionButtons}>
+                  <button
+                    style={styles.generateButton}
+                    onClick={generateMoreQuestions}
+                    disabled={isGeneratingQuestions || isAnalyzing}
+                  >
+                    {isGeneratingQuestions ? '⏳ Génération...' : '🤖 Générer 10 nouvelles questions'}
+                  </button>
+                  <button style={styles.completeButton} onClick={restartExam} disabled={isAnalyzing || isGeneratingQuestions}>
+                    🔄 Recommencer l'examen
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -1370,15 +1527,16 @@ export default function PSCExamSimulator() {
 
         {/* Progress Bar */}
         <div style={styles.progressBar}>
-          {PSC_EXAM_QUESTIONS.map((q, i) => (
+          {allQuestions.map((q, i) => (
             <div
               key={i}
               style={{
                 ...styles.progressDot,
                 ...(completedQuestions.includes(q.id) ? styles.progressDotCompleted : {}),
-                ...(i === examQuestionIndex ? styles.progressDotCurrent : {})
+                ...(i === examQuestionIndex ? styles.progressDotCurrent : {}),
+                ...(q.isAiGenerated ? styles.progressDotAI : {})
               }}
-              title={`Question ${i + 1}`}
+              title={`Question ${i + 1}${q.isAiGenerated ? ' (IA)' : ''}`}
             />
           ))}
         </div>
@@ -2302,5 +2460,72 @@ const styles = {
     lineHeight: 1.6,
     margin: 0,
     whiteSpace: 'pre-wrap',
+  },
+  // Grammar tip styles
+  grammarTipSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05))',
+    borderRadius: '12px',
+    border: '1px solid rgba(16, 185, 129, 0.25)',
+  },
+  grammarTipText: {
+    fontSize: '0.95rem',
+    color: '#1a2a4a',
+    lineHeight: 1.6,
+    marginBottom: '0.75rem',
+  },
+  targetStructuresRow: {
+    display: 'flex',
+    gap: '0.5rem',
+    flexWrap: 'wrap',
+  },
+  structureBadge: {
+    background: 'rgba(16, 185, 129, 0.15)',
+    color: '#059669',
+    padding: '0.25rem 0.6rem',
+    borderRadius: '12px',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+  },
+  // Example answer styles
+  exampleAnswerSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05))',
+    borderRadius: '12px',
+    border: '1px solid rgba(251, 191, 36, 0.25)',
+  },
+  exampleAnswerText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1rem',
+    color: '#1a2a4a',
+    lineHeight: 1.7,
+    fontStyle: 'italic',
+  },
+  // Generate button styles
+  completionButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    width: '100%',
+    maxWidth: '300px',
+    margin: '0 auto',
+  },
+  generateButton: {
+    background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '30px',
+    padding: '1rem 2rem',
+    fontSize: '1rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    boxShadow: '0 4px 15px rgba(139, 92, 246, 0.35)',
+  },
+  // AI-generated question indicator
+  progressDotAI: {
+    background: '#8b5cf6',
+    boxShadow: '0 0 4px rgba(139, 92, 246, 0.5)',
   },
 }
