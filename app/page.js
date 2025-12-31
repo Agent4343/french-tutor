@@ -309,6 +309,7 @@ export default function PSCExamSimulator() {
   // PSC Exam state
   const [examQuestionIndex, setExamQuestionIndex] = useState(0)
   const [examHistory, setExamHistory] = useState([])
+  const [completedQuestions, setCompletedQuestions] = useState([]) // Track completed question IDs
   const [awaitingAnswer, setAwaitingAnswer] = useState(false)
   const [answerComplete, setAnswerComplete] = useState(false)
   const [examFeedback, setExamFeedback] = useState(null)
@@ -316,6 +317,7 @@ export default function PSCExamSimulator() {
   const [fullTranscript, setFullTranscript] = useState('')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [aiAnalysis, setAiAnalysis] = useState(null)
+  const [progressLoaded, setProgressLoaded] = useState(false)
 
   // AI Tutor state
   const [chatMessages, setChatMessages] = useState([])
@@ -337,6 +339,47 @@ export default function PSCExamSimulator() {
       synthRef.current.getVoices()
     }
   }, [])
+
+  // Load progress from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedProgress = localStorage.getItem('frenchExamProgress')
+        if (savedProgress) {
+          const progress = JSON.parse(savedProgress)
+          if (progress.examQuestionIndex !== undefined) {
+            setExamQuestionIndex(progress.examQuestionIndex)
+          }
+          if (progress.completedQuestions) {
+            setCompletedQuestions(progress.completedQuestions)
+          }
+          if (progress.examHistory) {
+            setExamHistory(progress.examHistory)
+          }
+        }
+      } catch (e) {
+        console.error('Error loading progress:', e)
+      }
+      setProgressLoaded(true)
+    }
+  }, [])
+
+  // Save progress to localStorage when it changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && progressLoaded) {
+      try {
+        const progress = {
+          examQuestionIndex,
+          completedQuestions,
+          examHistory,
+          lastUpdated: new Date().toISOString()
+        }
+        localStorage.setItem('frenchExamProgress', JSON.stringify(progress))
+      } catch (e) {
+        console.error('Error saving progress:', e)
+      }
+    }
+  }, [examQuestionIndex, completedQuestions, examHistory, progressLoaded])
 
   // Initialize speech recognition
   useEffect(() => {
@@ -791,6 +834,12 @@ export default function PSCExamSimulator() {
   }
 
   const nextExamQuestion = () => {
+    // Mark current question as completed
+    const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
+    if (!completedQuestions.includes(currentQuestion.id)) {
+      setCompletedQuestions(prev => [...prev, currentQuestion.id])
+    }
+
     if (examQuestionIndex < PSC_EXAM_QUESTIONS.length - 1) {
       const nextIndex = examQuestionIndex + 1
       setExamQuestionIndex(nextIndex)
@@ -817,6 +866,7 @@ export default function PSCExamSimulator() {
     setExamStarted(false)
     setExamQuestionIndex(0)
     setExamHistory([])
+    setCompletedQuestions([])
     setExamFeedback(null)
     setAwaitingAnswer(false)
     setAnswerComplete(false)
@@ -825,12 +875,21 @@ export default function PSCExamSimulator() {
     setAiAnalysis(null)
     setIsAnalyzing(false)
 
+    // Clear localStorage progress
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('frenchExamProgress')
+    }
+
     setTimeout(() => startExam(), 100)
   }
 
   const currentQuestion = PSC_EXAM_QUESTIONS[examQuestionIndex]
 
   // Home screen with mode selection
+  // Calculate progress percentage
+  const progressPercent = Math.round((completedQuestions.length / PSC_EXAM_QUESTIONS.length) * 100)
+  const hasProgress = completedQuestions.length > 0 || examQuestionIndex > 0
+
   if (appMode === 'home') {
     return (
       <main style={styles.main}>
@@ -845,11 +904,44 @@ export default function PSCExamSimulator() {
           <h1 style={styles.startTitle}>Susan Matheson French Helper</h1>
           <p style={styles.startSubtitle}>Préparation à l'examen oral PSC - Niveau A2-B1</p>
 
+          {/* Progress indicator */}
+          {hasProgress && progressLoaded && (
+            <div style={styles.progressSection}>
+              <div style={styles.progressHeader}>
+                <span style={styles.progressLabel}>Votre progression</span>
+                <span style={styles.progressPercent}>{progressPercent}%</span>
+              </div>
+              <div style={styles.progressBarContainer}>
+                <div style={{...styles.progressBarFill, width: `${progressPercent}%`}} />
+              </div>
+              <p style={styles.progressText}>
+                {completedQuestions.length} / {PSC_EXAM_QUESTIONS.length} questions complétées
+              </p>
+            </div>
+          )}
+
           <div style={styles.modeButtons}>
-            <button style={styles.modeButton} onClick={startExam}>
+            {/* Show continue button if there's progress */}
+            {hasProgress && progressLoaded && (
+              <button style={{...styles.modeButton, ...styles.continueButton}} onClick={startExam}>
+                <span style={styles.modeIcon}>▶️</span>
+                <span style={styles.modeTitle}>Continuer</span>
+                <span style={styles.modeDesc}>Question {examQuestionIndex + 1} / {PSC_EXAM_QUESTIONS.length}</span>
+              </button>
+            )}
+
+            <button style={styles.modeButton} onClick={() => {
+              if (hasProgress) {
+                if (confirm('Voulez-vous vraiment recommencer? Votre progression sera perdue.')) {
+                  restartExam()
+                }
+              } else {
+                startExam()
+              }
+            }}>
               <span style={styles.modeIcon}>🎤</span>
-              <span style={styles.modeTitle}>Examen simulé</span>
-              <span style={styles.modeDesc}>40 questions progressives</span>
+              <span style={styles.modeTitle}>{hasProgress ? 'Recommencer' : 'Examen simulé'}</span>
+              <span style={styles.modeDesc}>{hasProgress ? 'Réinitialiser la progression' : '40 questions progressives'}</span>
             </button>
 
             <button style={{...styles.modeButton, ...styles.tutorButton}} onClick={startTutor}>
@@ -860,7 +952,7 @@ export default function PSCExamSimulator() {
           </div>
 
           <p style={styles.startNote}>
-            Choisissez un mode pour commencer
+            {hasProgress ? 'Continuez où vous vous êtes arrêté' : 'Choisissez un mode pour commencer'}
           </p>
         </div>
       </main>
@@ -1278,14 +1370,15 @@ export default function PSCExamSimulator() {
 
         {/* Progress Bar */}
         <div style={styles.progressBar}>
-          {PSC_EXAM_QUESTIONS.map((_, i) => (
+          {PSC_EXAM_QUESTIONS.map((q, i) => (
             <div
               key={i}
               style={{
                 ...styles.progressDot,
-                ...(i < examQuestionIndex ? styles.progressDotCompleted : {}),
+                ...(completedQuestions.includes(q.id) ? styles.progressDotCompleted : {}),
                 ...(i === examQuestionIndex ? styles.progressDotCurrent : {})
               }}
+              title={`Question ${i + 1}`}
             />
           ))}
         </div>
@@ -1339,6 +1432,55 @@ const styles = {
     fontSize: '1.2rem',
     color: 'rgba(255,255,255,0.85)',
     marginBottom: '2rem',
+  },
+  // Progress section styles
+  progressSection: {
+    width: '100%',
+    maxWidth: '320px',
+    marginBottom: '2rem',
+    padding: '1rem 1.5rem',
+    background: 'rgba(255,255,255,0.1)',
+    borderRadius: '16px',
+    backdropFilter: 'blur(10px)',
+  },
+  progressHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '0.5rem',
+  },
+  progressLabel: {
+    fontSize: '0.9rem',
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '500',
+  },
+  progressPercent: {
+    fontSize: '1.1rem',
+    color: '#22c55e',
+    fontWeight: '700',
+  },
+  progressBarContainer: {
+    width: '100%',
+    height: '8px',
+    background: 'rgba(255,255,255,0.2)',
+    borderRadius: '4px',
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    background: 'linear-gradient(90deg, #22c55e, #4ade80)',
+    borderRadius: '4px',
+    transition: 'width 0.3s ease',
+  },
+  progressText: {
+    fontSize: '0.85rem',
+    color: 'rgba(255,255,255,0.7)',
+    marginTop: '0.5rem',
+    textAlign: 'center',
+  },
+  continueButton: {
+    background: 'linear-gradient(135deg, #22c55e, #16a34a)',
+    border: '2px solid rgba(255,255,255,0.3)',
   },
   startInfo: {
     color: 'rgba(255,255,255,0.7)',

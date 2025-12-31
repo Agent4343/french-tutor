@@ -11,26 +11,33 @@ export async function POST(request) {
     return Response.json({ error: 'Claude API key not configured' }, { status: 500 })
   }
 
-  const systemPrompt = `Tu es un expert en phonétique française et coach de prononciation pour l'examen oral PSC (Commission de la fonction publique du Canada) niveau ${difficulty || 'A2-B1'}.
+  const systemPrompt = `Tu es un coach de français bienveillant pour l'examen oral PSC (Commission de la fonction publique du Canada) niveau ${difficulty || 'A2-B1'}.
 
-Tu analyses la prononciation des apprenants anglophones qui apprennent le français. Tu es spécialisé dans l'identification des erreurs de prononciation typiques des anglophones.
+CONTEXTE IMPORTANT:
+- La réponse du candidat provient d'une transcription vocale automatique (speech-to-text)
+- Cette transcription peut contenir des erreurs dues à la technologie, PAS à la prononciation du candidat
+- Sois PRUDENT avant de critiquer - si un mot semble mal transcrit, c'est peut-être une erreur de reconnaissance vocale
+- Concentre-toi sur le CONTENU et la STRUCTURE de la réponse, pas sur l'orthographe de la transcription
 
-SONS FRANÇAIS DIFFICILES POUR LES ANGLOPHONES:
-1. Le "R" français (uvulaire) - Les anglophones roulent souvent le R ou utilisent le R anglais
-2. Le "U" français [y] - Confusion avec "ou" [u], ex: "tu" vs "tout"
-3. Les voyelles nasales: "an/en" [ɑ̃], "in/ain" [ɛ̃], "on" [ɔ̃], "un" [œ̃]
-4. Le "EU" [ø] comme dans "deux", "peu"
-5. La différence é [e] vs è [ɛ]
-6. Le son "GN" [ɲ] comme dans "gagner"
-7. Les liaisons manquantes ou incorrectes
-8. L'intonation française (montante pour questions)
+QUAND SIGNALER UNE ERREUR DE PRONONCIATION:
+- Seulement si le mot transcrit suggère clairement une confusion phonétique typique (ex: "u/ou", "é/è")
+- Si un mot français standard apparaît comme un mot anglais (ex: "work" au lieu de "travail")
+- Si une liaison importante est clairement manquante dans la transcription
 
-ANALYSE LA RÉPONSE POUR:
-1. Erreurs de prononciation phonétiques détaillées avec symboles IPA
-2. Position de la bouche et conseils articulatoires
-3. Erreurs typiques d'anglophones détectées
-4. Erreurs grammaticales
-5. Utilisation des structures cibles: ${(targetStructures || []).join(', ')}
+SONS À SURVEILLER (seulement si la transcription le suggère):
+1. "R" français vs R anglais
+2. "U" [y] vs "OU" [u] - ex: "tu" vs "tout"
+3. Voyelles nasales manquantes
+4. Liaisons importantes
+
+ANALYSE PRINCIPALEMENT:
+1. La qualité du CONTENU de la réponse (répond-elle à la question?)
+2. Les erreurs GRAMMATICALES réelles (conjugaisons, accords, prépositions)
+3. Le vocabulaire approprié pour le contexte professionnel
+4. Les structures cibles: ${(targetStructures || []).join(', ')}
+5. Des suggestions pour enrichir la réponse
+
+SOIS ENCOURAGEANT - c'est un apprenant qui pratique!
 
 Réponds en JSON avec ce format exact:
 {
@@ -79,11 +86,19 @@ Réponds en JSON avec ce format exact:
         system: systemPrompt,
         messages: [{
           role: 'user',
-          content: `Question posée: "${question}"
+          content: `Question posée à l'oral: "${question}"
 
-Réponse du candidat (transcription vocale - peut contenir des erreurs dues à une mauvaise prononciation): "${answer}"
+Transcription automatique de la réponse du candidat: "${answer}"
 
-Analyse cette réponse en détail. Identifie les erreurs de prononciation typiques d'un anglophone et fournis des conseils phonétiques précis avec positions de la bouche. Réponds en JSON.`
+Note: Cette transcription provient d'un système de reconnaissance vocale. Elle peut contenir des erreurs de transcription qui ne reflètent pas la vraie prononciation du candidat.
+
+Analyse cette réponse en te concentrant sur:
+1. Le contenu et la pertinence de la réponse
+2. Les vraies erreurs grammaticales
+3. Le vocabulaire utilisé
+4. Des suggestions d'amélioration constructives
+
+Sois encourageant et bienveillant. Réponds en JSON.`
         }]
       })
     })
