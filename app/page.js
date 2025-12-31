@@ -433,8 +433,8 @@ export default function PSCExamSimulator() {
     <main style={styles.main}>
       <header style={styles.header}>
         <div style={styles.headerContent}>
-          <h1 style={styles.title}>Examen oral PSC</h1>
-          <p style={styles.subtitle}>Commission de la fonction publique du Canada - Niveau A2-B1</p>
+          <h1 style={styles.title}>Susan Matheson French Helper</h1>
+          <p style={styles.subtitle}>Examen oral PSC - Niveau A2-B1</p>
         </div>
         <div style={styles.headerMeta}>
           <span style={styles.progress}>Question {examQuestionIndex + 1} / {PSC_EXAM_QUESTIONS.length}</span>
