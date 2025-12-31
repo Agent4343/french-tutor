@@ -11,32 +11,58 @@ export async function POST(request) {
     return Response.json({ error: 'Claude API key not configured' }, { status: 500 })
   }
 
-  const systemPrompt = `Tu es un examinateur expert de français pour l'examen oral PSC (Commission de la fonction publique du Canada) niveau ${difficulty || 'A2-B1'}.
+  const systemPrompt = `Tu es un expert en phonétique française et coach de prononciation pour l'examen oral PSC (Commission de la fonction publique du Canada) niveau ${difficulty || 'A2-B1'}.
 
-Ton rôle est d'analyser la réponse orale d'un candidat et de fournir une rétroaction constructive.
+Tu analyses la prononciation des apprenants anglophones qui apprennent le français. Tu es spécialisé dans l'identification des erreurs de prononciation typiques des anglophones.
 
-IMPORTANT: Le candidat est un apprenant et peut faire des erreurs de prononciation qui ont été transcrites incorrectement par la reconnaissance vocale. Identifie ces erreurs probables et suggère les corrections.
+SONS FRANÇAIS DIFFICILES POUR LES ANGLOPHONES:
+1. Le "R" français (uvulaire) - Les anglophones roulent souvent le R ou utilisent le R anglais
+2. Le "U" français [y] - Confusion avec "ou" [u], ex: "tu" vs "tout"
+3. Les voyelles nasales: "an/en" [ɑ̃], "in/ain" [ɛ̃], "on" [ɔ̃], "un" [œ̃]
+4. Le "EU" [ø] comme dans "deux", "peu"
+5. La différence é [e] vs è [ɛ]
+6. Le son "GN" [ɲ] comme dans "gagner"
+7. Les liaisons manquantes ou incorrectes
+8. L'intonation française (montante pour questions)
 
-Tu dois analyser:
-1. Les erreurs de prononciation probables (basées sur les mots mal transcrits)
-2. Les erreurs grammaticales
-3. L'utilisation des structures cibles: ${(targetStructures || []).join(', ')}
-4. Le vocabulaire approprié pour le contexte professionnel
-5. La clarté et la structure de la réponse
+ANALYSE LA RÉPONSE POUR:
+1. Erreurs de prononciation phonétiques détaillées avec symboles IPA
+2. Position de la bouche et conseils articulatoires
+3. Erreurs typiques d'anglophones détectées
+4. Erreurs grammaticales
+5. Utilisation des structures cibles: ${(targetStructures || []).join(', ')}
 
 Réponds en JSON avec ce format exact:
 {
   "pronunciationErrors": [
-    {"heard": "mot mal prononcé/transcrit", "correction": "forme correcte", "explanation": "explication brève"}
+    {
+      "heard": "mot mal prononcé/transcrit",
+      "correction": "forme correcte",
+      "phonetic": "transcription IPA correcte",
+      "soundType": "r_uvulaire|u_francais|voyelle_nasale|eu|e_accent|gn|liaison|autre",
+      "explanation": "explication détaillée",
+      "mouthPosition": "description de la position de la bouche/langue",
+      "practiceWord": "mot simple pour pratiquer ce son"
+    }
+  ],
+  "phoneticTips": [
+    {
+      "sound": "nom du son problématique",
+      "ipa": "symbole IPA",
+      "tip": "conseil de prononciation détaillé",
+      "mouthGuide": "🔴 Lèvres: ... 👅 Langue: ... 🎵 Vibration: ..."
+    }
   ],
   "grammarErrors": [
     {"error": "erreur", "correction": "correction", "rule": "règle grammaticale"}
   ],
-  "structuresUsed": ["liste des structures grammaticales correctement utilisées"],
+  "structuresUsed": ["structures grammaticales correctement utilisées"],
   "structuresMissing": ["structures cibles non utilisées"],
   "vocabularySuggestions": ["suggestions de vocabulaire professionnel"],
-  "overallFeedback": "commentaire général encourageant de 2-3 phrases",
-  "improvedVersion": "version améliorée de la réponse du candidat en 2-3 phrases"
+  "fluencyScore": 1-10,
+  "pronunciationScore": 1-10,
+  "overallFeedback": "commentaire encourageant avec focus sur les progrès",
+  "improvedVersion": "version améliorée naturelle de la réponse"
 }`
 
   try {
@@ -49,15 +75,15 @@ Réponds en JSON avec ce format exact:
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
+        max_tokens: 2000,
         system: systemPrompt,
         messages: [{
           role: 'user',
           content: `Question posée: "${question}"
 
-Réponse du candidat (transcription vocale): "${answer}"
+Réponse du candidat (transcription vocale - peut contenir des erreurs dues à une mauvaise prononciation): "${answer}"
 
-Analyse cette réponse et fournis ta rétroaction en JSON.`
+Analyse cette réponse en détail. Identifie les erreurs de prononciation typiques d'un anglophone et fournis des conseils phonétiques précis avec positions de la bouche. Réponds en JSON.`
         }]
       })
     })
@@ -87,10 +113,13 @@ Analyse cette réponse et fournis ta rétroaction en JSON.`
     return Response.json({
       analysis: {
         pronunciationErrors: [],
+        phoneticTips: [],
         grammarErrors: [],
         structuresUsed: [],
         structuresMissing: [],
         vocabularySuggestions: [],
+        fluencyScore: 5,
+        pronunciationScore: 5,
         overallFeedback: responseText,
         improvedVersion: ""
       }

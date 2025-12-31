@@ -1094,18 +1094,94 @@ export default function PSCExamSimulator() {
               </div>
             )}
 
-            {/* AI Pronunciation Corrections */}
+            {/* Pronunciation & Fluency Scores */}
+            {aiAnalysis && (aiAnalysis.pronunciationScore || aiAnalysis.fluencyScore) && (
+              <div style={styles.scoresSection}>
+                <div style={styles.scoresGrid}>
+                  {aiAnalysis.pronunciationScore && (
+                    <div style={styles.scoreCard}>
+                      <div style={styles.scoreCircle}>
+                        <span style={styles.scoreNumber}>{aiAnalysis.pronunciationScore}</span>
+                        <span style={styles.scoreMax}>/10</span>
+                      </div>
+                      <span style={styles.scoreLabel}>Prononciation</span>
+                    </div>
+                  )}
+                  {aiAnalysis.fluencyScore && (
+                    <div style={styles.scoreCard}>
+                      <div style={styles.scoreCircle}>
+                        <span style={styles.scoreNumber}>{aiAnalysis.fluencyScore}</span>
+                        <span style={styles.scoreMax}>/10</span>
+                      </div>
+                      <span style={styles.scoreLabel}>Fluidité</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* AI Pronunciation Corrections - Enhanced */}
             {aiAnalysis && aiAnalysis.pronunciationErrors && aiAnalysis.pronunciationErrors.length > 0 && (
               <div style={styles.pronunciationSection}>
-                <h4 style={styles.sectionSubtitle}>Corrections de prononciation:</h4>
+                <h4 style={styles.sectionSubtitle}>🎯 Corrections de prononciation:</h4>
                 {aiAnalysis.pronunciationErrors.map((error, i) => (
                   <div key={i} style={styles.pronunciationError}>
-                    <div style={styles.pronunciationRow}>
-                      <span style={styles.heardWord}>"{error.heard}"</span>
-                      <span style={styles.arrow}>→</span>
-                      <span style={styles.correctWord}>"{error.correction}"</span>
+                    <div style={styles.pronunciationHeader}>
+                      <div style={styles.pronunciationRow}>
+                        <span style={styles.heardWord}>"{error.heard}"</span>
+                        <span style={styles.arrow}>→</span>
+                        <span style={styles.correctWord}>"{error.correction}"</span>
+                      </div>
+                      {error.soundType && (
+                        <span style={styles.soundTypeBadge}>{error.soundType.replace('_', ' ')}</span>
+                      )}
                     </div>
+                    {error.phonetic && (
+                      <div style={styles.ipaRow}>
+                        <span style={styles.ipaLabel}>IPA:</span>
+                        <span style={styles.ipaText}>[{error.phonetic}]</span>
+                      </div>
+                    )}
                     <p style={styles.pronunciationExplanation}>{error.explanation}</p>
+                    {error.mouthPosition && (
+                      <div style={styles.mouthPositionBox}>
+                        <span style={styles.mouthIcon}>👄</span>
+                        <span style={styles.mouthPositionText}>{error.mouthPosition}</span>
+                      </div>
+                    )}
+                    {error.practiceWord && (
+                      <div style={styles.practiceWordBox}>
+                        <span style={styles.practiceLabel}>Pratiquez avec:</span>
+                        <button
+                          style={styles.practiceWordButton}
+                          onClick={() => speakFrench(error.practiceWord, 'A2')}
+                          disabled={isSpeaking}
+                        >
+                          🔊 "{error.practiceWord}"
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Phonetic Tips Section */}
+            {aiAnalysis && aiAnalysis.phoneticTips && aiAnalysis.phoneticTips.length > 0 && (
+              <div style={styles.phoneticTipsSection}>
+                <h4 style={styles.sectionSubtitle}>📚 Guide de prononciation:</h4>
+                {aiAnalysis.phoneticTips.map((tip, i) => (
+                  <div key={i} style={styles.phoneticTipCard}>
+                    <div style={styles.tipHeader}>
+                      <span style={styles.tipSound}>{tip.sound}</span>
+                      {tip.ipa && <span style={styles.tipIpa}>[{tip.ipa}]</span>}
+                    </div>
+                    <p style={styles.tipText}>{tip.tip}</p>
+                    {tip.mouthGuide && (
+                      <div style={styles.mouthGuideBox}>
+                        <p style={styles.mouthGuideText}>{tip.mouthGuide}</p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -1904,5 +1980,185 @@ const styles = {
     color: '#1a2a4a',
     marginBottom: '0.35rem',
     lineHeight: 1.5,
+  },
+  // Scores section styles
+  scoresSection: {
+    marginBottom: '1.5rem',
+    padding: '1.5rem',
+    background: 'linear-gradient(135deg, rgba(26, 42, 74, 0.08), rgba(26, 42, 74, 0.03))',
+    borderRadius: '16px',
+    border: '1px solid rgba(26, 42, 74, 0.1)',
+  },
+  scoresGrid: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '2rem',
+    flexWrap: 'wrap',
+  },
+  scoreCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.5rem',
+  },
+  scoreCircle: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    background: 'white',
+    border: '4px solid #1a2a4a',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 4px 15px rgba(26, 42, 74, 0.15)',
+  },
+  scoreNumber: {
+    fontSize: '1.75rem',
+    fontWeight: '700',
+    color: '#1a2a4a',
+    lineHeight: 1,
+  },
+  scoreMax: {
+    fontSize: '0.75rem',
+    color: '#6B7280',
+  },
+  scoreLabel: {
+    fontSize: '0.9rem',
+    fontWeight: '600',
+    color: '#1a2a4a',
+  },
+  // Enhanced pronunciation styles
+  pronunciationHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '0.5rem',
+    marginBottom: '0.5rem',
+  },
+  soundTypeBadge: {
+    fontSize: '0.7rem',
+    fontWeight: '600',
+    color: 'white',
+    background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+    padding: '0.25rem 0.6rem',
+    borderRadius: '12px',
+    textTransform: 'uppercase',
+  },
+  ipaRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    marginBottom: '0.5rem',
+  },
+  ipaLabel: {
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    color: '#6B7280',
+  },
+  ipaText: {
+    fontSize: '1.1rem',
+    fontFamily: "'Times New Roman', serif",
+    color: '#1a2a4a',
+    fontWeight: '500',
+  },
+  mouthPositionBox: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '0.5rem',
+    background: 'rgba(59, 130, 246, 0.08)',
+    padding: '0.75rem',
+    borderRadius: '8px',
+    marginTop: '0.5rem',
+    border: '1px solid rgba(59, 130, 246, 0.15)',
+  },
+  mouthIcon: {
+    fontSize: '1.25rem',
+  },
+  mouthPositionText: {
+    fontSize: '0.85rem',
+    color: '#1a2a4a',
+    lineHeight: 1.5,
+    flex: 1,
+  },
+  practiceWordBox: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    marginTop: '0.75rem',
+    flexWrap: 'wrap',
+  },
+  practiceLabel: {
+    fontSize: '0.85rem',
+    color: '#6B7280',
+    fontWeight: '500',
+  },
+  practiceWordButton: {
+    background: 'linear-gradient(135deg, #059669, #10B981)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '20px',
+    padding: '0.5rem 1rem',
+    fontSize: '0.9rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.35rem',
+    boxShadow: '0 2px 8px rgba(5, 150, 105, 0.25)',
+  },
+  // Phonetic tips section styles
+  phoneticTipsSection: {
+    marginBottom: '1.5rem',
+    padding: '1.25rem',
+    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03))',
+    borderRadius: '12px',
+    border: '1px solid rgba(139, 92, 246, 0.2)',
+  },
+  phoneticTipCard: {
+    background: 'white',
+    padding: '1rem',
+    borderRadius: '10px',
+    marginBottom: '0.75rem',
+    border: '1px solid rgba(139, 92, 246, 0.15)',
+  },
+  tipHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    marginBottom: '0.5rem',
+  },
+  tipSound: {
+    fontSize: '1.1rem',
+    fontWeight: '700',
+    color: '#7c3aed',
+  },
+  tipIpa: {
+    fontSize: '1rem',
+    fontFamily: "'Times New Roman', serif",
+    color: '#1a2a4a',
+    background: 'rgba(139, 92, 246, 0.1)',
+    padding: '0.2rem 0.5rem',
+    borderRadius: '4px',
+  },
+  tipText: {
+    fontSize: '0.9rem',
+    color: '#1a2a4a',
+    lineHeight: 1.6,
+    marginBottom: '0.5rem',
+  },
+  mouthGuideBox: {
+    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.08))',
+    padding: '0.75rem 1rem',
+    borderRadius: '8px',
+    border: '1px solid rgba(251, 191, 36, 0.3)',
+  },
+  mouthGuideText: {
+    fontSize: '0.85rem',
+    color: '#1a2a4a',
+    lineHeight: 1.6,
+    margin: 0,
+    whiteSpace: 'pre-wrap',
   },
 }
