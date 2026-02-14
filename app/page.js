@@ -1174,16 +1174,16 @@ export default function FrenchTutor() {
     <div style={styles.homeContainer}>
       <div style={styles.heroSection}>
         <div style={styles.heroDecoration}></div>
-        <h1 style={styles.heroTitle}>Parlez</h1>
+        <h1 style={styles.heroTitle} className="hero-title">Parlez</h1>
         <p style={styles.heroSubtitle}>Your complete French learning companion</p>
-        <p style={styles.heroDescription}>
+        <p style={styles.heroDescription} className="hero-desc">
           Master pronunciation with real-time feedback, practice real-world conversations,
           and conquer verb conjugation across all tenses.
         </p>
       </div>
       
       {(streak > 0 || completedLessons.size > 0 || getTotalMasteredCards() > 0) && (
-        <div style={styles.progressSummary}>
+        <div style={styles.progressSummary} className="progress-summary-el">
           {streak > 0 && (
             <div style={styles.progressItem}>
               <span style={styles.progressValue}>{streak}</span>
@@ -1201,9 +1201,10 @@ export default function FrenchTutor() {
         </div>
       )}
 
-      <div style={styles.modeCards}>
+      <div style={styles.modeCards} className="mode-cards-grid">
         <button
           style={styles.modeCard}
+          className="mode-card"
           onClick={() => setMode('lessons')}
         >
           <div style={styles.modeIcon}>📚</div>
@@ -1215,6 +1216,7 @@ export default function FrenchTutor() {
 
         <button
           style={styles.modeCard}
+          className="mode-card"
           onClick={() => setMode('flashcards')}
         >
           <div style={styles.modeIcon}>🃏</div>
@@ -1226,6 +1228,7 @@ export default function FrenchTutor() {
 
         <button
           style={styles.modeCard}
+          className="mode-card"
           onClick={() => setMode('conversation')}
         >
           <div style={styles.modeIcon}>💬</div>
@@ -1237,6 +1240,7 @@ export default function FrenchTutor() {
 
         <button
           style={styles.modeCard}
+          className="mode-card"
           onClick={() => setMode('conjugation')}
         >
           <div style={styles.modeIcon}>✍️</div>
@@ -1247,7 +1251,7 @@ export default function FrenchTutor() {
         </button>
       </div>
       
-      <div style={styles.features}>
+      <div style={styles.features} className="features-row">
         <div style={styles.feature}>
           <span style={styles.featureIcon}>🎤</span>
           <span>Speech Recognition</span>
@@ -1274,22 +1278,23 @@ export default function FrenchTutor() {
 
   const renderLessons = () => (
     <div style={styles.lessonsContainer}>
-      <button style={styles.backButton} onClick={() => {
+      <button style={styles.backButton} className="back-btn" onClick={() => {
         setMode('home')
         setSelectedLesson(null)
         resetLesson()
       }}>
         ← Back to Home
       </button>
-      
+
       {!selectedLesson ? (
         <>
           <h2 style={styles.sectionTitle}>Choose Your Level</h2>
-          
-          <div style={styles.levelTabs}>
+
+          <div style={styles.levelTabs} className="level-tabs-el">
             {['beginner', 'intermediate', 'advanced'].map(level => (
               <button
                 key={level}
+                className={`level-tab${selectedLevel === level ? ' level-tab-active' : ''}`}
                 style={{
                   ...styles.levelTab,
                   ...(selectedLevel === level ? styles.levelTabActive : {})
@@ -1300,11 +1305,12 @@ export default function FrenchTutor() {
               </button>
             ))}
           </div>
-          
-          <div style={styles.lessonGrid}>
+
+          <div style={styles.lessonGrid} className="lesson-grid-el">
             {LESSONS[selectedLevel].map(lesson => (
               <button
                 key={lesson.id}
+                className="lesson-card"
                 style={{
                   ...styles.lessonCard,
                   ...(completedLessons.has(lesson.id) ? styles.lessonCardCompleted : {})
@@ -1338,8 +1344,9 @@ export default function FrenchTutor() {
     return (
       <div style={styles.practiceContainer}>
         <div style={styles.practiceHeader}>
-          <button 
-            style={styles.backButton} 
+          <button
+            style={styles.backButton}
+            className="back-btn"
             onClick={() => {
               setSelectedLesson(null)
               resetLesson()
@@ -1352,7 +1359,7 @@ export default function FrenchTutor() {
           </div>
         </div>
         
-        <div style={styles.lessonTitleBar}>
+        <div style={styles.lessonTitleBar} className="lesson-title-bar-el">
           <h2 style={styles.currentLessonTitle}>{selectedLesson.title}</h2>
           <label style={styles.toggleLabel}>
             <input
@@ -1378,13 +1385,13 @@ export default function FrenchTutor() {
           </label>
         </div>
 
-        <div style={styles.phraseCard}>
+        <div style={styles.phraseCard} className="phrase-card-el">
           <div style={styles.phraseMain}>
             {dictationMode ? (
-              <p style={styles.frenchPhrase}>???</p>
+              <p style={styles.frenchPhrase} className="french-phrase-text">???</p>
             ) : (
               <>
-                <p style={styles.frenchPhrase}>{currentPhrase.french}</p>
+                <p style={styles.frenchPhrase} className="french-phrase-text">{currentPhrase.french}</p>
                 {showPhonetic && (
                   <p style={styles.phonetic}>[{currentPhrase.phonetic}]</p>
                 )}
@@ -1394,12 +1401,14 @@ export default function FrenchTutor() {
           </div>
 
           <button
+            className="btn-primary"
             style={{
               ...styles.speakButton,
               ...(isSpeaking ? styles.speakButtonActive : {})
             }}
             onClick={() => speakFrench(currentPhrase.french)}
             disabled={isSpeaking}
+            aria-label={isSpeaking ? 'Audio playing' : 'Listen to pronunciation'}
           >
             {isSpeaking ? '🔊 Playing...' : '🔊 Listen'}
           </button>
@@ -1420,6 +1429,7 @@ export default function FrenchTutor() {
                     : {})
                 }}
                 value={dictationInput}
+                aria-label="Type what you hear"
                 onChange={(e) => setDictationInput(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -1437,11 +1447,11 @@ export default function FrenchTutor() {
                 autoComplete="off"
               />
               {!dictationFeedback ? (
-                <button style={styles.checkButton} onClick={checkDictation} disabled={!dictationInput.trim()}>
+                <button className="btn-primary" style={styles.checkButton} onClick={checkDictation} disabled={!dictationInput.trim()}>
                   Check
                 </button>
               ) : (
-                <button style={styles.nextQuestionButton} onClick={() => {
+                <button className="btn-accent" style={styles.nextQuestionButton} onClick={() => {
                   setDictationInput('')
                   setDictationFeedback(null)
                   nextPhrase()
@@ -1453,7 +1463,7 @@ export default function FrenchTutor() {
             <div style={styles.accentHelper}>
               <span style={styles.accentLabel}>Accents:</span>
               {ACCENT_CHARS.map(char => (
-                <button key={char} style={styles.accentButton} onClick={() => setDictationInput(prev => prev + char)} disabled={dictationFeedback !== null} type="button">{char}</button>
+                <button key={char} className="accent-btn" style={styles.accentButton} onClick={() => setDictationInput(prev => prev + char)} disabled={dictationFeedback !== null} type="button">{char}</button>
               ))}
             </div>
             {dictationFeedback && (
@@ -1475,11 +1485,13 @@ export default function FrenchTutor() {
           </p>
           
           <button
+            className="mic-btn-el"
             style={{
               ...styles.micButton,
               ...(isListening ? styles.micButtonActive : {})
             }}
             onClick={isListening ? stopListening : startListening}
+            aria-label={isListening ? 'Stop recording' : 'Start speaking'}
           >
             {isListening ? (
               <>
@@ -1493,9 +1505,9 @@ export default function FrenchTutor() {
               </>
             )}
           </button>
-          
+
           {isListening && (
-            <div style={styles.listeningIndicator}>
+            <div style={styles.listeningIndicator} aria-live="polite">
               <div style={styles.pulseRing}></div>
               <div style={styles.pulseRing2}></div>
               <span>Listening...</span>
@@ -1542,8 +1554,9 @@ export default function FrenchTutor() {
           </div>
         )}
         
-        <div style={styles.navigationButtons}>
+        <div style={styles.navigationButtons} className="nav-buttons-el">
           <button
+            className="btn-outline"
             style={{
               ...styles.navButton,
               ...(currentPhraseIndex === 0 ? styles.navButtonDisabled : {})
@@ -1553,13 +1566,14 @@ export default function FrenchTutor() {
           >
             ← Previous
           </button>
-          
+
           {currentPhraseIndex < selectedLesson.phrases.length - 1 ? (
-            <button style={styles.navButton} onClick={nextPhrase}>
+            <button className="btn-outline" style={styles.navButton} onClick={nextPhrase}>
               Next →
             </button>
           ) : (
             <button
+              className="btn-success"
               style={{...styles.navButton, ...styles.navButtonComplete}}
               onClick={() => {
                 markLessonComplete(selectedLesson.id)
@@ -1571,9 +1585,9 @@ export default function FrenchTutor() {
             </button>
           )}
         </div>
-        
+
         {practiceStats.attempts > 0 && (
-          <div style={styles.statsBar}>
+          <div style={styles.statsBar} className="stats-bar-el">
             <span>Session: {practiceStats.attempts} attempts</span>
             <span>Good: {practiceStats.good}</span>
             <span>Excellent: {practiceStats.excellent}</span>
@@ -1585,25 +1599,26 @@ export default function FrenchTutor() {
 
   const renderConversation = () => (
     <div style={styles.conversationContainer}>
-      <button style={styles.backButton} onClick={() => {
+      <button style={styles.backButton} className="back-btn" onClick={() => {
         setMode('home')
         setSelectedConversation(null)
         setConversationHistory([])
       }}>
         ← Back to Home
       </button>
-      
+
       {!selectedConversation ? (
         <>
           <h2 style={styles.sectionTitle}>Choose a Scenario</h2>
           <p style={styles.sectionSubtitle}>
             Practice real-world French conversations
           </p>
-          
-          <div style={styles.scenarioGrid}>
+
+          <div style={styles.scenarioGrid} className="scenario-grid-el">
             {CONVERSATIONS.map(conv => (
               <button
                 key={conv.id}
+                className="scenario-card"
                 style={styles.scenarioCard}
                 onClick={() => {
                   setSelectedConversation(conv)
@@ -1625,8 +1640,8 @@ export default function FrenchTutor() {
             <h3 style={styles.chatTitle}>{selectedConversation.title}</h3>
             <p style={styles.chatContext}>{selectedConversation.context}</p>
           </div>
-          
-          <div style={styles.chatMessages}>
+
+          <div style={styles.chatMessages} className="chat-messages-el">
             {conversationHistory.map((msg, i) => (
               <div
                 key={i}
@@ -1638,8 +1653,10 @@ export default function FrenchTutor() {
                 <p style={styles.messageText}>{msg.content}</p>
                 {msg.role === 'assistant' && (
                   <button
+                    className="replay-btn"
                     style={styles.replayButton}
                     onClick={() => speakFrench(msg.content)}
+                    aria-label="Replay audio"
                   >
                     🔊
                   </button>
@@ -1652,13 +1669,14 @@ export default function FrenchTutor() {
               </div>
             )}
           </div>
-          
+
           <div style={styles.chatInputArea}>
             <p style={styles.suggestionLabel}>Suggested responses:</p>
             <div style={styles.suggestions}>
               {selectedConversation.suggestions.map((suggestion, i) => (
                 <button
                   key={i}
+                  className="suggestion-btn"
                   style={styles.suggestionButton}
                   onClick={() => handleConversationResponse(suggestion)}
                   disabled={isProcessing}
@@ -1667,9 +1685,10 @@ export default function FrenchTutor() {
                 </button>
               ))}
             </div>
-            
+
             <div style={styles.voiceInputSection}>
               <button
+                className="mic-btn-el"
                 style={{
                   ...styles.micButton,
                   ...(isListening ? styles.micButtonActive : {})
@@ -1684,10 +1703,11 @@ export default function FrenchTutor() {
                     startListening()
                   }
                 }}
+                aria-label={isListening ? 'Stop and send' : 'Speak your response'}
               >
                 {isListening ? '⏹️ Stop & Send' : '🎤 Speak Your Response'}
               </button>
-              
+
               {transcript && (
                 <p style={styles.liveTranscript}>{transcript}</p>
               )}
@@ -1700,14 +1720,14 @@ export default function FrenchTutor() {
 
   const renderFlashcards = () => (
     <div style={styles.conjugationContainer}>
-      <button style={styles.backButton} onClick={() => {
+      <button style={styles.backButton} className="back-btn" onClick={() => {
         if (selectedDeck) {
           resetFlashcards()
         } else {
           setMode('home')
         }
       }}>
-        {selectedDeck ? 'Back to Decks' : 'Back to Home'}
+        ← {selectedDeck ? 'Back to Decks' : 'Back to Home'}
       </button>
 
       {!selectedDeck ? (
@@ -1717,12 +1737,13 @@ export default function FrenchTutor() {
             Tap a card to flip it. Build your vocabulary with themed decks.
           </p>
 
-          <div style={styles.lessonGrid}>
+          <div style={styles.lessonGrid} className="lesson-grid-el">
             {VOCABULARY_DECKS.map(deck => {
               const mastered = getDeckProgress(deck)
               return (
                 <button
                   key={deck.id}
+                  className="lesson-card"
                   style={{
                     ...styles.lessonCard,
                     ...(mastered === deck.cards.length ? styles.lessonCardCompleted : {})
@@ -1752,15 +1773,20 @@ export default function FrenchTutor() {
           </div>
 
           <div
+            className="flashcard-el"
             style={{
               ...styles.flashcard,
               ...(isCardFlipped ? styles.flashcardFlipped : {})
             }}
             onClick={flipCard}
+            role="button"
+            tabIndex={0}
+            aria-label={isCardFlipped ? 'Card showing English translation. Click to flip back.' : 'French word card. Click to reveal translation.'}
+            onKeyDown={(e) => e.key === 'Enter' && flipCard()}
           >
             {!isCardFlipped ? (
               <div style={styles.flashcardFront}>
-                <p style={styles.flashcardFrench}>{selectedDeck.cards[flashcardIndex].french}</p>
+                <p style={styles.flashcardFrench} className="flashcard-french-text">{selectedDeck.cards[flashcardIndex].french}</p>
                 {selectedDeck.cards[flashcardIndex].gender && (
                   <span style={styles.flashcardGender}>
                     {selectedDeck.cards[flashcardIndex].gender === 'm' ? 'masculine' : 'feminine'}
@@ -1770,20 +1796,22 @@ export default function FrenchTutor() {
               </div>
             ) : (
               <div style={styles.flashcardBack}>
-                <p style={styles.flashcardEnglish}>{selectedDeck.cards[flashcardIndex].english}</p>
+                <p style={styles.flashcardEnglish} className="flashcard-english-text">{selectedDeck.cards[flashcardIndex].english}</p>
                 <p style={styles.flashcardExample}>{selectedDeck.cards[flashcardIndex].example}</p>
               </div>
             )}
           </div>
 
-          <div style={styles.flashcardActions}>
+          <div style={styles.flashcardActions} className="flashcard-actions-el">
             <button
+              className="btn-warning-outline"
               style={styles.flashcardNeedPractice}
               onClick={() => markFlashcard('learning')}
             >
               Still Learning
             </button>
             <button
+              className="btn-success"
               style={styles.flashcardMastered}
               onClick={() => markFlashcard('mastered')}
             >
@@ -1792,6 +1820,7 @@ export default function FrenchTutor() {
           </div>
 
           <button
+            className="btn-primary"
             style={{
               ...styles.speakButton,
               ...(isSpeaking ? styles.speakButtonActive : {}),
@@ -1800,6 +1829,7 @@ export default function FrenchTutor() {
             }}
             onClick={() => speakFrench(selectedDeck.cards[flashcardIndex].french)}
             disabled={isSpeaking}
+            aria-label={isSpeaking ? 'Audio playing' : 'Hear pronunciation'}
           >
             {isSpeaking ? 'Playing...' : 'Hear Pronunciation'}
           </button>
@@ -1810,7 +1840,7 @@ export default function FrenchTutor() {
 
   const renderConjugation = () => (
     <div style={styles.conjugationContainer}>
-      <button style={styles.backButton} onClick={() => {
+      <button style={styles.backButton} className="back-btn" onClick={() => {
         if (selectedVerb) {
           resetConjugation()
         } else {
@@ -1828,10 +1858,11 @@ export default function FrenchTutor() {
             Practice conjugating French verbs across tenses
           </p>
 
-          <div style={styles.levelTabs}>
+          <div style={styles.levelTabs} className="level-tabs-el">
             {VERB_CATEGORIES.map(cat => (
               <button
                 key={cat.id}
+                className={`level-tab${conjugationCategory === cat.id ? ' level-tab-active' : ''}`}
                 style={{
                   ...styles.levelTab,
                   ...(conjugationCategory === cat.id ? styles.levelTabActive : {})
@@ -1843,10 +1874,11 @@ export default function FrenchTutor() {
             ))}
           </div>
 
-          <div style={styles.lessonGrid}>
+          <div style={styles.lessonGrid} className="lesson-grid-el">
             {getFilteredVerbs().map(verb => (
               <button
                 key={verb.infinitive}
+                className="verb-card"
                 style={styles.verbCard}
                 onClick={() => startVerbPractice(verb)}
               >
@@ -1873,10 +1905,11 @@ export default function FrenchTutor() {
             </div>
           </div>
 
-          <div style={styles.tenseTabs}>
+          <div style={styles.tenseTabs} className="tense-tabs-el">
             {TENSES.map(tense => (
               <button
                 key={tense.id}
+                className={`tense-tab-el${selectedTense === tense.id ? ' tense-tab-active' : ''}`}
                 style={{
                   ...styles.tenseTab,
                   ...(selectedTense === tense.id ? styles.tenseTabActive : {})
@@ -1894,12 +1927,12 @@ export default function FrenchTutor() {
             ))}
           </div>
 
-          <div style={styles.conjugationQuizCard}>
+          <div style={styles.conjugationQuizCard} className="quiz-card-el">
             <div style={styles.quizPrompt}>
               <p style={styles.quizTenseLabel}>
                 {TENSES.find(t => t.id === selectedTense)?.label}
               </p>
-              <p style={styles.quizPronoun}>{PRONOUNS[currentPronounIndex]}</p>
+              <p style={styles.quizPronoun} className="quiz-pronoun-text">{PRONOUNS[currentPronounIndex]}</p>
               <p style={styles.quizVerbInfinitive}>{selectedVerb.infinitive}</p>
             </div>
 
@@ -1930,10 +1963,12 @@ export default function FrenchTutor() {
                 disabled={conjugationFeedback !== null}
                 autoComplete="off"
                 autoCapitalize="off"
+                aria-label="Type the conjugated verb form"
               />
 
               {!conjugationFeedback ? (
                 <button
+                  className="btn-primary"
                   style={styles.checkButton}
                   onClick={checkConjugation}
                   disabled={!conjugationInput.trim()}
@@ -1942,6 +1977,7 @@ export default function FrenchTutor() {
                 </button>
               ) : (
                 <button
+                  className="btn-accent"
                   style={styles.nextQuestionButton}
                   onClick={nextConjugationQuestion}
                 >
@@ -1954,7 +1990,7 @@ export default function FrenchTutor() {
               <div style={{
                 ...styles.conjugationFeedbackCard,
                 ...(conjugationFeedback.correct ? styles.feedbackExcellent : styles.feedbackPoor)
-              }}>
+              }} role="alert">
                 <p style={styles.conjugationFeedbackText}>
                   {conjugationFeedback.correct
                     ? 'Correct! Bien joué!'
@@ -1973,6 +2009,7 @@ export default function FrenchTutor() {
               {ACCENT_CHARS.map(char => (
                 <button
                   key={char}
+                  className="accent-btn"
                   style={styles.accentButton}
                   onClick={() => insertAccentChar(char)}
                   disabled={conjugationFeedback !== null}
@@ -2000,6 +2037,7 @@ export default function FrenchTutor() {
           </div>
 
           <button
+            className="grammar-tip-toggle"
             style={styles.grammarTipToggle}
             onClick={() => setShowTenseTip(!showTenseTip)}
           >
@@ -2021,6 +2059,7 @@ export default function FrenchTutor() {
           )}
 
           <button
+            className="btn-outline"
             style={styles.showTableButton}
             onClick={() => setShowConjugationTable(!showConjugationTable)}
           >
@@ -2028,7 +2067,7 @@ export default function FrenchTutor() {
           </button>
 
           {showConjugationTable && (
-            <div style={styles.conjugationTable}>
+            <div style={styles.conjugationTable} className="conj-table-wrap">
               <table style={styles.conjTable}>
                 <thead>
                   <tr>
@@ -2063,7 +2102,7 @@ export default function FrenchTutor() {
           )}
 
           {conjugationScore.total > 0 && (
-            <div style={styles.statsBar}>
+            <div style={styles.statsBar} className="stats-bar-el">
               <span>Answered: {conjugationScore.total}</span>
               <span>Correct: {conjugationScore.correct}</span>
               <span>
@@ -2079,12 +2118,12 @@ export default function FrenchTutor() {
   return (
     <main style={styles.main}>
       <header style={styles.header}>
-        <div style={styles.headerInner}>
-          <div style={styles.logo} onClick={() => navigateTo('home')}>
+        <div style={styles.headerInner} className="header-inner">
+          <div style={styles.logo} onClick={() => navigateTo('home')} role="button" tabIndex={0} aria-label="Go to home page" onKeyDown={(e) => e.key === 'Enter' && navigateTo('home')}>
             <span style={styles.logoIcon}>🇫🇷</span>
             <span style={styles.logoText}>Parlez</span>
           </div>
-          <nav style={styles.headerNav}>
+          <nav style={styles.headerNav} className="header-nav" aria-label="Main navigation">
             {[
               { id: 'lessons', label: 'Lessons' },
               { id: 'flashcards', label: 'Vocabulary' },
@@ -2093,11 +2132,13 @@ export default function FrenchTutor() {
             ].map(tab => (
               <button
                 key={tab.id}
+                className={`nav-tab${mode === tab.id ? ' nav-tab-active' : ''}`}
                 style={{
                   ...styles.headerNavTab,
                   ...(mode === tab.id ? styles.headerNavTabActive : {})
                 }}
                 onClick={() => navigateTo(tab.id)}
+                aria-current={mode === tab.id ? 'page' : undefined}
               >
                 {tab.label}
               </button>
@@ -2106,7 +2147,7 @@ export default function FrenchTutor() {
         </div>
       </header>
       
-      <div style={styles.content}>
+      <div style={styles.content} className="content-area">
         {mode === 'home' && renderHome()}
         {mode === 'lessons' && renderLessons()}
         {mode === 'flashcards' && renderFlashcards()}
@@ -2719,18 +2760,20 @@ const styles = {
   },
   replayButton: {
     position: 'absolute',
-    bottom: '-8px',
-    right: '-8px',
+    bottom: '-10px',
+    right: '-10px',
     background: 'white',
     border: '1px solid var(--light-border)',
     borderRadius: '50%',
-    width: '32px',
-    height: '32px',
-    fontSize: '0.9rem',
+    width: '36px',
+    height: '36px',
+    fontSize: '1rem',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    transition: 'all 0.2s',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
   },
   typingIndicator: {
     fontSize: '1.5rem',
@@ -2902,11 +2945,10 @@ const styles = {
     padding: '0.85rem 1.25rem',
     border: '2px solid var(--light-border)',
     borderRadius: '12px',
-    outline: 'none',
     width: '320px',
     maxWidth: '100%',
     textAlign: 'center',
-    transition: 'border-color 0.2s',
+    transition: 'border-color 0.2s, box-shadow 0.2s',
     color: 'var(--deep-blue)',
   },
   inputCorrect: {
@@ -3050,10 +3092,10 @@ const styles = {
   accentButton: {
     background: 'rgba(26, 42, 74, 0.06)',
     border: '1px solid var(--light-border)',
-    borderRadius: '6px',
-    width: '32px',
-    height: '32px',
-    fontSize: '1rem',
+    borderRadius: '8px',
+    width: '38px',
+    height: '38px',
+    fontSize: '1.05rem',
     color: 'var(--deep-blue)',
     cursor: 'pointer',
     display: 'flex',

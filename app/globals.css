@@ -51,8 +51,17 @@ button {
   transition: all 0.2s ease;
 }
 
-button:active {
+button:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:disabled:active {
+  transform: none;
 }
 
 /* Scrollbar styling */
@@ -106,4 +115,255 @@ button:active {
 
 .slide-in {
   animation: slideIn 0.3s ease-out forwards;
+}
+
+/* ========== Focus & Accessibility ========== */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--deep-blue);
+  outline-offset: 2px;
+}
+
+input[type="text"]:focus {
+  border-color: var(--deep-blue) !important;
+  box-shadow: 0 0 0 3px rgba(26, 42, 74, 0.1);
+}
+
+/* ========== Card Hover States ========== */
+.mode-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(26, 42, 74, 0.12);
+  border-color: rgba(26, 42, 74, 0.2);
+}
+
+.lesson-card:hover,
+.verb-card:hover,
+.scenario-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 42, 74, 0.08);
+  border-color: rgba(26, 42, 74, 0.2);
+}
+
+.flashcard-el:hover {
+  box-shadow: 0 8px 28px rgba(26, 42, 74, 0.12);
+}
+
+/* ========== Navigation Hover States ========== */
+.nav-tab:hover:not(.nav-tab-active) {
+  background: rgba(26, 42, 74, 0.06);
+  color: var(--deep-blue);
+}
+
+.level-tab:hover:not(.level-tab-active),
+.tense-tab-el:hover:not(.tense-tab-active) {
+  border-color: var(--deep-blue);
+  color: var(--deep-blue);
+}
+
+.back-btn:hover {
+  color: var(--deep-blue);
+}
+
+/* ========== Button Hover States ========== */
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 42, 74, 0.2);
+}
+
+.btn-accent:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-success:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.btn-outline:hover {
+  background: var(--deep-blue) !important;
+  color: white !important;
+  border-color: var(--deep-blue) !important;
+}
+
+.btn-warning-outline:hover:not(:disabled) {
+  background: var(--warning);
+  color: white;
+}
+
+.suggestion-btn:hover:not(:disabled) {
+  border-color: var(--deep-blue);
+  background: rgba(26, 42, 74, 0.03);
+  transform: translateX(4px);
+}
+
+.accent-btn:hover:not(:disabled) {
+  background: var(--deep-blue);
+  color: white;
+  border-color: var(--deep-blue);
+  transform: scale(1.1);
+}
+
+.grammar-tip-toggle:hover {
+  background: var(--gold);
+  color: white;
+}
+
+.replay-btn:hover {
+  background: var(--deep-blue) !important;
+  color: white !important;
+  border-color: var(--deep-blue) !important;
+  transform: scale(1.15);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .header-nav {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .header-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 2.75rem !important;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem !important;
+    padding: 0 0.5rem;
+  }
+
+  .content-area {
+    padding: 1rem !important;
+  }
+
+  .mode-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .lesson-grid-el,
+  .scenario-grid-el {
+    grid-template-columns: 1fr !important;
+  }
+
+  .features-row {
+    gap: 1rem !important;
+  }
+
+  .french-phrase-text {
+    font-size: 1.75rem !important;
+  }
+
+  .quiz-pronoun-text {
+    font-size: 2rem !important;
+  }
+
+  .flashcard-french-text {
+    font-size: 1.75rem !important;
+  }
+
+  .flashcard-english-text {
+    font-size: 1.5rem !important;
+  }
+
+  .progress-summary-el {
+    gap: 1.5rem !important;
+    flex-wrap: wrap;
+  }
+
+  .stats-bar-el {
+    flex-direction: column;
+    gap: 0.5rem !important;
+    border-radius: 12px !important;
+  }
+
+  .tense-tabs-el,
+  .level-tabs-el {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+  }
+
+  .tense-tabs-el::-webkit-scrollbar,
+  .level-tabs-el::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mic-btn-el {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .flashcard-actions-el {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-buttons-el {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lesson-title-bar-el {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .phrase-card-el {
+    padding: 1.5rem !important;
+  }
+
+  .quiz-card-el {
+    padding: 1.5rem !important;
+  }
+
+  .chat-messages-el {
+    max-height: 300px !important;
+  }
+
+  .conj-table-wrap {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem !important;
+  }
+
+  .content-area {
+    padding: 0.75rem !important;
+  }
+
+  .nav-tab {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.65rem !important;
+  }
+
+  .mode-card {
+    padding: 1.5rem !important;
+  }
+
+  .mic-btn-el {
+    width: 70px !important;
+    height: 70px !important;
+  }
 }
