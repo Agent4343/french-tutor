@@ -186,6 +186,207 @@ const CONVERSATIONS = [
   }
 ]
 
+// Verb conjugation data
+const VERB_CATEGORIES = [
+  { id: 'all', label: 'All Verbs' },
+  { id: 'regular_er', label: '-er Verbs', description: '1st group' },
+  { id: 'regular_ir', label: '-ir Verbs', description: '2nd group' },
+  { id: 'irregular', label: 'Irregular', description: '3rd group' },
+  { id: 'reflexive', label: 'Reflexive', description: 'Pronominal' },
+]
+
+const TENSES = [
+  { id: 'présent', label: 'Présent', english: 'Present' },
+  { id: 'passé_composé', label: 'Passé Composé', english: 'Past' },
+  { id: 'imparfait', label: 'Imparfait', english: 'Imperfect' },
+  { id: 'futur_simple', label: 'Futur Simple', english: 'Future' },
+]
+
+const PRONOUNS = ['je', 'tu', 'il/elle', 'nous', 'vous', 'ils/elles']
+
+const CONJUGATION_VERBS = [
+  // Regular -er verbs
+  {
+    infinitive: 'parler',
+    english: 'to speak',
+    category: 'regular_er',
+    tenses: {
+      présent: { 'je': 'je parle', 'tu': 'tu parles', 'il/elle': 'il/elle parle', 'nous': 'nous parlons', 'vous': 'vous parlez', 'ils/elles': 'ils/elles parlent' },
+      passé_composé: { 'je': "j'ai parlé", 'tu': 'tu as parlé', 'il/elle': 'il/elle a parlé', 'nous': 'nous avons parlé', 'vous': 'vous avez parlé', 'ils/elles': 'ils/elles ont parlé' },
+      imparfait: { 'je': 'je parlais', 'tu': 'tu parlais', 'il/elle': 'il/elle parlait', 'nous': 'nous parlions', 'vous': 'vous parliez', 'ils/elles': 'ils/elles parlaient' },
+      futur_simple: { 'je': 'je parlerai', 'tu': 'tu parleras', 'il/elle': 'il/elle parlera', 'nous': 'nous parlerons', 'vous': 'vous parlerez', 'ils/elles': 'ils/elles parleront' },
+    }
+  },
+  {
+    infinitive: 'manger',
+    english: 'to eat',
+    category: 'regular_er',
+    tenses: {
+      présent: { 'je': 'je mange', 'tu': 'tu manges', 'il/elle': 'il/elle mange', 'nous': 'nous mangeons', 'vous': 'vous mangez', 'ils/elles': 'ils/elles mangent' },
+      passé_composé: { 'je': "j'ai mangé", 'tu': 'tu as mangé', 'il/elle': 'il/elle a mangé', 'nous': 'nous avons mangé', 'vous': 'vous avez mangé', 'ils/elles': 'ils/elles ont mangé' },
+      imparfait: { 'je': 'je mangeais', 'tu': 'tu mangeais', 'il/elle': 'il/elle mangeait', 'nous': 'nous mangions', 'vous': 'vous mangiez', 'ils/elles': 'ils/elles mangeaient' },
+      futur_simple: { 'je': 'je mangerai', 'tu': 'tu mangeras', 'il/elle': 'il/elle mangera', 'nous': 'nous mangerons', 'vous': 'vous mangerez', 'ils/elles': 'ils/elles mangeront' },
+    }
+  },
+  {
+    infinitive: 'aimer',
+    english: 'to like / to love',
+    category: 'regular_er',
+    tenses: {
+      présent: { 'je': "j'aime", 'tu': 'tu aimes', 'il/elle': 'il/elle aime', 'nous': 'nous aimons', 'vous': 'vous aimez', 'ils/elles': 'ils/elles aiment' },
+      passé_composé: { 'je': "j'ai aimé", 'tu': 'tu as aimé', 'il/elle': 'il/elle a aimé', 'nous': 'nous avons aimé', 'vous': 'vous avez aimé', 'ils/elles': 'ils/elles ont aimé' },
+      imparfait: { 'je': "j'aimais", 'tu': 'tu aimais', 'il/elle': 'il/elle aimait', 'nous': 'nous aimions', 'vous': 'vous aimiez', 'ils/elles': 'ils/elles aimaient' },
+      futur_simple: { 'je': "j'aimerai", 'tu': 'tu aimeras', 'il/elle': 'il/elle aimera', 'nous': 'nous aimerons', 'vous': 'vous aimerez', 'ils/elles': 'ils/elles aimeront' },
+    }
+  },
+  // Regular -ir verbs
+  {
+    infinitive: 'finir',
+    english: 'to finish',
+    category: 'regular_ir',
+    tenses: {
+      présent: { 'je': 'je finis', 'tu': 'tu finis', 'il/elle': 'il/elle finit', 'nous': 'nous finissons', 'vous': 'vous finissez', 'ils/elles': 'ils/elles finissent' },
+      passé_composé: { 'je': "j'ai fini", 'tu': 'tu as fini', 'il/elle': 'il/elle a fini', 'nous': 'nous avons fini', 'vous': 'vous avez fini', 'ils/elles': 'ils/elles ont fini' },
+      imparfait: { 'je': 'je finissais', 'tu': 'tu finissais', 'il/elle': 'il/elle finissait', 'nous': 'nous finissions', 'vous': 'vous finissiez', 'ils/elles': 'ils/elles finissaient' },
+      futur_simple: { 'je': 'je finirai', 'tu': 'tu finiras', 'il/elle': 'il/elle finira', 'nous': 'nous finirons', 'vous': 'vous finirez', 'ils/elles': 'ils/elles finiront' },
+    }
+  },
+  {
+    infinitive: 'choisir',
+    english: 'to choose',
+    category: 'regular_ir',
+    tenses: {
+      présent: { 'je': 'je choisis', 'tu': 'tu choisis', 'il/elle': 'il/elle choisit', 'nous': 'nous choisissons', 'vous': 'vous choisissez', 'ils/elles': 'ils/elles choisissent' },
+      passé_composé: { 'je': "j'ai choisi", 'tu': 'tu as choisi', 'il/elle': 'il/elle a choisi', 'nous': 'nous avons choisi', 'vous': 'vous avez choisi', 'ils/elles': 'ils/elles ont choisi' },
+      imparfait: { 'je': 'je choisissais', 'tu': 'tu choisissais', 'il/elle': 'il/elle choisissait', 'nous': 'nous choisissions', 'vous': 'vous choisissiez', 'ils/elles': 'ils/elles choisissaient' },
+      futur_simple: { 'je': 'je choisirai', 'tu': 'tu choisiras', 'il/elle': 'il/elle choisira', 'nous': 'nous choisirons', 'vous': 'vous choisirez', 'ils/elles': 'ils/elles choisiront' },
+    }
+  },
+  // Irregular verbs
+  {
+    infinitive: 'être',
+    english: 'to be',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': 'je suis', 'tu': 'tu es', 'il/elle': 'il/elle est', 'nous': 'nous sommes', 'vous': 'vous êtes', 'ils/elles': 'ils/elles sont' },
+      passé_composé: { 'je': "j'ai été", 'tu': 'tu as été', 'il/elle': 'il/elle a été', 'nous': 'nous avons été', 'vous': 'vous avez été', 'ils/elles': 'ils/elles ont été' },
+      imparfait: { 'je': "j'étais", 'tu': 'tu étais', 'il/elle': 'il/elle était', 'nous': 'nous étions', 'vous': 'vous étiez', 'ils/elles': 'ils/elles étaient' },
+      futur_simple: { 'je': 'je serai', 'tu': 'tu seras', 'il/elle': 'il/elle sera', 'nous': 'nous serons', 'vous': 'vous serez', 'ils/elles': 'ils/elles seront' },
+    }
+  },
+  {
+    infinitive: 'avoir',
+    english: 'to have',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': "j'ai", 'tu': 'tu as', 'il/elle': 'il/elle a', 'nous': 'nous avons', 'vous': 'vous avez', 'ils/elles': 'ils/elles ont' },
+      passé_composé: { 'je': "j'ai eu", 'tu': 'tu as eu', 'il/elle': 'il/elle a eu', 'nous': 'nous avons eu', 'vous': 'vous avez eu', 'ils/elles': 'ils/elles ont eu' },
+      imparfait: { 'je': "j'avais", 'tu': 'tu avais', 'il/elle': 'il/elle avait', 'nous': 'nous avions', 'vous': 'vous aviez', 'ils/elles': 'ils/elles avaient' },
+      futur_simple: { 'je': "j'aurai", 'tu': 'tu auras', 'il/elle': 'il/elle aura', 'nous': 'nous aurons', 'vous': 'vous aurez', 'ils/elles': 'ils/elles auront' },
+    }
+  },
+  {
+    infinitive: 'aller',
+    english: 'to go',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': 'je vais', 'tu': 'tu vas', 'il/elle': 'il/elle va', 'nous': 'nous allons', 'vous': 'vous allez', 'ils/elles': 'ils/elles vont' },
+      passé_composé: { 'je': 'je suis allé', 'tu': 'tu es allé', 'il/elle': 'il/elle est allé', 'nous': 'nous sommes allés', 'vous': 'vous êtes allés', 'ils/elles': 'ils/elles sont allés' },
+      imparfait: { 'je': "j'allais", 'tu': 'tu allais', 'il/elle': 'il/elle allait', 'nous': 'nous allions', 'vous': 'vous alliez', 'ils/elles': 'ils/elles allaient' },
+      futur_simple: { 'je': "j'irai", 'tu': 'tu iras', 'il/elle': 'il/elle ira', 'nous': 'nous irons', 'vous': 'vous irez', 'ils/elles': 'ils/elles iront' },
+    }
+  },
+  {
+    infinitive: 'faire',
+    english: 'to do / to make',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': 'je fais', 'tu': 'tu fais', 'il/elle': 'il/elle fait', 'nous': 'nous faisons', 'vous': 'vous faites', 'ils/elles': 'ils/elles font' },
+      passé_composé: { 'je': "j'ai fait", 'tu': 'tu as fait', 'il/elle': 'il/elle a fait', 'nous': 'nous avons fait', 'vous': 'vous avez fait', 'ils/elles': 'ils/elles ont fait' },
+      imparfait: { 'je': 'je faisais', 'tu': 'tu faisais', 'il/elle': 'il/elle faisait', 'nous': 'nous faisions', 'vous': 'vous faisiez', 'ils/elles': 'ils/elles faisaient' },
+      futur_simple: { 'je': 'je ferai', 'tu': 'tu feras', 'il/elle': 'il/elle fera', 'nous': 'nous ferons', 'vous': 'vous ferez', 'ils/elles': 'ils/elles feront' },
+    }
+  },
+  {
+    infinitive: 'prendre',
+    english: 'to take',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': 'je prends', 'tu': 'tu prends', 'il/elle': 'il/elle prend', 'nous': 'nous prenons', 'vous': 'vous prenez', 'ils/elles': 'ils/elles prennent' },
+      passé_composé: { 'je': "j'ai pris", 'tu': 'tu as pris', 'il/elle': 'il/elle a pris', 'nous': 'nous avons pris', 'vous': 'vous avez pris', 'ils/elles': 'ils/elles ont pris' },
+      imparfait: { 'je': 'je prenais', 'tu': 'tu prenais', 'il/elle': 'il/elle prenait', 'nous': 'nous prenions', 'vous': 'vous preniez', 'ils/elles': 'ils/elles prenaient' },
+      futur_simple: { 'je': 'je prendrai', 'tu': 'tu prendras', 'il/elle': 'il/elle prendra', 'nous': 'nous prendrons', 'vous': 'vous prendrez', 'ils/elles': 'ils/elles prendront' },
+    }
+  },
+  {
+    infinitive: 'venir',
+    english: 'to come',
+    category: 'irregular',
+    tenses: {
+      présent: { 'je': 'je viens', 'tu': 'tu viens', 'il/elle': 'il/elle vient', 'nous': 'nous venons', 'vous': 'vous venez', 'ils/elles': 'ils/elles viennent' },
+      passé_composé: { 'je': 'je suis venu', 'tu': 'tu es venu', 'il/elle': 'il/elle est venu', 'nous': 'nous sommes venus', 'vous': 'vous êtes venus', 'ils/elles': 'ils/elles sont venus' },
+      imparfait: { 'je': 'je venais', 'tu': 'tu venais', 'il/elle': 'il/elle venait', 'nous': 'nous venions', 'vous': 'vous veniez', 'ils/elles': 'ils/elles venaient' },
+      futur_simple: { 'je': 'je viendrai', 'tu': 'tu viendras', 'il/elle': 'il/elle viendra', 'nous': 'nous viendrons', 'vous': 'vous viendrez', 'ils/elles': 'ils/elles viendront' },
+    }
+  },
+  // Reflexive (pronominal) verbs
+  {
+    infinitive: 'se lever',
+    english: 'to get up',
+    category: 'reflexive',
+    tenses: {
+      présent: { 'je': 'je me lève', 'tu': 'tu te lèves', 'il/elle': 'il/elle se lève', 'nous': 'nous nous levons', 'vous': 'vous vous levez', 'ils/elles': 'ils/elles se lèvent' },
+      passé_composé: { 'je': 'je me suis levé', 'tu': "tu t'es levé", 'il/elle': "il/elle s'est levé", 'nous': 'nous nous sommes levés', 'vous': 'vous vous êtes levés', 'ils/elles': 'ils/elles se sont levés' },
+      imparfait: { 'je': 'je me levais', 'tu': 'tu te levais', 'il/elle': 'il/elle se levait', 'nous': 'nous nous levions', 'vous': 'vous vous leviez', 'ils/elles': 'ils/elles se levaient' },
+      futur_simple: { 'je': 'je me lèverai', 'tu': 'tu te lèveras', 'il/elle': 'il/elle se lèvera', 'nous': 'nous nous lèverons', 'vous': 'vous vous lèverez', 'ils/elles': 'ils/elles se lèveront' },
+    }
+  },
+  {
+    infinitive: 'se coucher',
+    english: 'to go to bed',
+    category: 'reflexive',
+    tenses: {
+      présent: { 'je': 'je me couche', 'tu': 'tu te couches', 'il/elle': 'il/elle se couche', 'nous': 'nous nous couchons', 'vous': 'vous vous couchez', 'ils/elles': 'ils/elles se couchent' },
+      passé_composé: { 'je': 'je me suis couché', 'tu': "tu t'es couché", 'il/elle': "il/elle s'est couché", 'nous': 'nous nous sommes couchés', 'vous': 'vous vous êtes couchés', 'ils/elles': 'ils/elles se sont couchés' },
+      imparfait: { 'je': 'je me couchais', 'tu': 'tu te couchais', 'il/elle': 'il/elle se couchait', 'nous': 'nous nous couchions', 'vous': 'vous vous couchiez', 'ils/elles': 'ils/elles se couchaient' },
+      futur_simple: { 'je': 'je me coucherai', 'tu': 'tu te coucheras', 'il/elle': 'il/elle se couchera', 'nous': 'nous nous coucherons', 'vous': 'vous vous coucherez', 'ils/elles': 'ils/elles se coucheront' },
+    }
+  },
+  {
+    infinitive: "s'habiller",
+    english: 'to get dressed',
+    category: 'reflexive',
+    tenses: {
+      présent: { 'je': "je m'habille", 'tu': "tu t'habilles", 'il/elle': "il/elle s'habille", 'nous': 'nous nous habillons', 'vous': 'vous vous habillez', 'ils/elles': "ils/elles s'habillent" },
+      passé_composé: { 'je': 'je me suis habillé', 'tu': "tu t'es habillé", 'il/elle': "il/elle s'est habillé", 'nous': 'nous nous sommes habillés', 'vous': 'vous vous êtes habillés', 'ils/elles': 'ils/elles se sont habillés' },
+      imparfait: { 'je': "je m'habillais", 'tu': "tu t'habillais", 'il/elle': "il/elle s'habillait", 'nous': 'nous nous habillions', 'vous': 'vous vous habilliez', 'ils/elles': "ils/elles s'habillaient" },
+      futur_simple: { 'je': "je m'habillerai", 'tu': "tu t'habilleras", 'il/elle': "il/elle s'habillera", 'nous': 'nous nous habillerons', 'vous': 'vous vous habillerez', 'ils/elles': "ils/elles s'habilleront" },
+    }
+  },
+  {
+    infinitive: 'se promener',
+    english: 'to go for a walk',
+    category: 'reflexive',
+    tenses: {
+      présent: { 'je': 'je me promène', 'tu': 'tu te promènes', 'il/elle': 'il/elle se promène', 'nous': 'nous nous promenons', 'vous': 'vous vous promenez', 'ils/elles': 'ils/elles se promènent' },
+      passé_composé: { 'je': 'je me suis promené', 'tu': "tu t'es promené", 'il/elle': "il/elle s'est promené", 'nous': 'nous nous sommes promenés', 'vous': 'vous vous êtes promenés', 'ils/elles': 'ils/elles se sont promenés' },
+      imparfait: { 'je': 'je me promenais', 'tu': 'tu te promenais', 'il/elle': 'il/elle se promenait', 'nous': 'nous nous promenions', 'vous': 'vous vous promeniez', 'ils/elles': 'ils/elles se promenaient' },
+      futur_simple: { 'je': 'je me promènerai', 'tu': 'tu te promèneras', 'il/elle': 'il/elle se promènera', 'nous': 'nous nous promènerons', 'vous': 'vous vous promènerez', 'ils/elles': 'ils/elles se promèneront' },
+    }
+  },
+  {
+    infinitive: "s'appeler",
+    english: 'to be called',
+    category: 'reflexive',
+    tenses: {
+      présent: { 'je': "je m'appelle", 'tu': "tu t'appelles", 'il/elle': "il/elle s'appelle", 'nous': 'nous nous appelons', 'vous': 'vous vous appelez', 'ils/elles': "ils/elles s'appellent" },
+      passé_composé: { 'je': 'je me suis appelé', 'tu': "tu t'es appelé", 'il/elle': "il/elle s'est appelé", 'nous': 'nous nous sommes appelés', 'vous': 'vous vous êtes appelés', 'ils/elles': 'ils/elles se sont appelés' },
+      imparfait: { 'je': "je m'appelais", 'tu': "tu t'appelais", 'il/elle': "il/elle s'appelait", 'nous': 'nous nous appelions', 'vous': 'vous vous appeliez', 'ils/elles': "ils/elles s'appelaient" },
+      futur_simple: { 'je': "je m'appellerai", 'tu': "tu t'appelleras", 'il/elle': "il/elle s'appellera", 'nous': 'nous nous appellerons', 'vous': 'vous vous appellerez', 'ils/elles': "ils/elles s'appelleront" },
+    }
+  },
+]
+
 export default function FrenchTutor() {
   const [mode, setMode] = useState('home') // home, lessons, practice, conversation
   const [selectedLevel, setSelectedLevel] = useState('beginner')
@@ -200,7 +401,17 @@ export default function FrenchTutor() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [showPhonetic, setShowPhonetic] = useState(true)
   const [practiceStats, setPracticeStats] = useState({ attempts: 0, good: 0, excellent: 0 })
-  
+
+  // Conjugation state
+  const [conjugationCategory, setConjugationCategory] = useState('all')
+  const [selectedVerb, setSelectedVerb] = useState(null)
+  const [selectedTense, setSelectedTense] = useState('présent')
+  const [currentPronounIndex, setCurrentPronounIndex] = useState(0)
+  const [conjugationInput, setConjugationInput] = useState('')
+  const [conjugationFeedback, setConjugationFeedback] = useState(null)
+  const [conjugationScore, setConjugationScore] = useState({ correct: 0, total: 0 })
+  const [showConjugationTable, setShowConjugationTable] = useState(false)
+
   const recognitionRef = useRef(null)
   const synthRef = useRef(null)
 
@@ -450,6 +661,63 @@ export default function FrenchTutor() {
     setPracticeStats({ attempts: 0, good: 0, excellent: 0 })
   }
 
+  // Conjugation quiz logic
+  const getFilteredVerbs = () => {
+    if (conjugationCategory === 'all') return CONJUGATION_VERBS
+    return CONJUGATION_VERBS.filter(v => v.category === conjugationCategory)
+  }
+
+  const startVerbPractice = (verb) => {
+    setSelectedVerb(verb)
+    setSelectedTense('présent')
+    setCurrentPronounIndex(0)
+    setConjugationInput('')
+    setConjugationFeedback(null)
+    setConjugationScore({ correct: 0, total: 0 })
+    setShowConjugationTable(false)
+  }
+
+  const checkConjugation = () => {
+    if (!selectedVerb || !conjugationInput.trim()) return
+
+    const pronoun = PRONOUNS[currentPronounIndex]
+    const correctAnswer = selectedVerb.tenses[selectedTense][pronoun]
+    const userAnswer = conjugationInput.trim().toLowerCase()
+    const normalizedCorrect = correctAnswer.toLowerCase()
+
+    const isCorrect = userAnswer === normalizedCorrect
+
+    setConjugationFeedback({
+      correct: isCorrect,
+      userAnswer: conjugationInput.trim(),
+      correctAnswer: correctAnswer,
+    })
+
+    setConjugationScore(prev => ({
+      correct: isCorrect ? prev.correct + 1 : prev.correct,
+      total: prev.total + 1,
+    }))
+  }
+
+  const nextConjugationQuestion = () => {
+    if (currentPronounIndex < PRONOUNS.length - 1) {
+      setCurrentPronounIndex(prev => prev + 1)
+    } else {
+      setCurrentPronounIndex(0)
+    }
+    setConjugationInput('')
+    setConjugationFeedback(null)
+  }
+
+  const resetConjugation = () => {
+    setSelectedVerb(null)
+    setCurrentPronounIndex(0)
+    setConjugationInput('')
+    setConjugationFeedback(null)
+    setConjugationScore({ correct: 0, total: 0 })
+    setShowConjugationTable(false)
+  }
+
   // Render different screens based on mode
   const renderHome = () => (
     <div style={styles.homeContainer}>
@@ -475,7 +743,7 @@ export default function FrenchTutor() {
           </p>
         </button>
         
-        <button 
+        <button
           style={styles.modeCard}
           onClick={() => setMode('conversation')}
         >
@@ -483,6 +751,17 @@ export default function FrenchTutor() {
           <h3 style={styles.modeTitle}>Conversation</h3>
           <p style={styles.modeDescription}>
             Practice real-world scenarios with an AI conversation partner
+          </p>
+        </button>
+
+        <button
+          style={styles.modeCard}
+          onClick={() => setMode('conjugation')}
+        >
+          <div style={styles.modeIcon}>✍️</div>
+          <h3 style={styles.modeTitle}>Verb Conjugation</h3>
+          <p style={styles.modeDescription}>
+            Practice conjugating regular, irregular, and reflexive verbs across tenses
           </p>
         </button>
       </div>
@@ -841,6 +1120,237 @@ export default function FrenchTutor() {
     </div>
   )
 
+  const renderConjugation = () => (
+    <div style={styles.conjugationContainer}>
+      <button style={styles.backButton} onClick={() => {
+        if (selectedVerb) {
+          resetConjugation()
+        } else {
+          setMode('home')
+          resetConjugation()
+        }
+      }}>
+        ← {selectedVerb ? 'Back to Verbs' : 'Back to Home'}
+      </button>
+
+      {!selectedVerb ? (
+        <>
+          <h2 style={styles.sectionTitle}>Verb Conjugation</h2>
+          <p style={styles.sectionSubtitle}>
+            Practice conjugating French verbs across tenses
+          </p>
+
+          <div style={styles.levelTabs}>
+            {VERB_CATEGORIES.map(cat => (
+              <button
+                key={cat.id}
+                style={{
+                  ...styles.levelTab,
+                  ...(conjugationCategory === cat.id ? styles.levelTabActive : {})
+                }}
+                onClick={() => setConjugationCategory(cat.id)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={styles.lessonGrid}>
+            {getFilteredVerbs().map(verb => (
+              <button
+                key={verb.infinitive}
+                style={styles.verbCard}
+                onClick={() => startVerbPractice(verb)}
+              >
+                <h3 style={styles.verbInfinitive}>{verb.infinitive}</h3>
+                <p style={styles.verbEnglish}>{verb.english}</p>
+                <p style={styles.verbCategory}>
+                  {VERB_CATEGORIES.find(c => c.id === verb.category)?.label}
+                </p>
+              </button>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div style={styles.conjugationPractice}>
+          <div style={styles.conjugationVerbHeader}>
+            <div>
+              <h2 style={styles.currentLessonTitle}>{selectedVerb.infinitive}</h2>
+              <p style={styles.verbHeaderEnglish}>{selectedVerb.english}</p>
+            </div>
+            <div style={styles.conjugationScoreBadge}>
+              {conjugationScore.total > 0 && (
+                <span>{conjugationScore.correct} / {conjugationScore.total}</span>
+              )}
+            </div>
+          </div>
+
+          <div style={styles.tenseTabs}>
+            {TENSES.map(tense => (
+              <button
+                key={tense.id}
+                style={{
+                  ...styles.tenseTab,
+                  ...(selectedTense === tense.id ? styles.tenseTabActive : {})
+                }}
+                onClick={() => {
+                  setSelectedTense(tense.id)
+                  setCurrentPronounIndex(0)
+                  setConjugationInput('')
+                  setConjugationFeedback(null)
+                }}
+              >
+                <span style={styles.tenseLabel}>{tense.label}</span>
+                <span style={styles.tenseEnglish}>{tense.english}</span>
+              </button>
+            ))}
+          </div>
+
+          <div style={styles.conjugationQuizCard}>
+            <div style={styles.quizPrompt}>
+              <p style={styles.quizTenseLabel}>
+                {TENSES.find(t => t.id === selectedTense)?.label}
+              </p>
+              <p style={styles.quizPronoun}>{PRONOUNS[currentPronounIndex]}</p>
+              <p style={styles.quizVerbInfinitive}>{selectedVerb.infinitive}</p>
+            </div>
+
+            <div style={styles.quizInputArea}>
+              <input
+                type="text"
+                style={{
+                  ...styles.conjugationInputField,
+                  ...(conjugationFeedback
+                    ? conjugationFeedback.correct
+                      ? styles.inputCorrect
+                      : styles.inputIncorrect
+                    : {})
+                }}
+                value={conjugationInput}
+                onChange={(e) => setConjugationInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (conjugationFeedback) {
+                      nextConjugationQuestion()
+                    } else {
+                      checkConjugation()
+                    }
+                  }
+                }}
+                placeholder="Type the conjugated form..."
+                disabled={conjugationFeedback !== null}
+                autoComplete="off"
+                autoCapitalize="off"
+              />
+
+              {!conjugationFeedback ? (
+                <button
+                  style={styles.checkButton}
+                  onClick={checkConjugation}
+                  disabled={!conjugationInput.trim()}
+                >
+                  Check
+                </button>
+              ) : (
+                <button
+                  style={styles.nextQuestionButton}
+                  onClick={nextConjugationQuestion}
+                >
+                  Next
+                </button>
+              )}
+            </div>
+
+            {conjugationFeedback && (
+              <div style={{
+                ...styles.conjugationFeedbackCard,
+                ...(conjugationFeedback.correct ? styles.feedbackExcellent : styles.feedbackPoor)
+              }}>
+                <p style={styles.conjugationFeedbackText}>
+                  {conjugationFeedback.correct
+                    ? 'Correct! Bien joué!'
+                    : `Not quite. The correct answer is:`}
+                </p>
+                {!conjugationFeedback.correct && (
+                  <p style={styles.correctAnswerText}>
+                    {conjugationFeedback.correctAnswer}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div style={styles.pronounProgress}>
+              {PRONOUNS.map((p, i) => (
+                <span
+                  key={p}
+                  style={{
+                    ...styles.pronounDot,
+                    ...(i === currentPronounIndex ? styles.pronounDotActive : {}),
+                    ...(i < currentPronounIndex ? styles.pronounDotDone : {})
+                  }}
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <button
+            style={styles.showTableButton}
+            onClick={() => setShowConjugationTable(!showConjugationTable)}
+          >
+            {showConjugationTable ? 'Hide' : 'Show'} Full Conjugation Table
+          </button>
+
+          {showConjugationTable && (
+            <div style={styles.conjugationTable}>
+              <table style={styles.conjTable}>
+                <thead>
+                  <tr>
+                    <th style={styles.conjTh}>Pronoun</th>
+                    {TENSES.map(t => (
+                      <th key={t.id} style={{
+                        ...styles.conjTh,
+                        ...(t.id === selectedTense ? styles.conjThActive : {})
+                      }}>
+                        {t.label}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {PRONOUNS.map(pronoun => (
+                    <tr key={pronoun}>
+                      <td style={styles.conjTdPronoun}>{pronoun}</td>
+                      {TENSES.map(t => (
+                        <td key={t.id} style={{
+                          ...styles.conjTd,
+                          ...(t.id === selectedTense ? styles.conjTdActive : {})
+                        }}>
+                          {selectedVerb.tenses[t.id][pronoun]}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {conjugationScore.total > 0 && (
+            <div style={styles.statsBar}>
+              <span>Answered: {conjugationScore.total}</span>
+              <span>Correct: {conjugationScore.correct}</span>
+              <span>
+                Accuracy: {Math.round((conjugationScore.correct / conjugationScore.total) * 100)}%
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <main style={styles.main}>
       <header style={styles.header}>
@@ -850,6 +1360,7 @@ export default function FrenchTutor() {
           setSelectedConversation(null)
           setConversationHistory([])
           resetLesson()
+          resetConjugation()
         }}>
           <span style={styles.logoIcon}>🇫🇷</span>
           <span style={styles.logoText}>Parlez</span>
@@ -860,6 +1371,7 @@ export default function FrenchTutor() {
         {mode === 'home' && renderHome()}
         {mode === 'lessons' && renderLessons()}
         {mode === 'conversation' && renderConversation()}
+        {mode === 'conjugation' && renderConjugation()}
       </div>
     </main>
   )
@@ -1477,5 +1989,261 @@ const styles = {
     color: 'var(--soft-gray)',
     fontStyle: 'italic',
     fontSize: '0.95rem',
+  },
+
+  // Conjugation styles
+  conjugationContainer: {
+    animation: 'fadeIn 0.4s ease-out',
+  },
+  verbCard: {
+    background: 'white',
+    border: '1px solid var(--light-border)',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    textAlign: 'left',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  verbInfinitive: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.35rem',
+    color: 'var(--deep-blue)',
+    marginBottom: '0.25rem',
+  },
+  verbEnglish: {
+    color: 'var(--soft-gray)',
+    fontSize: '0.95rem',
+    marginBottom: '0.5rem',
+  },
+  verbCategory: {
+    color: 'var(--gold)',
+    fontSize: '0.8rem',
+    fontWeight: 500,
+  },
+  conjugationPractice: {
+    animation: 'fadeIn 0.4s ease-out',
+  },
+  conjugationVerbHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '1.5rem',
+  },
+  verbHeaderEnglish: {
+    color: 'var(--soft-gray)',
+    fontSize: '1rem',
+    marginTop: '0.25rem',
+  },
+  conjugationScoreBadge: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.25rem',
+    color: 'var(--deep-blue)',
+    fontWeight: 600,
+  },
+  tenseTabs: {
+    display: 'flex',
+    gap: '0.5rem',
+    marginBottom: '2rem',
+    flexWrap: 'wrap',
+  },
+  tenseTab: {
+    padding: '0.6rem 1.25rem',
+    border: '1px solid var(--light-border)',
+    borderRadius: '30px',
+    background: 'white',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.15rem',
+  },
+  tenseTabActive: {
+    background: 'var(--deep-blue)',
+    color: 'white',
+    borderColor: 'var(--deep-blue)',
+  },
+  tenseLabel: {
+    fontSize: '0.9rem',
+    fontWeight: 500,
+  },
+  tenseEnglish: {
+    fontSize: '0.7rem',
+    opacity: 0.7,
+  },
+  conjugationQuizCard: {
+    background: 'white',
+    border: '1px solid var(--light-border)',
+    borderRadius: '16px',
+    padding: '2.5rem',
+    textAlign: 'center',
+    marginBottom: '1.5rem',
+  },
+  quizPrompt: {
+    marginBottom: '2rem',
+  },
+  quizTenseLabel: {
+    fontSize: '0.9rem',
+    color: 'var(--gold)',
+    fontWeight: 500,
+    marginBottom: '0.75rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+  },
+  quizPronoun: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '2.5rem',
+    color: 'var(--deep-blue)',
+    fontWeight: 700,
+    marginBottom: '0.25rem',
+  },
+  quizVerbInfinitive: {
+    fontSize: '1.1rem',
+    color: 'var(--soft-gray)',
+    fontStyle: 'italic',
+  },
+  quizInputArea: {
+    display: 'flex',
+    gap: '0.75rem',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '1.5rem',
+    flexWrap: 'wrap',
+  },
+  conjugationInputField: {
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: '1.15rem',
+    padding: '0.85rem 1.25rem',
+    border: '2px solid var(--light-border)',
+    borderRadius: '12px',
+    outline: 'none',
+    width: '320px',
+    maxWidth: '100%',
+    textAlign: 'center',
+    transition: 'border-color 0.2s',
+    color: 'var(--deep-blue)',
+  },
+  inputCorrect: {
+    borderColor: 'var(--success)',
+    background: 'rgba(5, 150, 105, 0.05)',
+  },
+  inputIncorrect: {
+    borderColor: 'var(--error)',
+    background: 'rgba(220, 38, 38, 0.05)',
+  },
+  checkButton: {
+    background: 'var(--deep-blue)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '12px',
+    padding: '0.85rem 2rem',
+    fontSize: '1rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  nextQuestionButton: {
+    background: 'var(--gold)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '12px',
+    padding: '0.85rem 2rem',
+    fontSize: '1rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  conjugationFeedbackCard: {
+    borderRadius: '12px',
+    padding: '1rem 1.5rem',
+    marginBottom: '1.5rem',
+    animation: 'fadeIn 0.3s ease-out',
+  },
+  conjugationFeedbackText: {
+    fontSize: '1rem',
+    fontWeight: 500,
+    marginBottom: '0.25rem',
+  },
+  correctAnswerText: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.35rem',
+    color: 'var(--deep-blue)',
+    fontWeight: 600,
+  },
+  pronounProgress: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '0.75rem',
+    flexWrap: 'wrap',
+  },
+  pronounDot: {
+    fontSize: '0.85rem',
+    color: 'var(--soft-gray)',
+    padding: '0.3rem 0.6rem',
+    borderRadius: '6px',
+    background: 'rgba(26, 42, 74, 0.04)',
+    transition: 'all 0.2s',
+  },
+  pronounDotActive: {
+    background: 'var(--deep-blue)',
+    color: 'white',
+    fontWeight: 600,
+  },
+  pronounDotDone: {
+    background: 'rgba(5, 150, 105, 0.15)',
+    color: 'var(--success)',
+  },
+  showTableButton: {
+    background: 'none',
+    border: '1px solid var(--light-border)',
+    borderRadius: '30px',
+    padding: '0.65rem 1.5rem',
+    fontSize: '0.9rem',
+    color: 'var(--soft-gray)',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    display: 'block',
+    margin: '0 auto 1.5rem',
+  },
+  conjugationTable: {
+    overflowX: 'auto',
+    marginBottom: '1.5rem',
+    borderRadius: '12px',
+    border: '1px solid var(--light-border)',
+  },
+  conjTable: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    fontSize: '0.9rem',
+  },
+  conjTh: {
+    padding: '0.85rem 1rem',
+    textAlign: 'left',
+    fontWeight: 600,
+    color: 'var(--deep-blue)',
+    borderBottom: '2px solid var(--light-border)',
+    background: 'rgba(26, 42, 74, 0.03)',
+    whiteSpace: 'nowrap',
+  },
+  conjThActive: {
+    background: 'rgba(26, 42, 74, 0.08)',
+  },
+  conjTdPronoun: {
+    padding: '0.75rem 1rem',
+    fontWeight: 600,
+    color: 'var(--deep-blue)',
+    borderBottom: '1px solid var(--light-border)',
+    whiteSpace: 'nowrap',
+  },
+  conjTd: {
+    padding: '0.75rem 1rem',
+    color: 'var(--soft-gray)',
+    borderBottom: '1px solid var(--light-border)',
+    whiteSpace: 'nowrap',
+  },
+  conjTdActive: {
+    color: 'var(--deep-blue)',
+    fontWeight: 500,
+    background: 'rgba(201, 162, 39, 0.06)',
   },
 }
