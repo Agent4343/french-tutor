@@ -102,6 +102,32 @@ const LESSONS = {
         { french: 'neuf', english: 'nine', phonetic: 'nuhf' },
         { french: 'dix', english: 'ten', phonetic: 'dees' },
       ]
+    },
+    {
+      id: 'colors',
+      title: 'Les Couleurs',
+      subtitle: 'Colors',
+      phrases: [
+        { french: 'rouge', english: 'red', phonetic: 'roozh' },
+        { french: 'bleu', english: 'blue', phonetic: 'bluh' },
+        { french: 'vert', english: 'green', phonetic: 'vehr' },
+        { french: 'jaune', english: 'yellow', phonetic: 'zhohn' },
+        { french: 'blanc', english: 'white', phonetic: 'blahn' },
+        { french: 'noir', english: 'black', phonetic: 'nwahr' },
+      ]
+    },
+    {
+      id: 'family',
+      title: 'La Famille',
+      subtitle: 'Family',
+      phrases: [
+        { french: 'mon père', english: 'my father', phonetic: 'mohn PEHR' },
+        { french: 'ma mère', english: 'my mother', phonetic: 'mah MEHR' },
+        { french: 'mon frère', english: 'my brother', phonetic: 'mohn FREHR' },
+        { french: "ma sœur", english: 'my sister', phonetic: 'mah SUR' },
+        { french: 'mes enfants', english: 'my children', phonetic: 'may zahn-FAHN' },
+        { french: 'mes grands-parents', english: 'my grandparents', phonetic: 'may grahn-pah-RAHN' },
+      ]
     }
   ],
   intermediate: [
@@ -128,6 +154,30 @@ const LESSONS = {
         { french: 'Allez tout droit', english: 'Go straight', phonetic: 'ah-LAY too DRWAH' },
         { french: "C'est à côté de...", english: 'It is next to...', phonetic: 'seh tah koh-TAY duh' },
       ]
+    },
+    {
+      id: 'weather',
+      title: 'Le Temps',
+      subtitle: 'Weather & Seasons',
+      phrases: [
+        { french: 'Il fait beau', english: 'The weather is nice', phonetic: 'eel feh BOH' },
+        { french: 'Il pleut', english: "It's raining", phonetic: 'eel PLUH' },
+        { french: 'Il fait froid', english: "It's cold", phonetic: 'eel feh FRWAH' },
+        { french: 'Il fait chaud', english: "It's hot", phonetic: 'eel feh SHOH' },
+        { french: 'Il neige', english: "It's snowing", phonetic: 'eel NEZH' },
+      ]
+    },
+    {
+      id: 'doctor',
+      title: 'Chez le Médecin',
+      subtitle: 'At the Doctor',
+      phrases: [
+        { french: "J'ai mal à la tête", english: 'I have a headache', phonetic: 'zhay mal ah lah TET' },
+        { french: 'Je ne me sens pas bien', english: "I don't feel well", phonetic: 'zhuh nuh muh sahn pah BYEH' },
+        { french: "J'ai besoin d'un rendez-vous", english: 'I need an appointment', phonetic: 'zhay buh-ZWAHN duhn rahn-day-VOO' },
+        { french: 'Depuis combien de temps?', english: 'For how long?', phonetic: 'duh-PWEE kohm-BYEH duh TAHN' },
+        { french: "J'ai de la fièvre", english: 'I have a fever', phonetic: 'zhay duh lah FYEH-vruh' },
+      ]
     }
   ],
   advanced: [
@@ -141,6 +191,30 @@ const LESSONS = {
         { french: "Je suis d'accord", english: 'I agree', phonetic: 'zhuh swee dah-KOHR' },
         { french: "Je ne suis pas d'accord", english: 'I disagree', phonetic: 'zhuh nuh swee pah dah-KOHR' },
         { french: "Il me semble que...", english: 'It seems to me that...', phonetic: 'eel muh SAHM-bluh kuh' },
+      ]
+    },
+    {
+      id: 'work',
+      title: 'Le Monde du Travail',
+      subtitle: 'The World of Work',
+      phrases: [
+        { french: 'Je travaille dans le domaine de...', english: 'I work in the field of...', phonetic: 'zhuh trah-VY dahn luh doh-MEN duh' },
+        { french: "J'ai une réunion à...", english: 'I have a meeting at...', phonetic: 'zhay oon ray-oo-NYOHN ah' },
+        { french: 'Quel est votre parcours professionnel?', english: 'What is your professional background?', phonetic: 'kel eh voh-truh par-KOOR pro-feh-syoh-NEL' },
+        { french: "Je cherche un emploi", english: "I'm looking for a job", phonetic: 'zhuh shehrsh uhn ahm-PLWAH' },
+        { french: 'Je suis en congé', english: 'I am on leave', phonetic: 'zhuh swee ahn kohn-ZHAY' },
+      ]
+    },
+    {
+      id: 'emotions',
+      title: 'Exprimer ses Émotions',
+      subtitle: 'Expressing Emotions',
+      phrases: [
+        { french: 'Je suis ravi', english: 'I am delighted', phonetic: 'zhuh swee rah-VEE' },
+        { french: "Ça m'inquiète", english: 'That worries me', phonetic: 'sah mahn-KYET' },
+        { french: 'Je suis déçu', english: 'I am disappointed', phonetic: 'zhuh swee day-SOO' },
+        { french: 'Ça me fait plaisir', english: 'That makes me happy', phonetic: 'sah muh feh pleh-ZEER' },
+        { french: "J'en ai marre", english: "I'm fed up", phonetic: 'zhahn ay MAR' },
       ]
     }
   ]
@@ -183,6 +257,30 @@ const CONVERSATIONS = [
       "Est-ce que vous avez cela en bleu?",
       "Je peux essayer cette taille?"
     ]
+  },
+  {
+    id: 'hotel',
+    title: "À l'Hôtel",
+    description: 'Check in at a Parisian boutique hotel',
+    starter: "Bonsoir et bienvenue à l'Hôtel du Marais. Comment puis-je vous aider?",
+    context: "You've just arrived at a boutique hotel in Paris after a long journey.",
+    suggestions: [
+      "J'ai une réservation au nom de...",
+      "Avez-vous une chambre disponible pour ce soir?",
+      "À quelle heure est le petit-déjeuner?"
+    ]
+  },
+  {
+    id: 'market',
+    title: 'Au Marché',
+    description: 'Shop for fresh produce at an outdoor market',
+    starter: "Bonjour! Regardez ces belles tomates! Vous cherchez quelque chose en particulier?",
+    context: "You're at an outdoor French market, browsing fresh produce and local goods.",
+    suggestions: [
+      "Je voudrais un kilo de tomates, s'il vous plaît",
+      "C'est combien, les fraises?",
+      "Qu'est-ce qui est de saison en ce moment?"
+    ]
   }
 ]
 
@@ -203,6 +301,39 @@ const TENSES = [
 ]
 
 const PRONOUNS = ['je', 'tu', 'il/elle', 'nous', 'vous', 'ils/elles']
+
+const ACCENT_CHARS = ['é', 'è', 'ê', 'ë', 'à', 'â', 'ù', 'û', 'ô', 'ç', 'î', 'ï']
+
+const TENSE_TIPS = {
+  présent: {
+    title: 'Le Présent',
+    usage: 'Current actions, habits, and general truths',
+    example: 'Je parle français tous les jours.',
+    exampleEn: 'I speak French every day.',
+    formation: 'Drop the infinitive ending (-er, -ir, -re) and add present tense endings.',
+  },
+  passé_composé: {
+    title: 'Le Passé Composé',
+    usage: 'Completed actions in the past with a clear endpoint',
+    example: "J'ai parlé français hier.",
+    exampleEn: 'I spoke French yesterday.',
+    formation: 'Auxiliary (avoir/être) in present tense + past participle. Most verbs use avoir; movement and reflexive verbs use être.',
+  },
+  imparfait: {
+    title: "L'Imparfait",
+    usage: 'Ongoing or habitual past actions, descriptions, and background setting',
+    example: "Je parlais français quand j'étais enfant.",
+    exampleEn: 'I used to speak French when I was a child.',
+    formation: 'Take the nous form of the present tense, drop -ons, add imparfait endings (-ais, -ais, -ait, -ions, -iez, -aient).',
+  },
+  futur_simple: {
+    title: 'Le Futur Simple',
+    usage: 'Future actions, predictions, and promises',
+    example: 'Je parlerai français couramment un jour.',
+    exampleEn: 'I will speak French fluently one day.',
+    formation: 'Add future endings (-ai, -as, -a, -ons, -ez, -ont) to the infinitive. Irregular verbs have special stems.',
+  },
+}
 
 const CONJUGATION_VERBS = [
   // Regular -er verbs
@@ -411,8 +542,11 @@ export default function FrenchTutor() {
   const [conjugationFeedback, setConjugationFeedback] = useState(null)
   const [conjugationScore, setConjugationScore] = useState({ correct: 0, total: 0 })
   const [showConjugationTable, setShowConjugationTable] = useState(false)
+  const [showTenseTip, setShowTenseTip] = useState(false)
+  const [completedLessons, setCompletedLessons] = useState(new Set())
 
   const recognitionRef = useRef(null)
+  const conjugationInputRef = useRef(null)
   const synthRef = useRef(null)
 
   // Initialize speech synthesis
@@ -421,6 +555,28 @@ export default function FrenchTutor() {
       synthRef.current = window.speechSynthesis
     }
   }, [])
+
+  // Load progress from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('parlez-progress')
+        if (saved) {
+          const data = JSON.parse(saved)
+          setCompletedLessons(new Set(data.completedLessons || []))
+        }
+      } catch (e) { /* ignore parse errors */ }
+    }
+  }, [])
+
+  // Save progress to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined' && completedLessons.size > 0) {
+      localStorage.setItem('parlez-progress', JSON.stringify({
+        completedLessons: Array.from(completedLessons),
+      }))
+    }
+  }, [completedLessons])
 
   // Initialize speech recognition
   useEffect(() => {
@@ -625,7 +781,23 @@ export default function FrenchTutor() {
         shopping: [
           "Bien sûr! Nous avons plusieurs robes élégantes. Quelle couleur préférez-vous?",
           "Oui, nous l'avons en bleu marine et en bleu ciel.",
-          "Bien sûr, les cabines d'essayage sont au fond à droite."
+          "Bien sûr, les cabines d'essayage sont au fond à droite.",
+          "Ça vous va à merveille! Voulez-vous que je l'emballe?",
+          "Merci pour votre visite! Bonne journée!"
+        ],
+        hotel: [
+          "Parfait, laissez-moi vérifier. Oui, votre chambre est prête. C'est la chambre 24 au deuxième étage.",
+          "Oui, nous avons une chambre double avec vue sur le jardin. C'est 150 euros la nuit.",
+          "Le petit-déjeuner est servi de 7h à 10h dans la salle à manger. Voici votre clé.",
+          "N'hésitez pas à appeler la réception si vous avez besoin de quoi que ce soit.",
+          "Nous vous souhaitons un excellent séjour!"
+        ],
+        market: [
+          "Voilà, un kilo de nos meilleures tomates. Ce sera 3 euros 50. Autre chose?",
+          "Les fraises sont à 4 euros la barquette. Elles sont très sucrées aujourd'hui!",
+          "En ce moment, les pêches et les abricots sont excellents. Voulez-vous goûter?",
+          "Très bon choix! Je vous mets ça dans un sac?",
+          "Merci beaucoup, bonne journée et bon appétit!"
         ]
       }
       
@@ -661,6 +833,52 @@ export default function FrenchTutor() {
     setPracticeStats({ attempts: 0, good: 0, excellent: 0 })
   }
 
+  const navigateTo = (newMode) => {
+    setMode(newMode)
+    setSelectedLesson(null)
+    setSelectedConversation(null)
+    setConversationHistory([])
+    resetLesson()
+    resetConjugation()
+  }
+
+  const markLessonComplete = (lessonId) => {
+    setCompletedLessons(prev => new Set([...prev, lessonId]))
+  }
+
+  const normalizeForComparison = (text) => {
+    return text.toLowerCase().trim()
+      .replace(/[\u2018\u2019\u0060\u00B4]/g, "'")
+      .replace(/\s+/g, ' ')
+  }
+
+  const isConjugationCorrect = (userAnswer, correctAnswer) => {
+    const normalized = normalizeForComparison(userAnswer)
+    const correct = normalizeForComparison(correctAnswer)
+    if (normalized === correct) return true
+
+    const variants = [correct]
+    if (correct.includes('il/elle')) {
+      variants.push(correct.replace('il/elle', 'il'))
+      variants.push(correct.replace('il/elle', 'elle'))
+      variants.push(correct.replace('il/elle', 'on'))
+    }
+    if (correct.includes('ils/elles')) {
+      variants.push(correct.replace('ils/elles', 'ils'))
+      variants.push(correct.replace('ils/elles', 'elles'))
+    }
+    return variants.some(v => normalized === v)
+  }
+
+  const insertAccentChar = (char) => {
+    setConjugationInput(prev => prev + char)
+    setTimeout(() => {
+      if (conjugationInputRef.current) {
+        conjugationInputRef.current.focus()
+      }
+    }, 0)
+  }
+
   // Conjugation quiz logic
   const getFilteredVerbs = () => {
     if (conjugationCategory === 'all') return CONJUGATION_VERBS
@@ -682,10 +900,8 @@ export default function FrenchTutor() {
 
     const pronoun = PRONOUNS[currentPronounIndex]
     const correctAnswer = selectedVerb.tenses[selectedTense][pronoun]
-    const userAnswer = conjugationInput.trim().toLowerCase()
-    const normalizedCorrect = correctAnswer.toLowerCase()
 
-    const isCorrect = userAnswer === normalizedCorrect
+    const isCorrect = isConjugationCorrect(conjugationInput, correctAnswer)
 
     setConjugationFeedback({
       correct: isCorrect,
@@ -716,6 +932,7 @@ export default function FrenchTutor() {
     setConjugationFeedback(null)
     setConjugationScore({ correct: 0, total: 0 })
     setShowConjugationTable(false)
+    setShowTenseTip(false)
   }
 
   // Render different screens based on mode
@@ -724,10 +941,10 @@ export default function FrenchTutor() {
       <div style={styles.heroSection}>
         <div style={styles.heroDecoration}></div>
         <h1 style={styles.heroTitle}>Parlez</h1>
-        <p style={styles.heroSubtitle}>Master French pronunciation through practice</p>
+        <p style={styles.heroSubtitle}>Your complete French learning companion</p>
         <p style={styles.heroDescription}>
-          Speak, listen, and receive real-time feedback on your French pronunciation. 
-          Practice common phrases or engage in realistic conversations.
+          Master pronunciation with real-time feedback, practice real-world conversations,
+          and conquer verb conjugation across all tenses.
         </p>
       </div>
       
@@ -780,8 +997,12 @@ export default function FrenchTutor() {
           <span>Native Audio</span>
         </div>
         <div style={styles.feature}>
+          <span style={styles.featureIcon}>✍️</span>
+          <span>Verb Conjugation</span>
+        </div>
+        <div style={styles.feature}>
           <span style={styles.featureIcon}>💡</span>
-          <span>Helpful Tips</span>
+          <span>Grammar Tips</span>
         </div>
       </div>
     </div>
@@ -820,13 +1041,21 @@ export default function FrenchTutor() {
             {LESSONS[selectedLevel].map(lesson => (
               <button
                 key={lesson.id}
-                style={styles.lessonCard}
+                style={{
+                  ...styles.lessonCard,
+                  ...(completedLessons.has(lesson.id) ? styles.lessonCardCompleted : {})
+                }}
                 onClick={() => {
                   setSelectedLesson(lesson)
                   setCurrentPhraseIndex(0)
                 }}
               >
-                <h3 style={styles.lessonTitle}>{lesson.title}</h3>
+                <div style={styles.lessonCardHeader}>
+                  <h3 style={styles.lessonTitle}>{lesson.title}</h3>
+                  {completedLessons.has(lesson.id) && (
+                    <span style={styles.completedBadge}>Completed</span>
+                  )}
+                </div>
                 <p style={styles.lessonSubtitle}>{lesson.subtitle}</p>
                 <p style={styles.lessonCount}>{lesson.phrases.length} phrases</p>
               </button>
@@ -982,14 +1211,15 @@ export default function FrenchTutor() {
               Next →
             </button>
           ) : (
-            <button 
+            <button
               style={{...styles.navButton, ...styles.navButtonComplete}}
               onClick={() => {
+                markLessonComplete(selectedLesson.id)
                 setSelectedLesson(null)
                 resetLesson()
               }}
             >
-              Complete ✓
+              Complete
             </button>
           )}
         </div>
@@ -1217,6 +1447,7 @@ export default function FrenchTutor() {
 
             <div style={styles.quizInputArea}>
               <input
+                ref={conjugationInputRef}
                 type="text"
                 style={{
                   ...styles.conjugationInputField,
@@ -1279,6 +1510,21 @@ export default function FrenchTutor() {
               </div>
             )}
 
+            <div style={styles.accentHelper}>
+              <span style={styles.accentLabel}>Accents:</span>
+              {ACCENT_CHARS.map(char => (
+                <button
+                  key={char}
+                  style={styles.accentButton}
+                  onClick={() => insertAccentChar(char)}
+                  disabled={conjugationFeedback !== null}
+                  type="button"
+                >
+                  {char}
+                </button>
+              ))}
+            </div>
+
             <div style={styles.pronounProgress}>
               {PRONOUNS.map((p, i) => (
                 <span
@@ -1294,6 +1540,27 @@ export default function FrenchTutor() {
               ))}
             </div>
           </div>
+
+          <button
+            style={styles.grammarTipToggle}
+            onClick={() => setShowTenseTip(!showTenseTip)}
+          >
+            {showTenseTip ? 'Hide' : 'Show'} Grammar Tip
+          </button>
+
+          {showTenseTip && TENSE_TIPS[selectedTense] && (
+            <div style={styles.grammarTipCard}>
+              <h4 style={styles.grammarTipTitle}>{TENSE_TIPS[selectedTense].title}</h4>
+              <p style={styles.grammarTipUsage}>{TENSE_TIPS[selectedTense].usage}</p>
+              <div style={styles.grammarTipExample}>
+                <p style={styles.grammarTipFrench}>{TENSE_TIPS[selectedTense].example}</p>
+                <p style={styles.grammarTipEnglish}>{TENSE_TIPS[selectedTense].exampleEn}</p>
+              </div>
+              <p style={styles.grammarTipFormation}>
+                <strong>Formation:</strong> {TENSE_TIPS[selectedTense].formation}
+              </p>
+            </div>
+          )}
 
           <button
             style={styles.showTableButton}
@@ -1354,16 +1621,29 @@ export default function FrenchTutor() {
   return (
     <main style={styles.main}>
       <header style={styles.header}>
-        <div style={styles.logo} onClick={() => {
-          setMode('home')
-          setSelectedLesson(null)
-          setSelectedConversation(null)
-          setConversationHistory([])
-          resetLesson()
-          resetConjugation()
-        }}>
-          <span style={styles.logoIcon}>🇫🇷</span>
-          <span style={styles.logoText}>Parlez</span>
+        <div style={styles.headerInner}>
+          <div style={styles.logo} onClick={() => navigateTo('home')}>
+            <span style={styles.logoIcon}>🇫🇷</span>
+            <span style={styles.logoText}>Parlez</span>
+          </div>
+          <nav style={styles.headerNav}>
+            {[
+              { id: 'lessons', label: 'Lessons' },
+              { id: 'conversation', label: 'Conversation' },
+              { id: 'conjugation', label: 'Conjugation' },
+            ].map(tab => (
+              <button
+                key={tab.id}
+                style={{
+                  ...styles.headerNavTab,
+                  ...(mode === tab.id ? styles.headerNavTabActive : {})
+                }}
+                onClick={() => navigateTo(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
         </div>
       </header>
       
@@ -1384,13 +1664,21 @@ const styles = {
     flexDirection: 'column',
   },
   header: {
-    padding: '1.5rem 2rem',
+    padding: '1rem 2rem',
     borderBottom: '1px solid var(--light-border)',
-    background: 'rgba(250, 247, 242, 0.9)',
+    background: 'rgba(250, 247, 242, 0.95)',
     backdropFilter: 'blur(10px)',
     position: 'sticky',
     top: 0,
     zIndex: 100,
+  },
+  headerInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxWidth: '1000px',
+    margin: '0 auto',
+    width: '100%',
   },
   logo: {
     display: 'flex',
@@ -1398,6 +1686,25 @@ const styles = {
     gap: '0.75rem',
     cursor: 'pointer',
     width: 'fit-content',
+  },
+  headerNav: {
+    display: 'flex',
+    gap: '0.25rem',
+  },
+  headerNavTab: {
+    padding: '0.5rem 1rem',
+    border: 'none',
+    borderRadius: '20px',
+    background: 'transparent',
+    color: 'var(--soft-gray)',
+    fontSize: '0.85rem',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  headerNavTabActive: {
+    background: 'var(--deep-blue)',
+    color: 'white',
   },
   logoIcon: {
     fontSize: '1.5rem',
@@ -1567,6 +1874,25 @@ const styles = {
     textAlign: 'left',
     cursor: 'pointer',
     transition: 'all 0.2s',
+  },
+  lessonCardCompleted: {
+    borderColor: 'rgba(5, 150, 105, 0.3)',
+    background: 'rgba(5, 150, 105, 0.03)',
+  },
+  lessonCardHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: '0.5rem',
+  },
+  completedBadge: {
+    fontSize: '0.7rem',
+    fontWeight: 600,
+    color: 'var(--success)',
+    background: 'rgba(5, 150, 105, 0.1)',
+    padding: '0.2rem 0.5rem',
+    borderRadius: '10px',
+    whiteSpace: 'nowrap',
   },
   lessonTitle: {
     fontFamily: "'Playfair Display', Georgia, serif",
@@ -2245,5 +2571,91 @@ const styles = {
     color: 'var(--deep-blue)',
     fontWeight: 500,
     background: 'rgba(201, 162, 39, 0.06)',
+  },
+
+  // Accent helper
+  accentHelper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.35rem',
+    marginBottom: '1.5rem',
+    flexWrap: 'wrap',
+  },
+  accentLabel: {
+    fontSize: '0.8rem',
+    color: 'var(--soft-gray)',
+    marginRight: '0.25rem',
+  },
+  accentButton: {
+    background: 'rgba(26, 42, 74, 0.06)',
+    border: '1px solid var(--light-border)',
+    borderRadius: '6px',
+    width: '32px',
+    height: '32px',
+    fontSize: '1rem',
+    color: 'var(--deep-blue)',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.15s',
+    padding: 0,
+  },
+
+  // Grammar tips
+  grammarTipToggle: {
+    background: 'none',
+    border: '1px solid var(--gold)',
+    borderRadius: '30px',
+    padding: '0.5rem 1.25rem',
+    fontSize: '0.85rem',
+    color: 'var(--gold)',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+    display: 'block',
+    margin: '0 auto 1rem',
+  },
+  grammarTipCard: {
+    background: 'linear-gradient(135deg, rgba(201, 162, 39, 0.08), rgba(201, 162, 39, 0.02))',
+    border: '1px solid rgba(201, 162, 39, 0.25)',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    marginBottom: '1.5rem',
+    animation: 'fadeIn 0.3s ease-out',
+  },
+  grammarTipTitle: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.15rem',
+    color: 'var(--deep-blue)',
+    marginBottom: '0.5rem',
+  },
+  grammarTipUsage: {
+    fontSize: '0.95rem',
+    color: 'var(--soft-gray)',
+    marginBottom: '0.75rem',
+    lineHeight: 1.5,
+  },
+  grammarTipExample: {
+    background: 'white',
+    borderRadius: '8px',
+    padding: '0.75rem 1rem',
+    marginBottom: '0.75rem',
+  },
+  grammarTipFrench: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.05rem',
+    color: 'var(--deep-blue)',
+    fontStyle: 'italic',
+    marginBottom: '0.25rem',
+  },
+  grammarTipEnglish: {
+    fontSize: '0.9rem',
+    color: 'var(--soft-gray)',
+  },
+  grammarTipFormation: {
+    fontSize: '0.9rem',
+    color: 'var(--deep-blue)',
+    lineHeight: 1.5,
   },
 }
