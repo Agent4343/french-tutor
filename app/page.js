@@ -518,6 +518,100 @@ const CONJUGATION_VERBS = [
   },
 ]
 
+// Vocabulary flashcard decks
+const VOCABULARY_DECKS = [
+  {
+    id: 'food',
+    title: 'La Nourriture',
+    subtitle: 'Food & Drink',
+    cards: [
+      { french: 'le pain', english: 'bread', gender: 'm', example: 'Je voudrais du pain, s\'il vous plaît.' },
+      { french: 'le fromage', english: 'cheese', gender: 'm', example: 'Le fromage français est délicieux.' },
+      { french: 'le vin', english: 'wine', gender: 'm', example: 'Un verre de vin rouge, s\'il vous plaît.' },
+      { french: "l'eau", english: 'water', gender: 'f', example: "Je voudrais de l'eau, s'il vous plaît." },
+      { french: 'le poulet', english: 'chicken', gender: 'm', example: 'Le poulet rôti est très bon ici.' },
+      { french: 'la salade', english: 'salad', gender: 'f', example: 'Je prends une salade verte.' },
+      { french: 'le gâteau', english: 'cake', gender: 'm', example: 'Ce gâteau au chocolat est merveilleux.' },
+      { french: 'le café', english: 'coffee', gender: 'm', example: 'Un café crème, s\'il vous plaît.' },
+    ]
+  },
+  {
+    id: 'body',
+    title: 'Le Corps',
+    subtitle: 'Body Parts',
+    cards: [
+      { french: 'la tête', english: 'head', gender: 'f', example: "J'ai mal à la tête." },
+      { french: 'le bras', english: 'arm', gender: 'm', example: 'Il a cassé son bras.' },
+      { french: 'la main', english: 'hand', gender: 'f', example: 'Levez la main droite.' },
+      { french: 'la jambe', english: 'leg', gender: 'f', example: 'Elle a mal à la jambe.' },
+      { french: 'le pied', english: 'foot', gender: 'm', example: 'Je suis venu à pied.' },
+      { french: 'le dos', english: 'back', gender: 'm', example: "J'ai mal au dos." },
+      { french: 'le cœur', english: 'heart', gender: 'm', example: 'Il a bon cœur.' },
+      { french: 'la bouche', english: 'mouth', gender: 'f', example: 'Ouvrez la bouche.' },
+    ]
+  },
+  {
+    id: 'time',
+    title: 'Le Temps',
+    subtitle: 'Days, Months & Time',
+    cards: [
+      { french: 'lundi', english: 'Monday', gender: null, example: 'Lundi, je commence le travail.' },
+      { french: 'mardi', english: 'Tuesday', gender: null, example: "Mardi, j'ai un rendez-vous." },
+      { french: 'mercredi', english: 'Wednesday', gender: null, example: 'Les enfants ne travaillent pas mercredi.' },
+      { french: 'janvier', english: 'January', gender: 'm', example: "En janvier, il fait très froid." },
+      { french: 'juillet', english: 'July', gender: 'm', example: 'En juillet, nous partons en vacances.' },
+      { french: 'aujourd\'hui', english: 'today', gender: null, example: "Aujourd'hui, c'est un beau jour." },
+      { french: 'demain', english: 'tomorrow', gender: null, example: 'Demain, je vais au cinéma.' },
+      { french: 'hier', english: 'yesterday', gender: null, example: 'Hier, il a plu toute la journée.' },
+    ]
+  },
+  {
+    id: 'adjectives',
+    title: 'Les Adjectifs',
+    subtitle: 'Common Adjectives',
+    cards: [
+      { french: 'grand / grande', english: 'big / tall', gender: null, example: 'Paris est une grande ville.' },
+      { french: 'petit / petite', english: 'small / short', gender: null, example: "C'est un petit restaurant." },
+      { french: 'bon / bonne', english: 'good', gender: null, example: "C'est une bonne idée!" },
+      { french: 'mauvais / mauvaise', english: 'bad', gender: null, example: 'Il fait mauvais temps.' },
+      { french: 'beau / belle', english: 'beautiful', gender: null, example: "Quelle belle journée!" },
+      { french: 'nouveau / nouvelle', english: 'new', gender: null, example: "J'ai une nouvelle voiture." },
+      { french: 'vieux / vieille', english: 'old', gender: null, example: "C'est un vieux château." },
+      { french: 'jeune', english: 'young', gender: null, example: "C'est une jeune femme très intelligente." },
+    ]
+  },
+  {
+    id: 'house',
+    title: 'La Maison',
+    subtitle: 'In the House',
+    cards: [
+      { french: 'la cuisine', english: 'kitchen', gender: 'f', example: 'Je prépare le dîner dans la cuisine.' },
+      { french: 'la chambre', english: 'bedroom', gender: 'f', example: 'La chambre est au premier étage.' },
+      { french: 'la salle de bain', english: 'bathroom', gender: 'f', example: 'La salle de bain est à droite.' },
+      { french: 'le salon', english: 'living room', gender: 'm', example: 'Nous regardons la télé dans le salon.' },
+      { french: 'le jardin', english: 'garden', gender: 'm', example: 'Les enfants jouent dans le jardin.' },
+      { french: 'la fenêtre', english: 'window', gender: 'f', example: 'Ouvrez la fenêtre, il fait chaud.' },
+      { french: 'la porte', english: 'door', gender: 'f', example: 'Fermez la porte, s\'il vous plaît.' },
+      { french: 'l\'escalier', english: 'stairs', gender: 'm', example: "Montez l'escalier jusqu'au deuxième étage." },
+    ]
+  },
+  {
+    id: 'travel',
+    title: 'Le Voyage',
+    subtitle: 'Travel Essentials',
+    cards: [
+      { french: 'le billet', english: 'ticket', gender: 'm', example: "J'ai acheté un billet aller-retour." },
+      { french: "l'aéroport", english: 'airport', gender: 'm', example: "L'aéroport est à 30 minutes." },
+      { french: 'la gare', english: 'train station', gender: 'f', example: 'La gare est au centre-ville.' },
+      { french: 'la valise', english: 'suitcase', gender: 'f', example: "J'ai perdu ma valise." },
+      { french: 'le passeport', english: 'passport', gender: 'm', example: "N'oubliez pas votre passeport." },
+      { french: 'la carte', english: 'map / card', gender: 'f', example: 'Avez-vous une carte de la ville?' },
+      { french: 'le train', english: 'train', gender: 'm', example: 'Le train part à 8 heures.' },
+      { french: "l'hôtel", english: 'hotel', gender: 'm', example: "L'hôtel est près de la plage." },
+    ]
+  },
+]
+
 export default function FrenchTutor() {
   const [mode, setMode] = useState('home') // home, lessons, practice, conversation
   const [selectedLevel, setSelectedLevel] = useState('beginner')
@@ -545,6 +639,21 @@ export default function FrenchTutor() {
   const [showTenseTip, setShowTenseTip] = useState(false)
   const [completedLessons, setCompletedLessons] = useState(new Set())
 
+  // Flashcard state
+  const [selectedDeck, setSelectedDeck] = useState(null)
+  const [flashcardIndex, setFlashcardIndex] = useState(0)
+  const [isCardFlipped, setIsCardFlipped] = useState(false)
+  const [flashcardResults, setFlashcardResults] = useState({ mastered: new Set(), learning: new Set() })
+
+  // Dictation state
+  const [dictationMode, setDictationMode] = useState(false)
+  const [dictationInput, setDictationInput] = useState('')
+  const [dictationFeedback, setDictationFeedback] = useState(null)
+
+  // Streak tracking
+  const [streak, setStreak] = useState(0)
+  const [lastPracticeDate, setLastPracticeDate] = useState(null)
+
   const recognitionRef = useRef(null)
   const conjugationInputRef = useRef(null)
   const synthRef = useRef(null)
@@ -564,6 +673,14 @@ export default function FrenchTutor() {
         if (saved) {
           const data = JSON.parse(saved)
           setCompletedLessons(new Set(data.completedLessons || []))
+          setStreak(data.streak || 0)
+          setLastPracticeDate(data.lastPracticeDate || null)
+          if (data.flashcardMastered) {
+            setFlashcardResults(prev => ({
+              ...prev,
+              mastered: new Set(data.flashcardMastered)
+            }))
+          }
         }
       } catch (e) { /* ignore parse errors */ }
     }
@@ -571,12 +688,15 @@ export default function FrenchTutor() {
 
   // Save progress to localStorage
   useEffect(() => {
-    if (typeof window !== 'undefined' && completedLessons.size > 0) {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('parlez-progress', JSON.stringify({
         completedLessons: Array.from(completedLessons),
+        streak,
+        lastPracticeDate,
+        flashcardMastered: Array.from(flashcardResults.mastered),
       }))
     }
-  }, [completedLessons])
+  }, [completedLessons, streak, lastPracticeDate, flashcardResults])
 
   // Initialize speech recognition
   useEffect(() => {
@@ -840,10 +960,15 @@ export default function FrenchTutor() {
     setConversationHistory([])
     resetLesson()
     resetConjugation()
+    resetFlashcards()
+    setDictationMode(false)
+    setDictationInput('')
+    setDictationFeedback(null)
   }
 
   const markLessonComplete = (lessonId) => {
     setCompletedLessons(prev => new Set([...prev, lessonId]))
+    recordPractice()
   }
 
   const normalizeForComparison = (text) => {
@@ -897,6 +1022,7 @@ export default function FrenchTutor() {
 
   const checkConjugation = () => {
     if (!selectedVerb || !conjugationInput.trim()) return
+    recordPractice()
 
     const pronoun = PRONOUNS[currentPronounIndex]
     const correctAnswer = selectedVerb.tenses[selectedTense][pronoun]
@@ -935,6 +1061,114 @@ export default function FrenchTutor() {
     setShowTenseTip(false)
   }
 
+  // Flashcard logic
+  const startDeck = (deck) => {
+    setSelectedDeck(deck)
+    setFlashcardIndex(0)
+    setIsCardFlipped(false)
+    recordPractice()
+  }
+
+  const flipCard = () => setIsCardFlipped(!isCardFlipped)
+
+  const markFlashcard = (result) => {
+    const card = selectedDeck.cards[flashcardIndex]
+    const key = `${selectedDeck.id}:${card.french}`
+    setFlashcardResults(prev => {
+      const mastered = new Set(prev.mastered)
+      const learning = new Set(prev.learning)
+      if (result === 'mastered') {
+        mastered.add(key)
+        learning.delete(key)
+      } else {
+        learning.add(key)
+        mastered.delete(key)
+      }
+      return { mastered, learning }
+    })
+    if (flashcardIndex < selectedDeck.cards.length - 1) {
+      setFlashcardIndex(prev => prev + 1)
+      setIsCardFlipped(false)
+    } else {
+      setFlashcardIndex(0)
+      setIsCardFlipped(false)
+    }
+  }
+
+  const resetFlashcards = () => {
+    setSelectedDeck(null)
+    setFlashcardIndex(0)
+    setIsCardFlipped(false)
+  }
+
+  const getDeckProgress = (deck) => {
+    let mastered = 0
+    deck.cards.forEach(card => {
+      if (flashcardResults.mastered.has(`${deck.id}:${card.french}`)) mastered++
+    })
+    return mastered
+  }
+
+  // Dictation logic
+  const checkDictation = () => {
+    if (!selectedLesson || !dictationInput.trim()) return
+    const target = selectedLesson.phrases[currentPhraseIndex].french
+    const normalizedInput = normalizeForComparison(dictationInput)
+    const normalizedTarget = normalizeForComparison(target)
+
+    const inputWords = normalizedInput.split(/\s+/)
+    const targetWords = normalizedTarget.split(/\s+/)
+    let matched = 0
+    targetWords.forEach((word, i) => {
+      if (inputWords[i] && (
+        inputWords[i] === word ||
+        levenshteinDistance(inputWords[i], word) <= Math.max(1, word.length * 0.3)
+      )) {
+        matched++
+      }
+    })
+    const score = Math.round((matched / targetWords.length) * 100)
+
+    setDictationFeedback({ score, userAnswer: dictationInput.trim(), correctAnswer: target })
+    setPracticeStats(prev => ({
+      attempts: prev.attempts + 1,
+      good: score >= 70 ? prev.good + 1 : prev.good,
+      excellent: score >= 90 ? prev.excellent + 1 : prev.excellent,
+    }))
+    recordPractice()
+  }
+
+  // Streak tracking
+  const recordPractice = () => {
+    const today = new Date().toISOString().split('T')[0]
+    if (lastPracticeDate === today) return
+    if (lastPracticeDate) {
+      const last = new Date(lastPracticeDate)
+      const now = new Date(today)
+      const diffDays = Math.round((now - last) / (1000 * 60 * 60 * 24))
+      if (diffDays === 1) {
+        setStreak(prev => prev + 1)
+      } else if (diffDays > 1) {
+        setStreak(1)
+      }
+    } else {
+      setStreak(1)
+    }
+    setLastPracticeDate(today)
+  }
+
+  const getTotalLessons = () => {
+    return Object.values(LESSONS).flat().length
+  }
+
+  const getTotalMasteredCards = () => {
+    return flashcardResults.mastered.size
+  }
+
+  const getTotalVocabCards = () => {
+    return VOCABULARY_DECKS.reduce((sum, deck) => sum + deck.cards.length, 0)
+  }
+
   // Render different screens based on mode
   const renderHome = () => (
     <div style={styles.homeContainer}>
@@ -948,18 +1182,48 @@ export default function FrenchTutor() {
         </p>
       </div>
       
+      {(streak > 0 || completedLessons.size > 0 || getTotalMasteredCards() > 0) && (
+        <div style={styles.progressSummary}>
+          {streak > 0 && (
+            <div style={styles.progressItem}>
+              <span style={styles.progressValue}>{streak}</span>
+              <span style={styles.progressLabel}>Day Streak</span>
+            </div>
+          )}
+          <div style={styles.progressItem}>
+            <span style={styles.progressValue}>{completedLessons.size}/{getTotalLessons()}</span>
+            <span style={styles.progressLabel}>Lessons Done</span>
+          </div>
+          <div style={styles.progressItem}>
+            <span style={styles.progressValue}>{getTotalMasteredCards()}/{getTotalVocabCards()}</span>
+            <span style={styles.progressLabel}>Vocab Mastered</span>
+          </div>
+        </div>
+      )}
+
       <div style={styles.modeCards}>
-        <button 
+        <button
           style={styles.modeCard}
           onClick={() => setMode('lessons')}
         >
           <div style={styles.modeIcon}>📚</div>
           <h3 style={styles.modeTitle}>Phrase Practice</h3>
           <p style={styles.modeDescription}>
-            Learn essential phrases with guided pronunciation practice
+            Learn essential phrases with guided pronunciation and dictation
           </p>
         </button>
-        
+
+        <button
+          style={styles.modeCard}
+          onClick={() => setMode('flashcards')}
+        >
+          <div style={styles.modeIcon}>🃏</div>
+          <h3 style={styles.modeTitle}>Vocabulary</h3>
+          <p style={styles.modeDescription}>
+            Build your vocabulary with themed flashcards and spaced review
+          </p>
+        </button>
+
         <button
           style={styles.modeCard}
           onClick={() => setMode('conversation')}
@@ -1099,17 +1363,36 @@ export default function FrenchTutor() {
             />
             <span style={styles.toggleText}>Show pronunciation guide</span>
           </label>
+          <label style={styles.toggleLabel}>
+            <input
+              type="checkbox"
+              checked={dictationMode}
+              onChange={(e) => {
+                setDictationMode(e.target.checked)
+                setDictationInput('')
+                setDictationFeedback(null)
+              }}
+              style={styles.toggleInput}
+            />
+            <span style={styles.toggleText}>Dictation mode</span>
+          </label>
         </div>
-        
+
         <div style={styles.phraseCard}>
           <div style={styles.phraseMain}>
-            <p style={styles.frenchPhrase}>{currentPhrase.french}</p>
-            {showPhonetic && (
-              <p style={styles.phonetic}>[{currentPhrase.phonetic}]</p>
+            {dictationMode ? (
+              <p style={styles.frenchPhrase}>???</p>
+            ) : (
+              <>
+                <p style={styles.frenchPhrase}>{currentPhrase.french}</p>
+                {showPhonetic && (
+                  <p style={styles.phonetic}>[{currentPhrase.phonetic}]</p>
+                )}
+              </>
             )}
             <p style={styles.englishPhrase}>{currentPhrase.english}</p>
           </div>
-          
+
           <button
             style={{
               ...styles.speakButton,
@@ -1121,7 +1404,71 @@ export default function FrenchTutor() {
             {isSpeaking ? '🔊 Playing...' : '🔊 Listen'}
           </button>
         </div>
-        
+
+        {dictationMode ? (
+          <div style={styles.dictationSection}>
+            <p style={styles.recordInstructions}>
+              Listen to the audio above, then type what you hear
+            </p>
+            <div style={styles.quizInputArea}>
+              <input
+                type="text"
+                style={{
+                  ...styles.conjugationInputField,
+                  ...(dictationFeedback
+                    ? dictationFeedback.score >= 70 ? styles.inputCorrect : styles.inputIncorrect
+                    : {})
+                }}
+                value={dictationInput}
+                onChange={(e) => setDictationInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (dictationFeedback) {
+                      setDictationInput('')
+                      setDictationFeedback(null)
+                      nextPhrase()
+                    } else {
+                      checkDictation()
+                    }
+                  }
+                }}
+                placeholder="Type what you hear..."
+                disabled={dictationFeedback !== null}
+                autoComplete="off"
+              />
+              {!dictationFeedback ? (
+                <button style={styles.checkButton} onClick={checkDictation} disabled={!dictationInput.trim()}>
+                  Check
+                </button>
+              ) : (
+                <button style={styles.nextQuestionButton} onClick={() => {
+                  setDictationInput('')
+                  setDictationFeedback(null)
+                  nextPhrase()
+                }}>
+                  Next
+                </button>
+              )}
+            </div>
+            <div style={styles.accentHelper}>
+              <span style={styles.accentLabel}>Accents:</span>
+              {ACCENT_CHARS.map(char => (
+                <button key={char} style={styles.accentButton} onClick={() => setDictationInput(prev => prev + char)} disabled={dictationFeedback !== null} type="button">{char}</button>
+              ))}
+            </div>
+            {dictationFeedback && (
+              <div style={{
+                ...styles.conjugationFeedbackCard,
+                ...(dictationFeedback.score >= 70 ? styles.feedbackExcellent : styles.feedbackPoor)
+              }}>
+                <p style={styles.conjugationFeedbackText}>
+                  {dictationFeedback.score >= 90 ? 'Excellent!' : dictationFeedback.score >= 70 ? 'Good!' : 'Not quite.'} Score: {dictationFeedback.score}%
+                </p>
+                <p style={styles.correctAnswerText}>{dictationFeedback.correctAnswer}</p>
+              </div>
+            )}
+          </div>
+        ) : (
         <div style={styles.recordSection}>
           <p style={styles.recordInstructions}>
             Click the microphone and say the phrase in French
@@ -1162,8 +1509,9 @@ export default function FrenchTutor() {
             </div>
           )}
         </div>
-        
-        {feedback && (
+        )}
+
+        {!dictationMode && feedback && (
           <div style={{
             ...styles.feedbackCard,
             ...(feedback.type === 'excellent' ? styles.feedbackExcellent :
@@ -1345,6 +1693,116 @@ export default function FrenchTutor() {
               )}
             </div>
           </div>
+        </div>
+      )}
+    </div>
+  )
+
+  const renderFlashcards = () => (
+    <div style={styles.conjugationContainer}>
+      <button style={styles.backButton} onClick={() => {
+        if (selectedDeck) {
+          resetFlashcards()
+        } else {
+          setMode('home')
+        }
+      }}>
+        {selectedDeck ? 'Back to Decks' : 'Back to Home'}
+      </button>
+
+      {!selectedDeck ? (
+        <>
+          <h2 style={styles.sectionTitle}>Vocabulary Flashcards</h2>
+          <p style={styles.sectionSubtitle}>
+            Tap a card to flip it. Build your vocabulary with themed decks.
+          </p>
+
+          <div style={styles.lessonGrid}>
+            {VOCABULARY_DECKS.map(deck => {
+              const mastered = getDeckProgress(deck)
+              return (
+                <button
+                  key={deck.id}
+                  style={{
+                    ...styles.lessonCard,
+                    ...(mastered === deck.cards.length ? styles.lessonCardCompleted : {})
+                  }}
+                  onClick={() => startDeck(deck)}
+                >
+                  <div style={styles.lessonCardHeader}>
+                    <h3 style={styles.lessonTitle}>{deck.title}</h3>
+                    {mastered > 0 && (
+                      <span style={styles.completedBadge}>{mastered}/{deck.cards.length}</span>
+                    )}
+                  </div>
+                  <p style={styles.lessonSubtitle}>{deck.subtitle}</p>
+                  <p style={styles.lessonCount}>{deck.cards.length} cards</p>
+                </button>
+              )
+            })}
+          </div>
+        </>
+      ) : (
+        <div style={styles.flashcardPractice}>
+          <div style={styles.practiceHeader}>
+            <h2 style={styles.currentLessonTitle}>{selectedDeck.title}</h2>
+            <div style={styles.progress}>
+              {flashcardIndex + 1} / {selectedDeck.cards.length}
+            </div>
+          </div>
+
+          <div
+            style={{
+              ...styles.flashcard,
+              ...(isCardFlipped ? styles.flashcardFlipped : {})
+            }}
+            onClick={flipCard}
+          >
+            {!isCardFlipped ? (
+              <div style={styles.flashcardFront}>
+                <p style={styles.flashcardFrench}>{selectedDeck.cards[flashcardIndex].french}</p>
+                {selectedDeck.cards[flashcardIndex].gender && (
+                  <span style={styles.flashcardGender}>
+                    {selectedDeck.cards[flashcardIndex].gender === 'm' ? 'masculine' : 'feminine'}
+                  </span>
+                )}
+                <p style={styles.flashcardHint}>Tap to reveal</p>
+              </div>
+            ) : (
+              <div style={styles.flashcardBack}>
+                <p style={styles.flashcardEnglish}>{selectedDeck.cards[flashcardIndex].english}</p>
+                <p style={styles.flashcardExample}>{selectedDeck.cards[flashcardIndex].example}</p>
+              </div>
+            )}
+          </div>
+
+          <div style={styles.flashcardActions}>
+            <button
+              style={styles.flashcardNeedPractice}
+              onClick={() => markFlashcard('learning')}
+            >
+              Still Learning
+            </button>
+            <button
+              style={styles.flashcardMastered}
+              onClick={() => markFlashcard('mastered')}
+            >
+              Got It
+            </button>
+          </div>
+
+          <button
+            style={{
+              ...styles.speakButton,
+              ...(isSpeaking ? styles.speakButtonActive : {}),
+              display: 'block',
+              margin: '1rem auto 0',
+            }}
+            onClick={() => speakFrench(selectedDeck.cards[flashcardIndex].french)}
+            disabled={isSpeaking}
+          >
+            {isSpeaking ? 'Playing...' : 'Hear Pronunciation'}
+          </button>
         </div>
       )}
     </div>
@@ -1629,6 +2087,7 @@ export default function FrenchTutor() {
           <nav style={styles.headerNav}>
             {[
               { id: 'lessons', label: 'Lessons' },
+              { id: 'flashcards', label: 'Vocabulary' },
               { id: 'conversation', label: 'Conversation' },
               { id: 'conjugation', label: 'Conjugation' },
             ].map(tab => (
@@ -1650,6 +2109,7 @@ export default function FrenchTutor() {
       <div style={styles.content}>
         {mode === 'home' && renderHome()}
         {mode === 'lessons' && renderLessons()}
+        {mode === 'flashcards' && renderFlashcards()}
         {mode === 'conversation' && renderConversation()}
         {mode === 'conjugation' && renderConjugation()}
       </div>
@@ -2657,5 +3117,133 @@ const styles = {
     fontSize: '0.9rem',
     color: 'var(--deep-blue)',
     lineHeight: 1.5,
+  },
+
+  // Progress summary
+  progressSummary: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '2.5rem',
+    marginTop: '2rem',
+    padding: '1.25rem 2rem',
+    background: 'white',
+    borderRadius: '16px',
+    border: '1px solid var(--light-border)',
+  },
+  progressItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.2rem',
+  },
+  progressValue: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '1.5rem',
+    fontWeight: 700,
+    color: 'var(--deep-blue)',
+  },
+  progressLabel: {
+    fontSize: '0.8rem',
+    color: 'var(--soft-gray)',
+  },
+
+  // Flashcard styles
+  flashcardPractice: {
+    animation: 'fadeIn 0.4s ease-out',
+  },
+  flashcard: {
+    background: 'white',
+    border: '2px solid var(--light-border)',
+    borderRadius: '20px',
+    padding: '3rem 2rem',
+    textAlign: 'center',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    minHeight: '220px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '1.5rem',
+    userSelect: 'none',
+  },
+  flashcardFlipped: {
+    background: 'var(--deep-blue)',
+    borderColor: 'var(--deep-blue)',
+  },
+  flashcardFront: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.5rem',
+  },
+  flashcardBack: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '0.75rem',
+  },
+  flashcardFrench: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '2.5rem',
+    color: 'var(--deep-blue)',
+    fontWeight: 700,
+  },
+  flashcardGender: {
+    fontSize: '0.8rem',
+    color: 'var(--gold)',
+    fontWeight: 500,
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
+  },
+  flashcardHint: {
+    fontSize: '0.85rem',
+    color: 'var(--soft-gray)',
+    marginTop: '0.5rem',
+  },
+  flashcardEnglish: {
+    fontFamily: "'Playfair Display', Georgia, serif",
+    fontSize: '2rem',
+    color: 'white',
+    fontWeight: 600,
+  },
+  flashcardExample: {
+    fontSize: '0.95rem',
+    color: 'rgba(255,255,255,0.75)',
+    fontStyle: 'italic',
+    maxWidth: '400px',
+    lineHeight: 1.5,
+  },
+  flashcardActions: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '1rem',
+  },
+  flashcardNeedPractice: {
+    background: 'white',
+    border: '2px solid var(--warning)',
+    borderRadius: '30px',
+    padding: '0.75rem 2rem',
+    fontSize: '1rem',
+    color: 'var(--warning)',
+    cursor: 'pointer',
+    fontWeight: 500,
+    transition: 'all 0.2s',
+  },
+  flashcardMastered: {
+    background: 'var(--success)',
+    border: '2px solid var(--success)',
+    borderRadius: '30px',
+    padding: '0.75rem 2rem',
+    fontSize: '1rem',
+    color: 'white',
+    cursor: 'pointer',
+    fontWeight: 500,
+    transition: 'all 0.2s',
+  },
+
+  // Dictation
+  dictationSection: {
+    textAlign: 'center',
+    marginBottom: '2rem',
   },
 }
